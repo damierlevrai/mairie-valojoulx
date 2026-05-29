@@ -1,0 +1,294 @@
+---
+const rubriques = [
+  {
+    titre: 'La Commune',
+    description: "Histoire, patrimoine, géographie et vie locale de Valojoulx",
+    href: '/commune',
+    image: 'https://picsum.photos/seed/village-dordogne/900/600',
+    featured: true,
+  },
+  {
+    titre: 'Vie Municipale',
+    description: "Conseil municipal, délibérations et élus",
+    href: '/vie-municipale',
+    image: 'https://picsum.photos/seed/conseil-mairie/700/500',
+  },
+  {
+    titre: 'Urbanisme & Habitat',
+    description: "Permis de construire, PLU et règles d'urbanisme",
+    href: '/urbanisme',
+    image: 'https://picsum.photos/seed/architecture-perigord/700/500',
+  },
+  {
+    titre: 'Services Publics',
+    description: "École, cantine, transport scolaire et services locaux",
+    href: '/services',
+    image: 'https://picsum.photos/seed/ecole-village/700/500',
+  },
+  {
+    titre: 'Associations & Loisirs',
+    description: "Vie associative, culture et activités locales",
+    href: '/associations',
+    image: 'https://picsum.photos/seed/culture-locale/700/500',
+  },
+  {
+    titre: 'Agenda & Actualités',
+    description: "Événements, manifestations et nouvelles du village",
+    href: '/actualites',
+    image: 'https://picsum.photos/seed/fete-village/700/500',
+  },
+  {
+    titre: 'Vos Démarches',
+    description: "Documents administratifs, état civil et formulaires",
+    href: '/demarches',
+    image: 'https://picsum.photos/seed/mairie-services/700/500',
+  },
+];
+---
+
+<section class="rubriques" aria-labelledby="rubriques-titre">
+  <div class="container">
+
+    <div class="rubriques__header">
+      <h2 class="rubriques__titre" id="rubriques-titre">Vos rubriques</h2>
+      <p class="rubriques__intro">
+        Retrouvez toutes les informations utiles pour les habitants et visiteurs de Valojoulx.
+      </p>
+    </div>
+
+    <div class="rubriques__grid">
+      {rubriques.map((r) => (
+        <a
+          href={r.href}
+          class={`card${r.featured ? ' card--featured' : ''}`}
+          aria-label={r.titre}
+        >
+          <div
+            class="card__bg"
+            style={`background-image: url('${r.image}')`}
+            role="img"
+            aria-hidden="true"
+          ></div>
+          <div class="card__overlay" aria-hidden="true"></div>
+          <div class="card__content">
+            <h3 class="card__title">{r.titre}</h3>
+            <p class="card__desc">{r.description}</p>
+            <span class="card__arrow" aria-hidden="true">
+              <svg viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .rubriques {
+    padding: 5rem 0 6rem;
+  }
+
+  .rubriques__header {
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    position: relative;
+    padding-left: 1.25rem;
+  }
+
+  .rubriques__header::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--color-primary);
+    border-radius: 4px;
+  }
+
+  .rubriques__titre {
+    font-family: var(--font-heading);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    line-height: 1.2;
+  }
+
+  .rubriques__intro {
+    font-size: 1rem;
+    color: var(--color-text-light);
+    max-width: 560px;
+  }
+
+  /* GRID */
+  .rubriques__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 340px 265px;
+    gap: 1.25rem;
+  }
+
+  /* Featured card: row 1, spans 2 cols */
+  .card--featured {
+    grid-column: span 2;
+  }
+
+  /* CARD */
+  .card {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
+  }
+
+  .card:hover {
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+  }
+
+  .card:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 3px;
+  }
+
+  .card__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s ease;
+  }
+
+  .card:hover .card__bg {
+    transform: scale(1.07);
+  }
+
+  .card__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(20, 45, 15, 0.88) 0%,
+      rgba(20, 45, 15, 0.35) 50%,
+      rgba(0, 0, 0, 0.05) 100%
+    );
+    transition: background 0.4s;
+  }
+
+  .card:hover .card__overlay {
+    background: linear-gradient(
+      to top,
+      rgba(58, 97, 48, 0.92) 0%,
+      rgba(74, 124, 63, 0.55) 55%,
+      rgba(0, 0, 0, 0.15) 100%
+    );
+  }
+
+  .card__content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem 1.75rem 1.75rem;
+    z-index: 1;
+    color: var(--color-white);
+  }
+
+  .card__title {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+  }
+
+  .card--featured .card__title {
+    font-size: 1.55rem;
+  }
+
+  .card__desc {
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.82);
+    margin-bottom: 0.875rem;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+
+  .card:hover .card__desc {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .card--featured .card__desc {
+    font-size: 0.9rem;
+  }
+
+  .card__arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    transition: background 0.25s, transform 0.25s;
+  }
+
+  .card__arrow svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .card:hover .card__arrow {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    transform: translateX(4px);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .rubriques__grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: auto;
+    }
+
+    .card--featured {
+      grid-column: span 2;
+      min-height: 300px;
+    }
+
+    .card {
+      min-height: 220px;
+    }
+
+    .card__desc {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .rubriques__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .card--featured {
+      grid-column: span 1;
+    }
+
+    .card {
+      min-height: 200px;
+    }
+  }
+</style>

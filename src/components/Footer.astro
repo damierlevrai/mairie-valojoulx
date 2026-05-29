@@ -1,0 +1,269 @@
+---
+const liens = [
+  { label: 'La Commune', href: '/commune' },
+  { label: 'Vie Municipale', href: '/vie-municipale' },
+  { label: 'Urbanisme', href: '/urbanisme' },
+  { label: 'Services', href: '/services' },
+  { label: 'Associations', href: '/associations' },
+  { label: 'Actualités', href: '/actualites' },
+];
+---
+
+<footer class="footer" role="contentinfo">
+  <div class="footer__main">
+    <div class="container footer__grid">
+
+      <div class="footer__col footer__col--brand">
+        <a href="/" class="footer__logo" aria-label="Mairie de Valojoulx">
+          <svg viewBox="0 0 48 52" xmlns="http://www.w3.org/2000/svg" fill="none" class="footer__logo-icon" aria-hidden="true">
+            <ellipse cx="24" cy="19" rx="16" ry="16" fill="#6a9c5f"/>
+            <ellipse cx="17" cy="23" rx="10" ry="10" fill="#7ab06a" opacity="0.6"/>
+            <ellipse cx="31" cy="22" rx="9" ry="9" fill="#5a8c4f" opacity="0.5"/>
+            <rect x="21" y="33" width="6" height="15" rx="3" fill="#5a8c4f"/>
+            <rect x="14" y="41" width="20" height="3" rx="1.5" fill="#4a7c3f"/>
+          </svg>
+          <div>
+            <span class="footer__logo-name">Mairie de Valojoulx</span>
+            <span class="footer__logo-dept">Dordogne · Périgord Noir</span>
+          </div>
+        </a>
+        <p class="footer__desc">
+          Site officiel de la commune de Valojoulx, village authentique au cœur
+          du Périgord Noir, classé parmi les plus beaux villages de la Dordogne.
+        </p>
+      </div>
+
+      <div class="footer__col">
+        <h3 class="footer__heading">Navigation</h3>
+        <ul class="footer__links" role="list">
+          {liens.map(l => (
+            <li><a href={l.href} class="footer__link">{l.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h3 class="footer__heading">Contact &amp; Horaires</h3>
+        <address class="footer__address">
+          <p>
+            <strong>Mairie de Valojoulx</strong><br />
+            1 place de la Mairie<br />
+            24290 Valojoulx
+          </p>
+          <p>
+            <a href="tel:+33553507778" class="footer__link">05 53 50 77 78</a>
+          </p>
+          <p>
+            <a href="mailto:contact@mairievalojoulx.fr" class="footer__link">
+              contact@mairievalojoulx.fr
+            </a>
+          </p>
+        </address>
+        <div class="footer__hours">
+          <p class="footer__hours-title">Horaires d'ouverture</p>
+          <p>Mardi &amp; Vendredi : 8h – 12h</p>
+          <p>Mardi &amp; Vendredi : 13h30 – 17h30</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container footer__bottom-inner">
+      <p class="footer__copy">
+        &copy; {new Date().getFullYear()} Mairie de Valojoulx — Tous droits réservés
+      </p>
+      <nav aria-label="Liens légaux" class="footer__legal">
+        <a href="/mentions-legales">Mentions légales</a>
+        <a href="/accessibilite">Accessibilité</a>
+        <a href="/plan-du-site">Plan du site</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: #1e3a1a;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+  }
+
+  /* MAIN SECTION */
+  .footer__main {
+    padding: 4rem 0 3rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.4fr;
+    gap: 3rem 4rem;
+    align-items: start;
+  }
+
+  /* BRAND COL */
+  .footer__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    margin-bottom: 1.25rem;
+    color: var(--color-white);
+  }
+
+  .footer__logo-icon {
+    width: 44px;
+    height: 48px;
+    flex-shrink: 0;
+  }
+
+  .footer__logo-name {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-white);
+    line-height: 1.2;
+  }
+
+  .footer__logo-dept {
+    display: block;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 300;
+  }
+
+  .footer__desc {
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.88rem;
+    max-width: 340px;
+  }
+
+  /* HEADING */
+  .footer__heading {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* LINKS */
+  .footer__links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .footer__link {
+    color: rgba(255, 255, 255, 0.65);
+    transition: color 0.2s;
+    display: inline-block;
+  }
+
+  .footer__link:hover {
+    color: var(--color-primary-light);
+  }
+
+  /* ADDRESS */
+  .footer__address {
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    color: rgba(255, 255, 255, 0.65);
+    margin-bottom: 1.5rem;
+  }
+
+  .footer__hours {
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 3px solid var(--color-primary);
+    padding: 0.75rem 1rem;
+    border-radius: 0 3px 3px 0;
+  }
+
+  .footer__hours-title {
+    font-weight: 600;
+    color: var(--color-primary-light);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.4rem;
+  }
+
+  .footer__hours p:not(.footer__hours-title) {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.84rem;
+  }
+
+  /* BOTTOM BAR */
+  .footer__bottom {
+    padding: 1.25rem 0;
+    background: #152e12;
+  }
+
+  .footer__bottom-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .footer__copy {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .footer__legal {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .footer__legal a {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.4);
+    transition: color 0.2s;
+  }
+
+  .footer__legal a:hover {
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .footer__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem 2rem;
+    }
+
+    .footer__col--brand {
+      grid-column: 1 / -1;
+    }
+
+    .footer__desc {
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .footer__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .footer__bottom-inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

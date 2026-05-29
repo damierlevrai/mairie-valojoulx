@@ -1,0 +1,165 @@
+---
+---
+
+<section class="hero" aria-label="Bannière d'accueil">
+  <div class="hero__overlay" aria-hidden="true"></div>
+  <div class="hero__content container">
+    <p class="hero__eyebrow">Commune de la Dordogne</p>
+    <h1 class="hero__title">Bienvenue à Valojoulx</h1>
+    <p class="hero__subtitle">
+      Village authentique au cœur du Périgord Noir
+    </p>
+    <div class="hero__actions">
+      <a href="/commune" class="hero__cta hero__cta--primary">Découvrir la commune</a>
+      <a href="/contact" class="hero__cta hero__cta--secondary">Nous contacter</a>
+    </div>
+  </div>
+
+  <div class="hero__scroll" aria-hidden="true">
+    <span class="hero__scroll-line"></span>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 620px;
+    height: 78vh;
+    max-height: 780px;
+    display: flex;
+    align-items: center;
+    background-image: url('https://picsum.photos/seed/perigord-noir/1920/900');
+    background-size: cover;
+    background-position: center 40%;
+    overflow: hidden;
+  }
+
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(42, 74, 37, 0.78) 0%,
+      rgba(20, 40, 15, 0.55) 55%,
+      rgba(0, 0, 0, 0.35) 100%
+    );
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    color: var(--color-white);
+    max-width: 680px;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .hero__eyebrow {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.75);
+    border-left: 3px solid var(--color-accent);
+    padding-left: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero__title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  }
+
+  .hero__subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.35rem);
+    font-weight: 300;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.88);
+    margin-bottom: 2.75rem;
+    max-width: 500px;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .hero__cta {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    border-radius: 3px;
+    transition: background 0.25s, color 0.25s, transform 0.25s, box-shadow 0.25s;
+  }
+
+  .hero__cta--primary {
+    background: var(--color-white);
+    color: var(--color-primary-dark);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  }
+
+  .hero__cta--primary:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(74, 124, 63, 0.4);
+  }
+
+  .hero__cta--secondary {
+    background: transparent;
+    color: var(--color-white);
+    border: 2px solid rgba(255, 255, 255, 0.65);
+  }
+
+  .hero__cta--secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--color-white);
+    transform: translateY(-2px);
+  }
+
+  /* Scroll indicator */
+  .hero__scroll {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0.6;
+  }
+
+  .hero__scroll-line {
+    display: block;
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, transparent, white);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(0.7); }
+    50% { opacity: 1; transform: scaleY(1); }
+  }
+
+  @media (max-width: 600px) {
+    .hero {
+      min-height: 520px;
+      height: 85vh;
+    }
+
+    .hero__actions {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

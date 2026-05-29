@@ -1,0 +1,230 @@
+---
+const navItems = [
+  { label: 'La Commune', href: '/commune' },
+  { label: 'Vie Municipale', href: '/vie-municipale' },
+  { label: 'Urbanisme', href: '/urbanisme' },
+  { label: 'Services', href: '/services' },
+  { label: 'Associations', href: '/associations' },
+  { label: 'Actualités', href: '/actualites' },
+  { label: 'Contact', href: '/contact' },
+];
+---
+
+<header class="header" role="banner">
+  <div class="container header__inner">
+
+    <a href="/" class="header__logo" aria-label="Mairie de Valojoulx – Accueil">
+      <img
+        src="/logo.png"
+        alt="Mairie de Valojoulx"
+        class="header__logo-img"
+        width="160"
+        height="60"
+      />
+    </a>
+
+    <nav class="nav" aria-label="Navigation principale">
+      <button
+        class="nav__toggle"
+        aria-expanded="false"
+        aria-controls="nav-menu"
+        aria-label="Ouvrir le menu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="nav__list" id="nav-menu" role="list">
+        {navItems.map(item => (
+          <li>
+            <a href={item.href} class="nav__link">{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.nav__toggle');
+  const navList = document.querySelector('.nav__list');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+    navList?.classList.toggle('nav__list--open');
+    toggle.classList.toggle('nav__toggle--open');
+  });
+
+  // Fermer le menu au clic sur un lien
+  navList?.querySelectorAll('.nav__link').forEach(link => {
+    link.addEventListener('click', () => {
+      navList.classList.remove('nav__list--open');
+      toggle?.setAttribute('aria-expanded', 'false');
+      toggle?.classList.remove('nav__toggle--open');
+    });
+  });
+</script>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    background: #ffffff;
+    border-bottom: 3px solid var(--color-primary);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--header-height);
+    gap: 2rem;
+  }
+
+  /* LOGO */
+  .header__logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .header__logo-img {
+    height: 80px;
+    width: auto;
+    max-width: 220px;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* NAV — centré dans l'espace restant */
+  .nav {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .nav__list {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    gap: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav__link {
+    display: block;
+    padding: 0.45rem 0.75rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-primary-dark);
+    border-radius: 3px;
+    transition: color 0.2s, background 0.2s;
+    white-space: nowrap;
+  }
+
+  .nav__link:hover {
+    color: var(--color-primary);
+    background: var(--color-primary-pale);
+  }
+
+  /* HAMBURGER — masqué sur desktop */
+  .nav__toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: 2px solid var(--color-primary);
+    cursor: pointer;
+    padding: 6px 7px;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+
+  .nav__toggle:hover {
+    background: var(--color-primary-pale);
+  }
+
+  .nav__toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--color-primary-dark);
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+    transform-origin: center;
+  }
+
+  .nav__toggle--open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav__toggle--open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .nav__toggle--open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ─── MOBILE ─────────────────────────────────────── */
+  @media (max-width: 960px) {
+    .header__inner {
+      justify-content: space-between;
+    }
+
+    .nav {
+      flex: 0;
+      justify-content: flex-end;
+    }
+
+    .nav__toggle {
+      display: flex;
+    }
+
+    .nav__list {
+      display: none;
+      position: absolute;
+      top: var(--header-height);
+      left: 0;
+      right: 0;
+      background: #ffffff;
+      flex-direction: column;
+      align-items: stretch;
+      flex-wrap: nowrap;
+      gap: 0;
+      padding: 0.5rem 0 1rem;
+      border-top: 2px solid var(--color-primary);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav__list--open {
+      display: flex;
+    }
+
+    .nav__link {
+      padding: 0.85rem 1.5rem;
+      border-radius: 0;
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--color-primary-pale);
+      color: var(--color-primary-dark);
+    }
+
+    .nav__link:hover {
+      background: var(--color-primary-pale);
+      padding-left: 2rem;
+      transition: padding-left 0.2s, background 0.2s;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .header__logo-img {
+      height: 46px;
+      max-width: 150px;
+    }
+  }
+</style>

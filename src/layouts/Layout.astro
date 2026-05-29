@@ -1,23 +1,84 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = 'Accueil',
+  description = 'Site officiel de la mairie de Valojoulx, village authentique au cœur du Périgord Noir, Dordogne.',
+} = Astro.props;
+---
+
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title} | Mairie de Valojoulx</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Open+Sans:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+<style is:global>
+  :root {
+    --color-primary: #4a7c3f;
+    --color-primary-dark: #3a6130;
+    --color-primary-light: #6a9c5f;
+    --color-primary-pale: #edf4eb;
+    --color-accent: #c8a951;
+    --color-text: #2c2c2c;
+    --color-text-light: #666;
+    --color-bg: #f8f7f4;
+    --color-white: #ffffff;
+    --color-border: #e0ddd8;
+    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-body: 'Open Sans', system-ui, sans-serif;
+    --container-max: 1220px;
+    --header-height: 96px;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-text);
+    background: var(--color-bg);
+    line-height: 1.65;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
 </style>
