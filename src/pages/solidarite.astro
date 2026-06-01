@@ -3,242 +3,222 @@ import PageLayout from '../layouts/PageLayout.astro';
 import InfoBox from '../components/InfoBox.astro';
 import { mairie, urgences as urgencesData } from '../data/mairie.js';
 
-const ccasItems = [
-  { label: 'Téléphone', value: mairie.telephone },
-  { label: 'Email',     value: mairie.email },
-  { label: 'Horaires',  value: mairie.horairesCourt },
-  { label: 'Adresse',   value: `${mairie.adresse}, ${mairie.codePostal} ${mairie.commune}` },
+const ciasItems = [
+  { label: 'Adresse',   value: '1 place des Omnibus, 24290 Montignac-Lascaux' },
+  { label: 'Téléphone', value: '05 53 03 09 10' },
+  { label: 'Email',     value: 'rs-montignac@cias-vdh.fr' },
 ];
 
-const orientations = [
-  'Aide alimentaire et épicerie sociale',
-  'Aides au logement (APL, FSL)',
-  "Aide à domicile pour personnes âgées ou handicapées",
-  'Accompagnement administratif',
-  "Aides d'urgence du Département",
+const missionsCias = [
+  { emoji: '🏠', titre: 'Aide à la personne',        desc: 'Accompagnement aux actes de la vie quotidienne des personnes âgées et/ou handicapées par du personnel qualifié.' },
+  { emoji: '🏡', titre: 'Entretien du cadre de vie', desc: 'Entretien ponctuel ou régulier des pièces de vie principales du logement.' },
+  { emoji: '🍽️', titre: 'Repas à domicile',         desc: 'Menus préparés et conditionnés sous forme de barquettes, livrés à domicile.' },
+  { emoji: '🚗', titre: 'Transport accompagné',      desc: 'Les aides à domicile peuvent assurer le transport de la personne en perte d\'autonomie (courses, médecin, soins, loisirs).' },
+  { emoji: '🤝', titre: 'Aide de l\'aidant',         desc: 'Les proches aidants peuvent bénéficier d\'un relais pour un moment de répit.' },
+  { emoji: '🏥', titre: 'Sortie d\'hospitalisation', desc: 'Aide auprès de votre mutuelle et/ou Prestation de Retour d\'Hospitalisation (ARDH).' },
+  { emoji: '📋', titre: 'Action sociale',            desc: 'Aide à la constitution de dossiers à caractère social (APA, secours d\'urgence, bons alimentaires…)' },
 ];
 
-const mdphItems = [
-  { label: 'Téléphone', value: '05 53 02 80 40' },
-  { label: 'Site',      value: 'mdph.dordogne.fr' },
-  { label: 'Adresse',   value: 'Périgueux' },
+const urgencesImmed = [
+  { num: '15',  nom: 'SAMU' },
+  { num: '17',  nom: 'Police / Gendarmerie' },
+  { num: '18',  nom: 'Pompiers / Secours' },
+  { num: '112', nom: 'Urgences européen' },
 ];
 
-const sante = [
-  { emoji: '🏥', titre: 'Médecins',      texte: 'Cabinets médicaux à Montignac-Lascaux (7 km). Renseignements : Ameli.fr' },
-  { emoji: '🚑', titre: 'SAMU',          texte: 'Urgences médicales : 15' },
-  { emoji: '🚒', titre: 'Pompiers',      texte: '18 ou 112' },
-  { emoji: '💊', titre: 'Pharmacies',    texte: 'Montignac-Lascaux et environs' },
-  { emoji: '🦷', titre: 'Dentistes',     texte: 'Montignac-Lascaux et Sarlat' },
-  { emoji: '🧠', titre: 'Santé mentale', texte: 'Numéro national : 3114 (prévention suicide, 24h/24)' },
+const urgencesSituations = [
+  { num: '3919',  nom: 'Violences faites aux femmes',  desc: 'Numéro national d\'écoute et d\'accompagnement, confidentiel et gratuit.' },
+  { num: '3677',  nom: 'Maltraitance animale',          desc: 'Pour signaler toute maltraitance. En cas de danger immédiat pour l\'animal : le 17.' },
+  { num: '119',   nom: 'Enfance en danger',             desc: 'Pour signaler toute situation mettant un enfant en danger.' },
+  { num: '115',   nom: 'Personnes sans abri',           desc: 'Pour les personnes sans abri ou en grande difficulté.' },
 ];
 
-const urgences = urgencesData.map(u => ({ num: u.numero, nom: u.label }));
+const urgencesSpecialisees = [
+  { num: '0 825 811 811',  nom: 'Centre anti-poison',             desc: 'Pour tout contact avec des substances toxiques (24h/24).' },
+  { num: '04 78 87 10 40', nom: 'Centre anti-poison vétérinaire', desc: 'CNITV, pour les animaux exposés à des risques toxiques (24h/24).' },
+  { num: '3114',           nom: 'Urgences psychologiques',        desc: 'Écoute et soutien pour toute personne en détresse.' },
+  { num: '0 800 23 13 13', nom: 'Drogues, alcool, tabac',         desc: 'Numéro gratuit d\'information et de soutien.' },
+  { num: '116 006',        nom: 'Aide aux victimes',              desc: 'Accompagnement pour toute victime de crime ou d\'agression.' },
+  { num: '3018',           nom: 'Harcèlement',                    desc: 'Pour signaler harcèlement scolaire, cyberharcèlement ou usurpation d\'identité.' },
+];
 ---
 
 <PageLayout
   title="Solidarité"
   section="Solidarité"
-  description="Aide sociale, personnes âgées, handicap, santé et familles : les ressources de solidarité pour les habitants de Valojoulx."
+  description="CIAS, transport solidaire Atchoum et numéros d'urgence pour les habitants de Valojoulx."
 >
   <div class="container page-content">
 
     <p class="chapeau">
       La commune de Valojoulx s'engage aux côtés de ses habitants dans les moments difficiles.
-      Cette page regroupe les contacts et ressources utiles en matière de solidarité, santé
-      et aide sociale.
+      Cette page regroupe les contacts et ressources utiles en matière de solidarité, d'aide
+      sociale et de mobilité.
     </p>
 
-    <!-- ── 1. AIDE SOCIALE ET CCAS ────────────────────── -->
-    <section class="section" aria-labelledby="ccas-titre">
+    <!-- ── 1. CIAS ─────────────────────────────────────── -->
+    <section class="section" id="cias" aria-labelledby="cias-titre">
       <div class="section__header">
-        <h2 class="section__titre" id="ccas-titre">Aide sociale et CCAS</h2>
+        <h2 class="section__titre" id="cias-titre">Le CIAS</h2>
       </div>
 
       <p class="para">
-        Le Centre Communal d'Action Sociale (CCAS) est le premier interlocuteur pour les demandes
-        d'aide sociale. Pour les petites communes comme Valojoulx, ces missions sont souvent
-        assurées directement par la mairie.
+        Le Centre Intercommunal d'Action Sociale (CIAS) est un établissement public rattaché à
+        la Communauté de communes de la Vallée de l'Homme. Il intervient à l'échelle de
+        l'ensemble des communes du territoire pour accompagner les habitants dans les situations
+        de fragilité ou de difficulté sociale.
       </p>
 
-      <div class="infobox-wrap">
-        <InfoBox title="Contact CCAS / Mairie" items={ccasItems} />
-      </div>
-
-      <h3 class="subsection__titre">La mairie peut vous orienter vers :</h3>
-      <ul class="green-list" role="list">
-        {orientations.map(o => <li>{o}</li>)}
-      </ul>
-    </section>
-
-    <!-- ── 2. PERSONNES ÂGÉES ─────────────────────────── -->
-    <section class="section" aria-labelledby="ages-titre">
-      <div class="section__header">
-        <h2 class="section__titre" id="ages-titre">Personnes âgées et maintien à domicile</h2>
-      </div>
-
-      <ul class="cards-grid cards-grid--2" role="list">
-        <li class="contact-card">
-          <span class="contact-card__emoji" aria-hidden="true">🏠</span>
-          <h3 class="contact-card__titre">ADMR Dordogne</h3>
-          <p class="contact-card__texte">
-            Aide à domicile, portage de repas, aide aux actes essentiels.
-          </p>
-          <a href="https://www.admr.org" target="_blank" rel="noopener noreferrer" class="ext-link">
-            www.admr.org ↗
-          </a>
-        </li>
-
-        <li class="contact-card">
-          <span class="contact-card__emoji" aria-hidden="true">👴</span>
-          <h3 class="contact-card__titre">Département de la Dordogne — Autonomie</h3>
-          <p class="contact-card__texte">
-            APA (Allocation Personnalisée d'Autonomie), EHPAD, hébergement.
-          </p>
-          <a href="https://www.dordogne.fr" target="_blank" rel="noopener noreferrer" class="ext-link">
-            www.dordogne.fr ↗
-          </a>
-        </li>
-
-        <li class="contact-card">
-          <span class="contact-card__emoji" aria-hidden="true">📞</span>
-          <h3 class="contact-card__titre">Filière Argent — numéro national</h3>
-          <p class="contact-card__texte">
-            Numéro national d'information et d'orientation pour les personnes âgées.
-          </p>
-          <p class="contact-card__num">3149 <span class="contact-card__gratuit">gratuit</span></p>
-        </li>
-
-        <li class="contact-card">
-          <span class="contact-card__emoji" aria-hidden="true">🏥</span>
-          <h3 class="contact-card__titre">CLIC Périgord Noir</h3>
-          <p class="contact-card__texte">
-            Centre Local d'Information et de Coordination gérontologique — renseignements en
-            mairie pour les coordonnées locales.
-          </p>
-        </li>
-      </ul>
-    </section>
-
-    <!-- ── 3. HANDICAP ────────────────────────────────── -->
-    <section class="section" aria-labelledby="handicap-titre">
-      <div class="section__header">
-        <h2 class="section__titre" id="handicap-titre">Personnes en situation de handicap</h2>
-      </div>
-
-      <p class="para">
-        La commune accompagne les habitants en situation de handicap dans leurs démarches et
-        oriente vers les structures compétentes.
-      </p>
-
-      <ul class="cards-grid cards-grid--2" role="list">
-        <li class="contact-card">
-          <span class="contact-card__emoji" aria-hidden="true">♿</span>
-          <h3 class="contact-card__titre">MDPH Dordogne</h3>
-          <p class="contact-card__texte">
-            Maison Départementale des Personnes Handicapées — reconnaissance du handicap,
-            droits et prestations.
-          </p>
-          <div class="card-infobox">
-            <InfoBox title="Coordonnées MDPH" items={mdphItems} />
-          </div>
-        </li>
-
-        <li class="contact-card">
-          <span class="contact-card__emoji" aria-hidden="true">🏗️</span>
-          <h3 class="contact-card__titre">Logement adapté</h3>
-          <p class="contact-card__texte">
-            Aides à l'adaptation du logement (ANAH, Département). La Grange de Valojoulx est
-            accessible PMR. Renseignements en mairie.
-          </p>
-        </li>
-      </ul>
-    </section>
-
-    <!-- ── 4. SANTÉ ───────────────────────────────────── -->
-    <section class="section" aria-labelledby="sante-titre">
-      <div class="section__header">
-        <h2 class="section__titre" id="sante-titre">Santé</h2>
-      </div>
-
-      <p class="para">
-        Valojoulx bénéficie de la proximité des services de santé de Montignac-Lascaux (7 km)
-        et de Sarlat (~30 km).
-      </p>
-
-      <ul class="cards-grid cards-grid--3" role="list">
-        {sante.map(s => (
-          <li class="service-card">
-            <span class="service-card__emoji" aria-hidden="true">{s.emoji}</span>
-            <h3 class="service-card__titre">{s.titre}</h3>
-            <p class="service-card__texte">{s.texte}</p>
+      <h3 class="subsection__titre">Ses missions</h3>
+      <ul class="missions-grid" role="list">
+        {missionsCias.map(m => (
+          <li class="mission-card">
+            <span class="mission-card__emoji" aria-hidden="true">{m.emoji}</span>
+            <div>
+              <strong class="mission-card__titre">{m.titre}</strong>
+              <p class="mission-card__desc">{m.desc}</p>
+            </div>
           </li>
         ))}
       </ul>
+
+      <div class="infobox-wrap">
+        <InfoBox title="CIAS — Antenne de Montignac-Lascaux" items={ciasItems} />
+      </div>
     </section>
 
-    <!-- ── 5. FAMILLES ET JEUNESSE ────────────────────── -->
-    <section class="section" aria-labelledby="familles-titre">
+    <!-- ── 2. ATCHOUM ──────────────────────────────────── -->
+    <section class="section" id="transport" aria-labelledby="transport-titre">
       <div class="section__header">
-        <h2 class="section__titre" id="familles-titre">Familles et jeunesse</h2>
+        <h2 class="section__titre" id="transport-titre">Transport solidaire Atchoum</h2>
       </div>
 
-      <ul class="cards-grid cards-grid--2" role="list">
-        <li class="contact-card">
-          <span class="contact-card__emoji" aria-hidden="true">👨‍👩‍👧</span>
-          <h3 class="contact-card__titre">CAF Dordogne</h3>
-          <p class="contact-card__texte">
-            Allocations familiales, aides à la garde d'enfants, aides au logement.
-          </p>
-          <p class="contact-card__num">3230</p>
-          <a href="https://www.caf.fr" target="_blank" rel="noopener noreferrer" class="ext-link">
-            www.caf.fr ↗
-          </a>
-        </li>
+      <div class="atchoum-hero">
+        <p class="atchoum-hero__accroche">ATCHOUM : le transport solidaire près de chez vous</p>
+        <p class="atchoum-hero__desc">
+          Atchoum met en relation des habitants ayant besoin d'un trajet avec des conducteurs
+          volontaires. Un service simple et solidaire pour faciliter les déplacements et renforcer
+          l'entraide locale. Vous pouvez aussi devenir conducteur solidaire&nbsp;!
+        </p>
+      </div>
 
-        <li class="contact-card">
-          <span class="contact-card__emoji" aria-hidden="true">🏫</span>
-          <h3 class="contact-card__titre">Scolarité</h3>
-          <p class="contact-card__texte">
-            École primaire en regroupement scolaire. Transport scolaire géré par le SIVS de
-            Montignac. Renseignements en mairie.
+      <div class="atchoum-cols">
+        <!-- Gauche -->
+        <div class="atchoum-col">
+          <h3 class="subsection__titre">Pour quoi faire ?</h3>
+          <ul class="green-list" role="list">
+            <li>Rendez-vous médicaux</li>
+            <li>Courses</li>
+            <li>Démarches administratives</li>
+            <li>Visites ou événements locaux</li>
+          </ul>
+          <h3 class="subsection__titre" style="margin-top:1.25rem">Pour qui ?</h3>
+          <p class="para" style="margin-bottom:0">
+            Service ouvert à tous, notamment : personnes âgées, habitants sans véhicule, personnes
+            isolées, jeunes et actifs.
           </p>
-        </li>
+        </div>
 
-        <li class="contact-card">
-          <span class="contact-card__emoji" aria-hidden="true">🌱</span>
-          <h3 class="contact-card__titre">Mission Locale</h3>
-          <p class="contact-card__texte">
-            Accompagnement des jeunes (16-25 ans) vers l'emploi et la formation. Antenne à
-            Sarlat et Périgueux.
-          </p>
-        </li>
+        <!-- Droite -->
+        <div class="atchoum-col">
+          <h3 class="subsection__titre">Comment ça marche ?</h3>
+          <ol class="steps-list">
+            <li>Inscription gratuite sur <a href="https://www.atchoum.eu" target="_blank" rel="noopener noreferrer" class="text-link">www.atchoum.eu</a></li>
+            <li>Déposez votre demande ou proposez un trajet</li>
+            <li>Mise en relation avec un conducteur volontaire</li>
+          </ol>
+          <div class="atchoum-num">
+            <span class="atchoum-num__label">Numéro d'appel</span>
+            <a href="tel:+33806110444" class="atchoum-num__tel">0 806 110 444</a>
+          </div>
+        </div>
+      </div>
 
-        <li class="contact-card">
-          <span class="contact-card__emoji" aria-hidden="true">📚</span>
-          <h3 class="contact-card__titre">Bibliothèque / Médiathèque</h3>
-          <p class="contact-card__texte">
-            Réseau de lecture publique du Département. Médiathèque de Montignac-Lascaux
-            accessible aux habitants.
-          </p>
-        </li>
-      </ul>
+      <div class="atchoum-solutions">
+        <span class="badge-solution">Covoiturage — trajets partagés</span>
+        <span class="badge-solution">Transport solidaire — porte à porte</span>
+      </div>
+
+      <div class="atchoum-tarifs">
+        <h3 class="subsection__titre">Tarifs</h3>
+        <p class="para">
+          Le trajet est payant pour le passager afin d'indemniser le conducteur. La Communauté
+          de Communes de la Vallée de l'Homme peut prendre en charge <strong>50% du coût du
+          trajet</strong> (sans condition de ressources) avec les tickets mobilité.
+          Paiement par carte bancaire ou tickets mobilité.
+        </p>
+      </div>
+
+      <a
+        href="https://www.atchoum.eu"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-primary"
+      >
+        Accéder à Atchoum ↗
+      </a>
     </section>
 
-    <!-- ── 6. NUMÉROS D'URGENCE ───────────────────────── -->
-    <section class="section" aria-labelledby="urgences-titre">
+    <!-- ── 3. URGENCES ─────────────────────────────────── -->
+    <section class="section" id="urgences" aria-labelledby="urgences-titre">
       <div class="section__header">
         <h2 class="section__titre" id="urgences-titre">Numéros d'urgence</h2>
       </div>
 
-      <ul class="urgences-grid" role="list">
-        {urgences.map(u => (
-          <li class="urgence-card">
+      <p class="para">
+        La sécurité et le bien-être des personnes sont une priorité pour notre commune.
+        N'hésitez pas à utiliser ces numéros : chaque appel peut sauver une vie.
+      </p>
+
+      <!-- Urgences immédiates -->
+      <h3 class="subsection__titre">Numéros d'urgence immédiats</h3>
+      <ul class="urgences-immed" role="list">
+        {urgencesImmed.map(u => (
+          <li class="urgence-card urgence-card--dark">
             <strong class="urgence-card__num">{u.num}</strong>
             <span class="urgence-card__nom">{u.nom}</span>
           </li>
         ))}
       </ul>
+
+      <!-- Situations particulières -->
+      <h3 class="subsection__titre">Situations particulières</h3>
+      <ul class="urgences-situations" role="list">
+        {urgencesSituations.map(u => (
+          <li class="urgence-situ">
+            <strong class="urgence-situ__num">{u.num}</strong>
+            <div>
+              <p class="urgence-situ__nom">{u.nom}</p>
+              <p class="urgence-situ__desc">{u.desc}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <!-- Numéros spécialisés -->
+      <h3 class="subsection__titre">Numéros spécialisés</h3>
+      <ul class="urgences-spec" role="list">
+        {urgencesSpecialisees.map(u => (
+          <li class="urgence-spec">
+            <strong class="urgence-spec__num">{u.num}</strong>
+            <p class="urgence-spec__nom">{u.nom}</p>
+            <p class="urgence-spec__desc">{u.desc}</p>
+          </li>
+        ))}
+      </ul>
+
+      <!-- Défibrillateur -->
+      <div class="defib-box">
+        <span class="defib-box__icon" aria-hidden="true">❤️</span>
+        <div>
+          <p class="defib-box__titre">Défibrillateur</p>
+          <p class="defib-box__text">
+            Information à venir : emplacement du défibrillateur communal. Pour tout
+            renseignement, contactez la mairie au
+            <a href="tel:+33553507778" class="defib-box__tel">05 53 50 77 78</a>.
+          </p>
+        </div>
+      </div>
     </section>
 
   </div>
@@ -252,7 +232,7 @@ const urgences = urgencesData.map(u => ({ num: u.numero, nom: u.label }));
 
   /* ── CHAPEAU ── */
   .chapeau {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     line-height: 1.75;
     color: var(--color-text-light);
     border-left: 4px solid var(--color-accent);
@@ -275,9 +255,7 @@ const urgences = urgencesData.map(u => ({ num: u.numero, nom: u.label }));
   .section__header::before {
     content: '';
     position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
+    left: 0; top: 0; bottom: 0;
     width: 4px;
     background: var(--color-primary);
     border-radius: 4px;
@@ -304,12 +282,86 @@ const urgences = urgencesData.map(u => ({ num: u.numero, nom: u.label }));
     line-height: 1.75;
     color: var(--color-text);
     max-width: 780px;
-    margin-bottom: 0.5rem;
   }
 
   .infobox-wrap {
-    margin-top: 1.25rem;
-    max-width: 580px;
+    margin-top: 1.75rem;
+    max-width: 560px;
+  }
+
+  /* ── MISSIONS CIAS ── */
+  .missions-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .mission-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 1.1rem 1.25rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  }
+
+  .mission-card__emoji {
+    font-size: 1.6rem;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .mission-card__titre {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    margin-bottom: 0.2rem;
+  }
+
+  .mission-card__desc {
+    font-size: 0.82rem;
+    color: var(--color-text-light);
+    line-height: 1.55;
+  }
+
+  /* ── ATCHOUM HERO ── */
+  .atchoum-hero {
+    background: var(--color-primary-pale);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-primary);
+    border-radius: 6px;
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 1.75rem;
+    max-width: 820px;
+  }
+
+  .atchoum-hero__accroche {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    margin-bottom: 0.65rem;
+  }
+
+  .atchoum-hero__desc {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--color-text);
+  }
+
+  /* ── ATCHOUM COLONNES ── */
+  .atchoum-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    margin-bottom: 1.5rem;
   }
 
   /* ── LISTE VERTE ── */
@@ -317,8 +369,7 @@ const urgences = urgencesData.map(u => ({ num: u.numero, nom: u.label }));
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 0.45rem;
-    max-width: 640px;
+    gap: 0.4rem;
   }
 
   .green-list li {
@@ -339,144 +390,114 @@ const urgences = urgencesData.map(u => ({ num: u.numero, nom: u.label }));
     line-height: 1.3;
   }
 
-  /* ── GRILLES DE CARTES ── */
-  .cards-grid {
-    list-style: none;
-    display: grid;
-    gap: 1.25rem;
-    margin-top: 1rem;
-  }
-
-  .cards-grid--2 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .cards-grid--3 {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  /* ── CARTE CONTACT ── */
-  .contact-card {
-    background: #ffffff;
-    border: 1px solid var(--color-border);
-    border-radius: 6px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  /* ── ÉTAPES ── */
+  .steps-list {
+    padding-left: 1.25rem;
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
-    transition: box-shadow 0.2s, transform 0.2s;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--color-text);
+    margin-bottom: 1.25rem;
   }
 
-  .contact-card:hover {
-    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
+  .steps-list li {
+    padding-left: 0.25rem;
   }
 
-  .contact-card__emoji {
-    font-size: 2rem;
-    line-height: 1;
-    margin-bottom: 0.25rem;
-  }
-
-  .contact-card__titre {
-    font-family: var(--font-heading);
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--color-primary-dark);
-  }
-
-  .contact-card__texte {
-    font-size: 0.875rem;
-    color: var(--color-text-light);
-    line-height: 1.55;
-    flex: 1;
-  }
-
-  .contact-card__num {
-    font-family: var(--font-heading);
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--color-primary-dark);
-    margin-top: 0.25rem;
-  }
-
-  .contact-card__gratuit {
-    font-family: var(--font-body);
-    font-size: 0.75rem;
-    font-weight: 400;
-    color: var(--color-text-light);
-    margin-left: 0.4rem;
-    vertical-align: middle;
-  }
-
-  .card-infobox {
-    margin-top: 0.75rem;
-  }
-
-  .ext-link {
-    display: inline-block;
-    margin-top: 0.5rem;
+  .text-link {
     color: var(--color-primary);
-    font-size: 0.85rem;
     font-weight: 600;
     transition: color 0.15s;
   }
 
-  .ext-link:hover {
+  .text-link:hover {
     color: var(--color-primary-dark);
     text-decoration: underline;
   }
 
-  /* ── CARTE SERVICE (santé) ── */
-  .service-card {
-    background: #ffffff;
-    border: 1px solid var(--color-border);
-    border-radius: 6px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  /* ── NUMÉRO ATCHOUM ── */
+  .atchoum-num {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
-    transition: box-shadow 0.2s, transform 0.2s;
+    gap: 0.2rem;
   }
 
-  .service-card:hover {
-    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
+  .atchoum-num__label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-light);
   }
 
-  .service-card__emoji {
-    font-size: 2rem;
-    line-height: 1;
-    margin-bottom: 0.25rem;
-  }
-
-  .service-card__titre {
+  .atchoum-num__tel {
     font-family: var(--font-heading);
-    font-size: 1rem;
+    font-size: 1.75rem;
     font-weight: 700;
+    color: var(--color-primary);
+    transition: color 0.15s;
+    line-height: 1.1;
+  }
+
+  .atchoum-num__tel:hover {
     color: var(--color-primary-dark);
   }
 
-  .service-card__texte {
-    font-size: 0.875rem;
-    color: var(--color-text-light);
-    line-height: 1.55;
+  /* ── SOLUTIONS ATCHOUM ── */
+  .atchoum-solutions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1.75rem;
   }
 
-  /* ── URGENCES ── */
-  .urgences-grid {
+  .badge-solution {
+    display: inline-flex;
+    align-items: center;
+    background: var(--color-primary);
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 0.3rem 0.9rem;
+    border-radius: 20px;
+  }
+
+  /* ── TARIFS ── */
+  .atchoum-tarifs {
+    margin-bottom: 1.25rem;
+  }
+
+  /* ── BOUTON ── */
+  .btn-primary {
+    display: inline-block;
+    padding: 0.7rem 1.6rem;
+    background: var(--color-primary);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: var(--color-primary-dark);
+  }
+
+  /* ── URGENCES IMMÉDIATES ── */
+  .urgences-immed {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
+    margin-bottom: 2rem;
   }
 
-  .urgence-card {
+  .urgence-card--dark {
     background: var(--color-primary-dark);
     border-radius: 6px;
-    padding: 1.75rem 1.25rem;
+    padding: 1.5rem 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -493,33 +514,167 @@ const urgences = urgencesData.map(u => ({ num: u.numero, nom: u.label }));
   }
 
   .urgence-card__nom {
-    font-size: 0.82rem;
-    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.82);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.04em;
     line-height: 1.3;
   }
 
+  /* ── SITUATIONS PARTICULIÈRES ── */
+  .urgences-situations {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .urgence-situ {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 1.1rem 1.25rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  }
+
+  .urgence-situ__num {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    flex-shrink: 0;
+    min-width: 52px;
+    line-height: 1.2;
+  }
+
+  .urgence-situ__nom {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--color-text);
+    margin-bottom: 0.2rem;
+  }
+
+  .urgence-situ__desc {
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+    line-height: 1.5;
+  }
+
+  /* ── NUMÉROS SPÉCIALISÉS ── */
+  .urgences-spec {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .urgence-spec {
+    background: var(--color-primary-pale);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 1rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .urgence-spec__num {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    line-height: 1.2;
+  }
+
+  .urgence-spec__nom {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .urgence-spec__desc {
+    font-size: 0.78rem;
+    color: var(--color-text-light);
+    line-height: 1.5;
+  }
+
+  /* ── DÉFIBRILLATEUR ── */
+  .defib-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    background: #fff8e1;
+    border: 1px solid #f0e0a0;
+    border-left: 4px solid var(--color-accent);
+    border-radius: 4px;
+    padding: 1.1rem 1.4rem;
+    max-width: 680px;
+  }
+
+  .defib-box__icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .defib-box__titre {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--color-text);
+    margin-bottom: 0.3rem;
+  }
+
+  .defib-box__text {
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: var(--color-text);
+  }
+
+  .defib-box__tel {
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    transition: color 0.15s;
+  }
+
+  .defib-box__tel:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 860px) {
-    .cards-grid--3 {
+    .missions-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .atchoum-cols {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .urgences-immed {
       grid-template-columns: repeat(2, 1fr);
     }
 
-    .urgences-grid {
+    .urgences-spec {
       grid-template-columns: repeat(2, 1fr);
     }
   }
 
-  @media (max-width: 560px) {
-    .cards-grid--2,
-    .cards-grid--3 {
+  @media (max-width: 540px) {
+    .urgences-situations,
+    .urgences-spec,
+    .urgences-immed {
       grid-template-columns: 1fr;
     }
 
-    .urgences-grid {
-      grid-template-columns: 1fr;
+    .atchoum-solutions {
+      flex-direction: column;
     }
   }
 </style>

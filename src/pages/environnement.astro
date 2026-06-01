@@ -1,296 +1,414 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import InfoBox from '../components/InfoBox.astro';
-import { mairie } from '../data/mairie.js';
 
-const eau = [
-  {
-    emoji: '💧',
-    titre: 'Eau potable — SMAEP des 2 rivières',
-    texte: "Syndicat mixte assurant la production et distribution d'eau potable sur la commune.",
-    details: "Titulaires : Jean-Pierre Mège, Nicolas Duquerroy. Suppléants : Jean-François Blan, Brigitte Dartenset.",
-    lien: null,
-  },
-  {
-    emoji: '🌊',
-    titre: 'Milieux aquatiques — SMBVVD',
-    texte: "Syndicat Mixte du Bassin Versant de la Vézère et de la Dordogne — gestion des zones humides, entretien des cours d'eau, inventaires écologiques.",
-    details: "Titulaire : Bruno Bastian. Suppléant : Jean-Pierre Mège.",
-    lien: null,
-  },
-  {
-    emoji: '🎣',
-    titre: 'Étang et pêche',
-    texte: "L'étang communal, propriété de la Fédération de pêche, fait l'objet d'un entretien régulier et d'inventaires floristiques et faunistiques.",
-    details: null,
-    lien: null,
-  },
-  {
-    emoji: '💦',
-    titre: 'Irrigation',
-    texte: "Syndicat d'Irrigation de Montignac — gestion de l'irrigation agricole.",
-    details: "Titulaires : Philippe Bastide, Jean-François Blan.",
-    lien: null,
-  },
-];
-
-const energie = [
-  {
-    emoji: '⚡',
-    titre: 'Réseau électrique — SDE24',
-    texte: "Syndicat Départemental d'Énergie de la Dordogne — gestion et développement du réseau électrique.",
-    details: "Titulaires : Nicolas Duquerroy, Bruno Bastian. Suppléants : Jean-Pierre Mège, Catherine Beatrix.",
-    lien: null,
-  },
-  {
-    emoji: '♻️',
-    titre: 'Collecte des déchets — SICTOM Périgord Noir',
-    texte: "Syndicat Intercommunal de Collecte et de Traitement des Ordures Ménagères.",
-    details: "Titulaires : Philippe Bastide, Nicolas Duquerroy. Suppléants : Jean-François Blan, Mireille Calvo.",
-    lien: { href: 'https://www.sictom-perigordnoir.fr', label: 'www.sictom-perigordnoir.fr ↗' },
-  },
-  {
-    emoji: '🌱',
-    titre: 'Bien-être animal',
-    texte: "Commission communale dédiée.",
-    details: "Référente : Nicolas Duquerroy. Membres : Brigitte Dartenset, Jean-François Blan, Catherine Beatrix.",
-    lien: null,
-  },
-  {
-    emoji: '🌳',
-    titre: 'Espaces verts',
-    texte: "Entretien des espaces verts communaux — commission Bâtiment, voirie, espaces verts.",
-    details: "Référent : Jean-François Blan.",
-    lien: null,
-  },
-];
-
-const risques = [
-  {
-    emoji: '🌊',
-    titre: 'Risque inondation',
-    texte: "La Vézère peut être sujette à des crues. Les habitants des zones basses doivent consulter les repères de crue et les alertes Vigicrues.",
-    lien: { href: 'https://www.vigicrues.gouv.fr', label: 'vigicrues.gouv.fr ↗' },
-  },
-  {
-    emoji: '🔥',
-    titre: 'Risque incendie',
-    texte: "Les plateaux boisés présentent un risque incendie en période estivale. Respectez les interdictions de feu en forêt. Arrêtés préfectoraux consultables en mairie.",
-    lien: null,
-  },
-  {
-    emoji: '📋',
-    titre: 'Plan Communal de Sauvegarde',
-    texte: "Document consultable en mairie.",
-    details: "Commission Sécurité référente : Danielle Avez. Membres : Martine Derenne, Jean-François Blan, Nicolas Duquerroy, Catherine Beatrix.",
-    lien: null,
-  },
-  {
-    emoji: '📡',
-    titre: 'Alertes et information',
-    texte: "Inscrivez-vous au système d'alerte SMS de la commune via la mairie. Suivez également les alertes préfectorales sur le site de la préfecture de la Dordogne.",
-    lien: { href: 'https://www.dordogne.gouv.fr', label: 'dordogne.gouv.fr ↗' },
-  },
-];
-
-const contacts = [
-  { emoji: '🏛️', nom: 'Mairie de Valojoulx',      info: mairie.telephone,        info2: mairie.email, lien: null },
-  { emoji: '🚒', nom: 'Pompiers',                  info: '18 ou 112',             info2: null, lien: null },
-  { emoji: '🚑', nom: 'SAMU',                      info: '15',                    info2: null, lien: null },
-  { emoji: '👮', nom: 'Gendarmerie de Montignac',  info: '05 53 51 80 17',        info2: null, lien: null },
-  { emoji: '🌊', nom: 'Vigicrues',                 info: null,                    info2: null, lien: { href: 'https://www.vigicrues.gouv.fr', label: 'vigicrues.gouv.fr ↗' } },
-  { emoji: '🏛️', nom: 'Préfecture Dordogne',       info: null,                    info2: null, lien: { href: 'https://www.dordogne.gouv.fr', label: 'dordogne.gouv.fr ↗' } },
+const gestures = [
+  { emoji: '🌿', titre: 'Ne taillez pas les haies au printemps',   desc: 'De mars à juillet, de nombreux oiseaux y font leur nid.' },
+  { emoji: '🌼', titre: 'Laissez fleurir les fleurs sauvages',      desc: 'Pissenlits, trèfles et pâquerettes nourrissent les pollinisateurs.' },
+  { emoji: '🐝', titre: 'Évitez les pesticides',                    desc: 'Ils détruisent aussi les insectes utiles comme les abeilles et les coccinelles.' },
+  { emoji: '🌱', titre: 'Tondez moins souvent',                     desc: 'Une pelouse un peu plus haute favorise la biodiversité.' },
+  { emoji: '🍂', titre: 'Laissez un coin de jardin naturel',       desc: 'Tas de bois, feuilles ou herbes hautes servent d\'abri à de nombreux animaux.' },
+  { emoji: '💧', titre: 'Économisez l\'eau',                       desc: 'Arrosez le soir et récupérez l\'eau de pluie.' },
+  { emoji: '🔥', titre: 'Ne brûlez pas vos déchets verts',         desc: 'Le compostage est plus utile et moins polluant.' },
+  { emoji: '🌳', titre: 'Plantez des espèces locales',             desc: 'Les plantes locales sont mieux adaptées et profitent à la faune.' },
+  { emoji: '🌙', titre: 'Limitez l\'éclairage nocturne',           desc: 'La lumière perturbe les insectes, les oiseaux et les chauves-souris.' },
+  { emoji: '🐾', titre: 'Respectez la faune sauvage',              desc: 'Observez les animaux à distance et ne les nourrissez pas.' },
+  { emoji: '🚶', titre: 'Restez sur les chemins',                   desc: 'Cela protège les plantes et les habitats fragiles.' },
+  { emoji: '🐕', titre: 'Gardez les chiens sous contrôle',         desc: 'En période de reproduction, ils peuvent déranger la faune.' },
+  { emoji: '🚯', titre: 'Ne laissez aucun déchet dans la nature',  desc: 'Même les déchets dits biodégradables perturbent les milieux naturels.' },
+  { emoji: '🚲', titre: 'Privilégiez les déplacements doux',        desc: 'Marcher ou pédaler limite les nuisances et la pollution.' },
+  { emoji: '🌾', titre: 'Préservez les haies et les arbres',        desc: 'Ils abritent la biodiversité et structurent les paysages.' },
 ];
 ---
 
 <PageLayout
   title="Environnement et sécurité"
   section="Environnement"
-  description="Environnement, gestion de l'eau, risques naturels et sécurité civile à Valojoulx en Périgord Noir."
+  description="Gestion de l'eau, des déchets, prévention des risques et bons gestes pour l'environnement à Valojoulx."
 >
   <div class="container page-content">
 
     <p class="chapeau">
-      Valojoulx s'inscrit dans un territoire naturel exceptionnel — vallée de la Vézère, plateaux
-      boisés, zones humides. La commune s'engage pour la préservation de ce cadre de vie et la
-      sécurité de ses habitants.
+      Valojoulx s'inscrit dans un territoire naturel exceptionnel. La commune s'engage pour la
+      préservation de ce cadre de vie et la sécurité de ses habitants.
     </p>
 
-    <!-- ── 1. TERRITOIRE NATUREL ──────────────────────── -->
-    <section class="section" aria-labelledby="territoire-titre">
-      <div class="section__header">
-        <h2 class="section__titre" id="territoire-titre">Le territoire naturel</h2>
-      </div>
-
-      <div class="two-cols">
-        <div>
-          <h3 class="subsection__titre">La Vézère et le Turançon</h3>
-          <p class="para">
-            La commune est traversée par deux cours d'eau structurants. La Vézère forme la limite
-            nord-ouest et offre un corridor écologique majeur. Le Turançon, ruisseau central,
-            divise la commune entre plateau boisé au nord et vallée calcaire au sud. Les zones
-            humides associées font l'objet d'inventaires réguliers par le Syndicat Mixte du
-            Bassin Versant de la Vézère.
-          </p>
-        </div>
-        <div>
-          <h3 class="subsection__titre">Les plateaux boisés</h3>
-          <p class="para">
-            Le territoire communal s'étend de 72 m (bord de Vézère) à 267 m (Puy Mangou). Les
-            plateaux calcaires boisés abritent une faune et une flore caractéristiques du Périgord
-            Noir. La forêt couvre une part importante des 11,79 km² de la commune.
-          </p>
-        </div>
-      </div>
-
-      <div class="notice-box notice-box--green">
-        <span class="notice-box__icon" aria-hidden="true">🌍</span>
-        <p class="notice-box__text">
-          Valojoulx s'inscrit dans la vallée de la Vézère, classée au Patrimoine Mondial de
-          l'UNESCO pour sa richesse préhistorique et naturelle exceptionnelle.
-        </p>
-      </div>
-    </section>
-
-    <!-- ── 2. GESTION DE L'EAU ────────────────────────── -->
-    <section class="section" aria-labelledby="eau-titre">
+    <!-- ── 1. EAU ──────────────────────────────────────── -->
+    <section class="section" id="eau" aria-labelledby="eau-titre">
       <div class="section__header">
         <h2 class="section__titre" id="eau-titre">Gestion de l'eau</h2>
       </div>
 
       <p class="para">
-        La gestion de l'eau est un enjeu majeur pour la commune, assurée par plusieurs structures
-        intercommunales.
+        L'eau est une ressource essentielle. Sa gestion repose sur plusieurs acteurs publics
+        intervenant à des niveaux différents.
       </p>
 
-      <ul class="cards-grid cards-grid--2" role="list">
-        {eau.map(c => (
-          <li class="env-card">
-            <span class="env-card__emoji" aria-hidden="true">{c.emoji}</span>
-            <h3 class="env-card__titre">{c.titre}</h3>
-            <p class="env-card__texte">{c.texte}</p>
-            {c.details && <p class="env-card__details">{c.details}</p>}
-            {c.lien && (
-              <a href={c.lien.href} target="_blank" rel="noopener noreferrer" class="ext-link">
-                {c.lien.label}
-              </a>
-            )}
-          </li>
-        ))}
-      </ul>
+      <div class="two-cols">
+        <!-- RDE24 -->
+        <div class="water-card">
+          <div class="water-card__header">
+            <span aria-hidden="true">💧</span>
+            <h3 class="water-card__titre">L'eau potable — RDE24</h3>
+          </div>
+          <p class="water-card__intro">
+            Dans notre commune, le service d'eau potable est assuré par la Régie des Eaux de
+            Dordogne (RDE24) qui a pour mission de :
+          </p>
+          <ul class="env-list">
+            <li>Capter l'eau dans le milieu naturel</li>
+            <li>La rendre potable grâce à des traitements adaptés</li>
+            <li>L'acheminer jusqu'aux habitations par le réseau de distribution</li>
+            <li>Surveiller en permanence sa qualité</li>
+          </ul>
+          <p class="water-card__note">
+            L'eau distribuée fait l'objet de contrôles réguliers garantissant le respect des
+            normes sanitaires.
+          </p>
+          <div class="water-card__contact">
+            <a href="tel:+33524161500" class="contact-tel">📞 05 24 16 15 00</a>
+            <a href="https://www.rde24.fr" target="_blank" rel="noopener noreferrer" class="contact-link">
+              🌐 rde24.fr ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- SMBVVD -->
+        <div class="water-card">
+          <div class="water-card__header">
+            <span aria-hidden="true">🌊</span>
+            <h3 class="water-card__titre">Les milieux aquatiques — SMBVVD</h3>
+          </div>
+          <p class="water-card__intro">
+            Les rivières, ruisseaux et zones humides sont gérés par le Syndicat Mixte du Bassin
+            Versant de la Vézère en Dordogne (SMBVVD) qui coordonne des actions visant à :
+          </p>
+          <ul class="env-list">
+            <li>Préserver les cours d'eau et milieux aquatiques</li>
+            <li>Améliorer la qualité de l'eau dans les rivières</li>
+            <li>Restaurer les habitats naturels</li>
+            <li>Prévenir les risques d'inondation</li>
+            <li>Sensibiliser habitants et acteurs locaux</li>
+          </ul>
+          <div class="water-card__contact">
+            <a href="tel:+33553249519" class="contact-tel">📞 05 53 24 95 19</a>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- ── 3. ÉNERGIE ET TRANSITION ───────────────────── -->
-    <section class="section" aria-labelledby="energie-titre">
+    <!-- ── 2. DÉCHETS ──────────────────────────────────── -->
+    <section class="section" id="dechets" aria-labelledby="dechets-titre">
       <div class="section__header">
-        <h2 class="section__titre" id="energie-titre">Énergie et transition écologique</h2>
+        <h2 class="section__titre" id="dechets-titre">Gestion des déchets</h2>
       </div>
 
-      <ul class="cards-grid cards-grid--2" role="list">
-        {energie.map(c => (
-          <li class="env-card">
-            <span class="env-card__emoji" aria-hidden="true">{c.emoji}</span>
-            <h3 class="env-card__titre">{c.titre}</h3>
-            <p class="env-card__texte">{c.texte}</p>
-            {c.details && <p class="env-card__details">{c.details}</p>}
-            {c.lien && (
-              <a href={c.lien.href} target="_blank" rel="noopener noreferrer" class="ext-link">
-                {c.lien.label}
-              </a>
-            )}
-          </li>
-        ))}
-      </ul>
+      <!-- SICTOM -->
+      <div class="sictom-box">
+        <p class="sictom-box__text">
+          Le Syndicat Mixte Intercommunal de Collecte et de Traitement des Ordures Ménagères du
+          Périgord Noir (SICTOM) regroupe 57 communes. Il assure la collecte, le traitement et la
+          valorisation des déchets ménagers.
+        </p>
+        <div class="sictom-box__contact">
+          <span>La Borne 120, 24200 Marcillac-Saint-Quentin</span>
+          <a href="tel:+33553298750" class="contact-tel">📞 05 53 29 87 50</a>
+          <a href="https://www.sictom-perigord-noir.fr" target="_blank" rel="noopener noreferrer" class="contact-link">
+            🌐 sictom-perigord-noir.fr ↗
+          </a>
+        </div>
+      </div>
+
+      <div class="two-cols">
+        <!-- Tri -->
+        <div>
+          <h3 class="subsection__titre">Le tri des déchets</h3>
+          <div class="table-wrap">
+            <table class="tri-table" aria-label="Guide du tri sélectif">
+              <thead>
+                <tr>
+                  <th scope="col">Type de déchet</th>
+                  <th scope="col">Où le mettre ?</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Emballages et papiers</td><td class="td-dest">Conteneur jaune</td></tr>
+                <tr class="row-pale"><td>Verre</td><td class="td-dest">Conteneur à verre</td></tr>
+                <tr><td>Bio-déchets</td><td class="td-dest">Compost</td></tr>
+                <tr class="row-pale"><td>Déchets non recyclables</td><td class="td-dest">Sac noir</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="note-tri">
+            Les déchets dangereux (huiles, piles, ampoules, produits chimiques) doivent être
+            déposés en déchèterie.
+          </p>
+        </div>
+
+        <!-- Points collecte -->
+        <div>
+          <h3 class="subsection__titre">Points de collecte à Valojoulx</h3>
+          <ul class="collecte-list" role="list">
+            <li>À la Salle des fêtes</li>
+            <li>Au Fraysse</li>
+            <li>Au Castang</li>
+            <li>Aux Bories</li>
+          </ul>
+
+          <div class="collecte-horaires">
+            <p class="collecte-horaires__titre">Jours de collecte</p>
+            <div class="collecte-horaires__row">
+              <span class="collecte-horaires__periode">Période hivernale</span>
+              <span class="collecte-horaires__detail">16 sept – 15 juin</span>
+              <p class="collecte-horaires__freq">Ordures ménagères et emballages <strong>un mercredi sur deux</strong> (semaines paires)</p>
+            </div>
+            <div class="collecte-horaires__row">
+              <span class="collecte-horaires__periode">Période estivale</span>
+              <span class="collecte-horaires__detail">16 juin – 14 sept</span>
+              <p class="collecte-horaires__freq"><strong>Tous les mercredis</strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Déchèterie -->
+      <h3 class="subsection__titre">Déchèterie de Montignac-Lascaux</h3>
+      <div class="decheterie-box">
+        <p class="decheterie-box__adresse">
+          📍 134 route des Combes - D704 - 24290 Montignac-Lascaux
+          <a href="tel:+33553516082" class="contact-tel" style="margin-left:0.75rem">📞 05 53 51 60 82</a>
+        </p>
+        <div class="decheterie-horaires">
+          <div class="decheterie-col">
+            <p class="decheterie-col__titre">Horaires hiver <small>(1er jan–30 juin et 1er sept–31 déc)</small></p>
+            <ul class="decheterie-col__list">
+              <li><strong>Mardi–Vendredi</strong> : 8h30–12h30 / 14h–17h30</li>
+              <li><strong>Samedi</strong> : 8h30–12h30 / 13h30–15h30</li>
+              <li><strong>Lundi et Dimanche</strong> : fermé</li>
+            </ul>
+          </div>
+          <div class="decheterie-col">
+            <p class="decheterie-col__titre">Horaires été <small>(1er juil–31 août)</small></p>
+            <ul class="decheterie-col__list">
+              <li><strong>Mardi–Vendredi</strong> : 6h45–14h</li>
+              <li><strong>Samedi</strong> : 7h–14h</li>
+              <li><strong>Lundi et Dimanche</strong> : fermé</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Compost -->
+      <div class="compost-box">
+        <p>
+          Le compostage valorise les restes de repas, épluchures et déchets végétaux pour obtenir
+          un amendement naturel. Écologique, économique et pratique, il peut réduire jusqu'à
+          <strong>30%</strong> le poids des ordures ménagères collectées.
+        </p>
+      </div>
     </section>
 
-    <!-- ── 4. RISQUES ET SÉCURITÉ CIVILE ──────────────── -->
-    <section class="section" aria-labelledby="risques-titre">
+    <!-- ── 3. RISQUES ──────────────────────────────────── -->
+    <section class="section" id="risques" aria-labelledby="risques-titre">
       <div class="section__header">
-        <h2 class="section__titre" id="risques-titre">Risques naturels et sécurité civile</h2>
+        <h2 class="section__titre" id="risques-titre">Prévention des risques et sécurité</h2>
       </div>
 
-      <div class="notice-box notice-box--warn">
-        <span class="notice-box__icon" aria-hidden="true">⚠️</span>
-        <p class="notice-box__text">
-          La commune dispose d'un Plan Communal de Sauvegarde (PCS). En cas d'événement majeur,
-          suivez les consignes des autorités.
+      <!-- PCS -->
+      <h3 class="subsection__titre">Plan Communal de Sauvegarde</h3>
+      <div class="pcs-box">
+        <p>
+          Le Plan Communal de Sauvegarde (PCS) est un document obligatoire préparé par la mairie
+          pour protéger la population en cas d'événement grave : inondations, tempêtes, incendies,
+          canicule, accidents de transport de matières dangereuses.
+        </p>
+        <p style="margin-top:0.75rem">
+          Il permet de réagir rapidement, coordonner les actions, informer la population et mettre
+          en sécurité les habitants si nécessaire.
+        </p>
+        <p class="pcs-box__note">
+          📋 Le PCS de Valojoulx est actuellement en cours de révision. Il sera mis à disposition
+          prochainement.
         </p>
       </div>
 
-      <ul class="cards-grid cards-grid--2" role="list">
-        {risques.map(c => (
-          <li class="env-card">
-            <span class="env-card__emoji" aria-hidden="true">{c.emoji}</span>
-            <h3 class="env-card__titre">{c.titre}</h3>
-            <p class="env-card__texte">{c.texte}</p>
-            {'details' in c && c.details && <p class="env-card__details">{c.details}</p>}
-            {c.lien && (
-              <a href={c.lien.href} target="_blank" rel="noopener noreferrer" class="ext-link">
-                {c.lien.label}
-              </a>
-            )}
+      <!-- Brûlage -->
+      <h3 class="subsection__titre">Brûlage des déchets verts</h3>
+      <div class="two-cols">
+        <div>
+          <p class="para" style="margin-bottom:0.75rem">
+            <strong>Le brûlage des déchets verts est en principe interdit.</strong> Privilégiez
+            la déchèterie, le broyage ou le compostage.
+          </p>
+          <p class="para" style="margin-bottom:0.5rem">Tolérance possible en Dordogne sous conditions :</p>
+          <ul class="env-list">
+            <li><strong>Période</strong> : 1er octobre au dernier jour de février</li>
+            <li><strong>Horaires</strong> : 10h à 16h uniquement</li>
+            <li>Déclaration obligatoire en mairie au moins 5 jours avant</li>
+            <li>Feu surveillé en permanence, absence de vent fort, zone sécurisée, moyens d'extinction à proximité</li>
+          </ul>
+        </div>
+        <div>
+          <p class="para" style="margin-bottom:0.5rem"><strong>Périodes d'interdiction :</strong></p>
+          <ul class="interdiction-list" role="list">
+            <li>Du 1er mars au 30 septembre</li>
+            <li>En cas de vent fort</li>
+            <li>En cas de pollution de l'air</li>
+            <li>Si arrêté municipal ou préfectoral</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Débroussaillement -->
+      <h3 class="subsection__titre">Débroussaillement</h3>
+      <p class="para">
+        Le débroussaillement consiste à réduire la végétation autour des habitations pour limiter
+        la propagation des incendies. C'est une <strong>obligation légale</strong> pour les
+        propriétaires à proximité des zones boisées. Le non-respect peut entraîner une mise en
+        demeure, des travaux réalisés d'office à vos frais et des sanctions financières.
+      </p>
+      <div class="conseil-box">
+        <span aria-hidden="true">💡</span>
+        <p>
+          Effectuez le débroussaillement en hiver et avant la période estivale, quand le risque
+          d'incendie est le plus élevé.
+        </p>
+      </div>
+
+      <!-- Nuisibles -->
+      <h3 class="subsection__titre">Chenilles, frelons, moustiques</h3>
+      <ul class="nuisibles-grid" role="list">
+        <li class="nuisible-card">
+          <div class="nuisible-card__header">
+            <span aria-hidden="true">🐛</span>
+            <strong>Chenilles processionnaires</strong>
+          </div>
+          <p class="nuisible-card__text">
+            Se déplacent en file, libèrent des poils urticants et toxiques en cas de contact.
+            Passent l'hiver dans des cocons blancs sur les pins. Plus dangereuses au printemps
+            (mars-avril) lors de leur descente.
+          </p>
+          <p class="nuisible-card__solutions">
+            <strong>Solutions :</strong> éco-pièges sur les troncs, pièges à phéromones
+            (mai-octobre), nichoirs à mésanges. Protégez les enfants et les animaux.
+          </p>
+        </li>
+        <li class="nuisible-card">
+          <div class="nuisible-card__header">
+            <span aria-hidden="true">🐝</span>
+            <strong>Frelons asiatiques</strong>
+          </div>
+          <p class="nuisible-card__text">
+            Espèce invasive menaçant les abeilles. Nids sphériques ou ovales, couleur gris-brun,
+            aspect papier. Ne jamais s'approcher ni tenter de détruire un nid soi-même.
+          </p>
+          <p class="nuisible-card__solutions">
+            Contacter la mairie ou les services compétents pour la destruction et la prise en
+            charge partielle ou totale de la facture.
+          </p>
+        </li>
+        <li class="nuisible-card">
+          <div class="nuisible-card__header">
+            <span aria-hidden="true">🦟</span>
+            <strong>Moustiques tigres</strong>
+          </div>
+          <p class="nuisible-card__text">
+            Rayures noires et blanches, piquent en journée. Peuvent transmettre dengue,
+            chikungunya, Zika. Se développent dans les eaux stagnantes.
+          </p>
+          <p class="nuisible-card__solutions">
+            <strong>Prévention :</strong> vider soucoupes, seaux, arrosoirs, couvrir
+            récupérateurs d'eau, nettoyer gouttières.
+          </p>
+        </li>
+      </ul>
+
+      <!-- Produits dangereux -->
+      <h3 class="subsection__titre">Produits toxiques ou dangereux</h3>
+      <div class="toxiques-box">
+        <p>
+          Types : produits d'entretien, de jardinage, phytosanitaires. Ne jamais mélanger,
+          conserver dans l'emballage d'origine, tenir hors de portée des enfants, déposer en
+          déchèterie.
+        </p>
+        <p class="toxiques-box__urgences">
+          <strong>En cas d'intoxication :</strong>
+          <span>Centre antipoison <strong>0 800 59 59 59</strong> (gratuit 24h/24)</span>
+          <span>SAMU <strong>15</strong></span>
+          <span>Pompiers <strong>18</strong></span>
+          <span>Centre antipoison vétérinaire <strong>04 78 87 10 40</strong></span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ── 4. BONS GESTES ──────────────────────────────── -->
+    <section class="section" id="gestes" aria-labelledby="gestes-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="gestes-titre">Les bons gestes</h2>
+      </div>
+
+      <p class="para">Protéger notre environnement commence par de petits gestes au quotidien.</p>
+
+      <ul class="gestes-grid" role="list">
+        {gestures.map(g => (
+          <li class="geste-card">
+            <span class="geste-card__emoji" aria-hidden="true">{g.emoji}</span>
+            <strong class="geste-card__titre">{g.titre}</strong>
+            <p class="geste-card__desc">{g.desc}</p>
           </li>
         ))}
       </ul>
     </section>
 
-    <!-- ── 5. URBANISME ET CADRE DE VIE ──────────────── -->
-    <section class="section" aria-labelledby="urba-titre">
+    <!-- ── 5. BIEN VIVRE ────────────────────────────────── -->
+    <section class="section" id="vivre" aria-labelledby="vivre-titre">
       <div class="section__header">
-        <h2 class="section__titre" id="urba-titre">Urbanisme et cadre de vie</h2>
+        <h2 class="section__titre" id="vivre-titre">Bien vivre ensemble</h2>
       </div>
 
-      <p class="para">
-        La commission Urbanisme, cimetières et assainissement veille à la qualité du cadre de vie
-        et à la cohérence du développement communal.
-        Référent : Jean-Pierre Mège. Membres : Jean-François Blan, Philippe Bastide,
-        Brigitte Dartenset.
+      <p class="chapeau-vivre">
+        <em>
+          Vivre dans notre commune, c'est partager un cadre de vie privilégié, entre nature,
+          patrimoine et convivialité. Par des gestes responsables et une attention portée aux
+          autres, chacun contribue à maintenir la qualité de vie qui fait la richesse de notre
+          commune.
+        </em>
       </p>
 
-      <ul class="cards-grid cards-grid--2" role="list">
-        <li class="env-card">
-          <span class="env-card__emoji" aria-hidden="true">🗺️</span>
-          <h3 class="env-card__titre">Plan Local d'Urbanisme (PLU)</h3>
-          <p class="env-card__texte">
-            Le PLU définit les règles d'utilisation des sols sur la commune. Consultable en mairie
-            aux heures d'ouverture. Permis de construire et déclarations préalables de travaux
-            à déposer en mairie.
+      <div class="vivre-grid">
+        <div class="vivre-item">
+          <h3 class="vivre-item__titre"><span aria-hidden="true">🚗</span> Sécurité routière</h3>
+          <p class="vivre-item__text">
+            Les routes sont partagées entre automobilistes, cyclistes et piétons, particulièrement
+            en période touristique. Adaptez votre vitesse, respectez la signalisation, attention
+            particulière aux enfants et personnes âgées. Le stationnement doit se faire dans les
+            espaces prévus.
           </p>
-        </li>
-        <li class="env-card">
-          <span class="env-card__emoji" aria-hidden="true">🚰</span>
-          <h3 class="env-card__titre">Assainissement</h3>
-          <p class="env-card__texte">
-            Réseau d'assainissement communal. Pour tout problème lié à l'assainissement,
-            contactez la mairie. Schéma directeur d'assainissement consultable en mairie.
+        </div>
+        <div class="vivre-item">
+          <h3 class="vivre-item__titre"><span aria-hidden="true">🐕</span> Divagation des animaux</h3>
+          <p class="vivre-item__text">
+            Les animaux doivent rester sous surveillance. Les chiens doivent être tenus en laisse
+            dans les espaces publics et leurs déjections ramassées. Les animaux errants peuvent
+            causer des nuisances ou dégradations.
           </p>
-        </li>
-      </ul>
-    </section>
-
-    <!-- ── 6. CONTACTS UTILES ─────────────────────────── -->
-    <section class="section" aria-labelledby="contacts-titre">
-      <div class="section__header">
-        <h2 class="section__titre" id="contacts-titre">Contacts utiles</h2>
+        </div>
+        <div class="vivre-item">
+          <h3 class="vivre-item__titre"><span aria-hidden="true">🚮</span> Dépôts sauvages</h3>
+          <p class="vivre-item__text">
+            Interdits et passibles de sanctions. Des solutions existent : collecte, tri sélectif,
+            déchèteries. Préservons ensemble la propreté de notre territoire.
+          </p>
+        </div>
+        <div class="vivre-item">
+          <h3 class="vivre-item__titre"><span aria-hidden="true">🔥</span> Prévention des incendies</h3>
+          <p class="vivre-item__text">
+            En période sèche, le risque est élevé. L'usage du feu est réglementé voire interdit
+            selon les périodes. Les mégots ne doivent jamais être jetés dans la nature. En cas de
+            doute, renseignez-vous en mairie.
+          </p>
+        </div>
       </div>
-
-      <ul class="contacts-grid" role="list">
-        {contacts.map(c => (
-          <li class="contact-compact">
-            <span class="contact-compact__emoji" aria-hidden="true">{c.emoji}</span>
-            <div class="contact-compact__body">
-              <strong class="contact-compact__nom">{c.nom}</strong>
-              {c.info  && <span class="contact-compact__info">{c.info}</span>}
-              {c.info2 && <span class="contact-compact__info">{c.info2}</span>}
-              {c.lien  && (
-                <a href={c.lien.href} target="_blank" rel="noopener noreferrer" class="ext-link">
-                  {c.lien.label}
-                </a>
-              )}
-            </div>
-          </li>
-        ))}
-      </ul>
     </section>
 
   </div>
@@ -304,7 +422,7 @@ const contacts = [
 
   /* ── CHAPEAU ── */
   .chapeau {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     line-height: 1.75;
     color: var(--color-text-light);
     border-left: 4px solid var(--color-accent);
@@ -327,9 +445,7 @@ const contacts = [
   .section__header::before {
     content: '';
     position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
+    left: 0; top: 0; bottom: 0;
     width: 4px;
     background: var(--color-primary);
     border-radius: 4px;
@@ -348,75 +464,71 @@ const contacts = [
     font-size: 1.05rem;
     font-weight: 700;
     color: var(--color-primary-dark);
-    margin-bottom: 0.6rem;
+    margin-top: 1.75rem;
+    margin-bottom: 0.75rem;
   }
 
   .para {
     line-height: 1.75;
     color: var(--color-text);
     max-width: 780px;
-    margin-bottom: 0.5rem;
   }
 
   /* ── DEUX COLONNES ── */
   .two-cols {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2.5rem;
+    gap: 1.5rem;
     align-items: start;
-    margin-bottom: 1.75rem;
-  }
-
-  /* ── NOTICE BOXES ── */
-  .notice-box {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    border-radius: 4px;
-    padding: 1.1rem 1.4rem;
-    max-width: 780px;
-    margin-top: 0.5rem;
-  }
-
-  .notice-box--green {
-    background: var(--color-primary-pale);
-    border: 1px solid var(--color-border);
-    border-left: 4px solid var(--color-primary);
-  }
-
-  .notice-box--warn {
-    background: #fff8e1;
-    border: 1px solid #f0e0a0;
-    border-left: 4px solid var(--color-accent);
-    margin-bottom: 1.75rem;
-  }
-
-  .notice-box__icon {
-    font-size: 1.5rem;
-    flex-shrink: 0;
-    margin-top: 0.05rem;
-  }
-
-  .notice-box__text {
-    color: var(--color-text);
-    font-size: 0.95rem;
-    line-height: 1.65;
-  }
-
-  /* ── GRILLES DE CARTES ── */
-  .cards-grid {
-    list-style: none;
-    display: grid;
-    gap: 1.25rem;
     margin-top: 1.25rem;
   }
 
-  .cards-grid--2 {
-    grid-template-columns: repeat(2, 1fr);
+  /* ── LISTE ENV ── */
+  .env-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-top: 0.5rem;
   }
 
-  /* ── CARTE ENV ── */
-  .env-card {
+  .env-list li {
+    position: relative;
+    padding-left: 1.25rem;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--color-text);
+  }
+
+  .env-list li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+
+  /* ── CONTACTS ── */
+  .contact-tel {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    transition: color 0.15s;
+  }
+
+  .contact-tel:hover { color: var(--color-primary); text-decoration: underline; }
+
+  .contact-link {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    transition: color 0.15s;
+  }
+
+  .contact-link:hover { color: var(--color-primary-dark); text-decoration: underline; }
+
+  /* ── WATER CARDS ── */
+  .water-card {
     background: #ffffff;
     border: 1px solid var(--color-border);
     border-radius: 6px;
@@ -424,117 +536,506 @@ const contacts = [
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.6rem;
   }
 
-  .env-card__emoji {
-    font-size: 2rem;
-    line-height: 1;
-    margin-bottom: 0.25rem;
+  .water-card__header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.3rem;
   }
 
-  .env-card__titre {
+  .water-card__titre {
     font-family: var(--font-heading);
     font-size: 1rem;
-    font-weight: 700;
-    color: var(--color-primary-dark);
-  }
-
-  .env-card__texte {
-    font-size: 0.875rem;
-    color: var(--color-text-light);
-    line-height: 1.55;
-    flex: 1;
-  }
-
-  .env-card__details {
-    font-size: 0.82rem;
-    color: var(--color-text-light);
-    font-style: italic;
-    line-height: 1.5;
-    border-top: 1px solid var(--color-border);
-    padding-top: 0.5rem;
-    margin-top: 0.25rem;
-  }
-
-  /* ── LIEN EXTERNE ── */
-  .ext-link {
-    display: inline-block;
-    margin-top: 0.5rem;
-    color: var(--color-primary);
-    font-size: 0.85rem;
-    font-weight: 600;
-    transition: color 0.15s;
-  }
-
-  .ext-link:hover {
-    color: var(--color-primary-dark);
-    text-decoration: underline;
-  }
-
-  /* ── CONTACTS COMPACTS ── */
-  .contacts-grid {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-  }
-
-  .contact-compact {
-    background: var(--color-primary-pale);
-    border: 1px solid var(--color-border);
-    border-radius: 6px;
-    padding: 1.1rem 1.25rem;
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-  }
-
-  .contact-compact__emoji {
-    font-size: 1.4rem;
-    flex-shrink: 0;
-    margin-top: 0.1rem;
-  }
-
-  .contact-compact__body {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-    min-width: 0;
-  }
-
-  .contact-compact__nom {
-    font-size: 0.88rem;
     font-weight: 700;
     color: var(--color-primary-dark);
     line-height: 1.3;
   }
 
-  .contact-compact__info {
+  .water-card__intro {
+    font-size: 0.88rem;
+    color: var(--color-text);
+    line-height: 1.55;
+  }
+
+  .water-card__note {
     font-size: 0.82rem;
     color: var(--color-text-light);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .water-card__contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--color-border);
+    margin-top: auto;
+  }
+
+  /* ── SICTOM ── */
+  .sictom-box {
+    background: var(--color-primary-pale);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-primary);
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .sictom-box__text {
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--color-text);
+    margin-bottom: 0.75rem;
+  }
+
+  .sictom-box__contact {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--color-text-light);
+  }
+
+  /* ── TABLE TRI ── */
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: 4px;
+    border: 1px solid var(--color-border);
+    margin-top: 0.5rem;
+  }
+
+  .tri-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+
+  .tri-table thead tr {
+    background: var(--color-primary-dark);
+  }
+
+  .tri-table th {
+    padding: 0.65rem 1rem;
+    text-align: left;
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .tri-table td {
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid var(--color-border);
     line-height: 1.4;
-    word-break: break-all;
+    color: var(--color-text);
+  }
+
+  .tri-table tbody tr:last-child td { border-bottom: none; }
+  .row-pale { background: var(--color-primary-pale); }
+  .td-dest { font-weight: 600; color: var(--color-primary-dark); }
+
+  .note-tri {
+    font-size: 0.78rem;
+    color: var(--color-text-light);
+    font-style: italic;
+    line-height: 1.55;
+    margin-top: 0.75rem;
+  }
+
+  /* ── COLLECTE ── */
+  .collecte-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .collecte-list li {
+    position: relative;
+    padding-left: 1.25rem;
+    font-size: 0.9rem;
+    color: var(--color-text);
+  }
+
+  .collecte-list li::before {
+    content: '📍';
+    position: absolute;
+    left: 0;
+    font-size: 0.75rem;
+    top: 0.15rem;
+  }
+
+  .collecte-horaires {
+    background: var(--color-primary-pale);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-primary);
+    border-radius: 4px;
+    padding: 1rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .collecte-horaires__titre {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--color-primary-dark);
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .collecte-horaires__row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .collecte-horaires__periode {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--color-primary-dark);
+  }
+
+  .collecte-horaires__detail {
+    font-size: 0.78rem;
+    color: var(--color-text-light);
+  }
+
+  .collecte-horaires__freq {
+    font-size: 0.85rem;
+    color: var(--color-text);
+    line-height: 1.5;
+    margin-top: 0.1rem;
+  }
+
+  /* ── DÉCHÈTERIE ── */
+  .decheterie-box {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    margin-top: 0.5rem;
+  }
+
+  .decheterie-box__adresse {
+    font-size: 0.88rem;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .decheterie-horaires {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .decheterie-col__titre {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--color-primary-dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .decheterie-col__titre small {
+    font-weight: 400;
+    color: var(--color-text-light);
+    font-size: 0.8em;
+  }
+
+  .decheterie-col__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .decheterie-col__list li {
+    font-size: 0.82rem;
+    color: var(--color-text);
+    line-height: 1.5;
+  }
+
+  /* ── COMPOST ── */
+  .compost-box {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 1.1rem 1.4rem;
+    margin-top: 1.25rem;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--color-text);
+    max-width: 680px;
+  }
+
+  /* ── PCS ── */
+  .pcs-box {
+    background: var(--color-primary-pale);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-primary);
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+    max-width: 780px;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--color-text);
+    margin-top: 0.5rem;
+  }
+
+  .pcs-box__note {
+    margin-top: 0.75rem;
+    font-style: italic;
+    color: var(--color-text-light);
+    font-size: 0.85rem;
+  }
+
+  /* ── INTERDICTION LIST ── */
+  .interdiction-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .interdiction-list li {
+    position: relative;
+    padding-left: 1.4rem;
+    font-size: 0.9rem;
+    color: var(--color-text);
+    line-height: 1.5;
+  }
+
+  .interdiction-list li::before {
+    content: '⚠';
+    position: absolute;
+    left: 0;
+    color: var(--color-accent);
+    font-size: 0.85rem;
+  }
+
+  /* ── CONSEIL BOX ── */
+  .conseil-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    background: #fff8e1;
+    border: 1px solid #f0e0a0;
+    border-left: 4px solid var(--color-accent);
+    border-radius: 4px;
+    padding: 0.9rem 1.1rem;
+    max-width: 680px;
+    margin-top: 0.75rem;
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: var(--color-text);
+  }
+
+  /* ── NUISIBLES ── */
+  .nuisibles-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.1rem;
+    margin-top: 0.5rem;
+  }
+
+  .nuisible-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 1.25rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .nuisible-card__header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.3rem;
+  }
+
+  .nuisible-card__header strong {
+    font-size: 0.92rem;
+    color: var(--color-primary-dark);
+    line-height: 1.3;
+    font-family: var(--font-heading);
+  }
+
+  .nuisible-card__text {
+    font-size: 0.82rem;
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  .nuisible-card__solutions {
+    font-size: 0.82rem;
+    color: var(--color-text-light);
+    line-height: 1.55;
+    font-style: italic;
+    border-top: 1px solid var(--color-border);
+    padding-top: 0.5rem;
+  }
+
+  /* ── TOXIQUES ── */
+  .toxiques-box {
+    background: #fff8e1;
+    border: 1px solid #f0e0a0;
+    border-left: 4px solid var(--color-accent);
+    border-radius: 6px;
+    padding: 1.1rem 1.4rem;
+    max-width: 780px;
+    margin-top: 0.5rem;
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--color-text);
+  }
+
+  .toxiques-box__urgences {
+    margin-top: 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .toxiques-box__urgences span {
+    white-space: nowrap;
+  }
+
+  /* ── GESTES ── */
+  .gestes-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.85rem;
+    margin-top: 1.25rem;
+  }
+
+  .geste-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1rem 0.85rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.4rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+
+  .geste-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.09);
+    transform: translateY(-2px);
+  }
+
+  .geste-card__emoji {
+    font-size: 2rem;
+    line-height: 1;
+    margin-bottom: 0.15rem;
+  }
+
+  .geste-card__titre {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    line-height: 1.35;
+  }
+
+  .geste-card__desc {
+    font-size: 0.75rem;
+    color: var(--color-text-light);
+    line-height: 1.5;
+  }
+
+  /* ── BIEN VIVRE ── */
+  .chapeau-vivre {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--color-text-light);
+    max-width: 780px;
+    margin-bottom: 1.75rem;
+    font-style: italic;
+  }
+
+  .vivre-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  .vivre-item {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  }
+
+  .vivre-item__titre {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    margin-bottom: 0.65rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .vivre-item__text {
+    font-size: 0.875rem;
+    color: var(--color-text);
+    line-height: 1.7;
   }
 
   /* ── RESPONSIVE ── */
+  @media (max-width: 1000px) {
+    .gestes-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
   @media (max-width: 860px) {
-    .two-cols {
+    .two-cols,
+    .vivre-grid,
+    .decheterie-horaires {
       grid-template-columns: 1fr;
-      gap: 1.5rem;
+      gap: 1.25rem;
     }
 
-    .contacts-grid {
+    .nuisibles-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .gestes-grid {
       grid-template-columns: repeat(2, 1fr);
     }
   }
 
-  @media (max-width: 560px) {
-    .cards-grid--2 {
-      grid-template-columns: 1fr;
-    }
-
-    .contacts-grid {
+  @media (max-width: 360px) {
+    .gestes-grid {
       grid-template-columns: 1fr;
     }
   }
