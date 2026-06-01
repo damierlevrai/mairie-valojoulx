@@ -3,105 +3,145 @@ import PageLayout from '../layouts/PageLayout.astro';
 import InfoBox from '../components/InfoBox.astro';
 import { mairie } from '../data/mairie.js';
 
-const infosItems = [
+const coordItems = [
   { label: 'Adresse',   value: `${mairie.adresse}, ${mairie.codePostal} ${mairie.commune}` },
   { label: 'Téléphone', value: mairie.telephone },
   { label: 'Email',     value: mairie.email },
-  { label: 'Horaires',  value: mairie.horairesCourt },
+  { label: 'Horaires',  value: 'Mardi 8h–12h et 13h30–17h30 / Vendredi 8h–12h et 13h30–17h30' },
+  { label: 'Maire',     value: mairie.maire },
 ];
 
 const adjoints = mairie.adjoints;
 const conseillers = mairie.conseillers;
 
 const commissions = [
-  { nom: 'Vivre ensemble — affaires culturelles', referent: 'Martine Derenne',    membres: 'Brigitte Dartenset, Nicolas Duquerroy, Catherine Beatrix' },
-  { nom: 'Communication',                         referent: 'Danielle Avez',      membres: 'Jean-François Blan, Nicolas Duquerroy' },
-  { nom: 'Bâtiment, voirie, espaces verts',       referent: 'Jean-François Blan', membres: 'Jean-Pierre Mège, Nicolas Duquerroy, Bruno Bastian, Philippe Bastide' },
-  { nom: 'Urbanisme, cimetières, assainissement', referent: 'Jean-Pierre Mège',   membres: 'Jean-François Blan, Philippe Bastide, Brigitte Dartenset' },
-  { nom: 'Finances',                              referent: 'Nicolas Duquerroy',  membres: 'Martine Derenne, Jean-François Blan, Alain Laurent' },
-  { nom: 'Sécurité — plan de sauvegarde',         referent: 'Danielle Avez',      membres: 'Martine Derenne, Jean-François Blan, Nicolas Duquerroy, Catherine Beatrix' },
-  { nom: 'Scolaire et jeunesse',                  referent: 'Alain Laurent',      membres: 'Martine Derenne, Nicolas Duquerroy, Catherine Beatrix' },
-  { nom: 'Environnement, développement durable, bien-être animal', referent: 'Nicolas Duquerroy', membres: 'Brigitte Dartenset, Jean-François Blan, Catherine Beatrix' },
-  { nom: 'Vie associative',                       referent: 'Martine Derenne',    membres: 'Philippe Bastide, Brigitte Dartenset, Catherine Beatrix' },
+  { nom: 'Vivre ensemble — affaires culturelles',                   referent: 'Martine DERENNE',    membres: 'Brigitte DARTENSET, Nicolas DUQUERROY, Catherine BEATRIX' },
+  { nom: 'Communication',                                           referent: 'Danielle AVEZ',      membres: 'Jean-François BLAN, Nicolas DUQUERROY' },
+  { nom: 'Bâtiment, voirie, espaces verts',                        referent: 'Jean-François BLAN', membres: 'Jean-Pierre MÈGE, Nicolas DUQUERROY, Bruno BASTIAN, Philippe BASTIDE' },
+  { nom: 'Urbanisme, cimetières, assainissement',                  referent: 'Jean-Pierre MÈGE',   membres: 'Jean-François BLAN, Philippe BASTIDE, Brigitte DARTENSET' },
+  { nom: 'Finances',                                               referent: 'Nicolas DUQUERROY',  membres: 'Martine DERENNE, Jean-François BLAN, Alain LAURENT' },
+  { nom: 'Sécurité — Plan de sauvegarde',                          referent: 'Danielle AVEZ',      membres: 'Martine DERENNE, Jean-François BLAN, Nicolas DUQUERROY, Catherine BEATRIX' },
+  { nom: 'Scolaire et jeunesse',                                   referent: 'Alain LAURENT',      membres: 'Martine DERENNE, Nicolas DUQUERROY, Catherine BEATRIX' },
+  { nom: 'Environnement, développement durable, bien-être animal', referent: 'Nicolas DUQUERROY',  membres: 'Brigitte DARTENSET, Jean-François BLAN, Catherine BEATRIX' },
+  { nom: 'Vie associative',                                        referent: 'Martine DERENNE',    membres: 'Philippe BASTIDE, Brigitte DARTENSET, Catherine BEATRIX' },
 ];
 
 const intercoms = [
-  { structure: 'SMAEP des 2 rivières',       competence: 'Eau potable',                  titulaires: 'Jean-Pierre Mège, Nicolas Duquerroy',  suppleants: 'Jean-François Blan, Brigitte Dartenset' },
-  { structure: 'SICTOM du Périgord Noir',    competence: 'Déchets',                      titulaires: 'Philippe Bastide, Nicolas Duquerroy',  suppleants: 'Jean-François Blan, Mireille Calvo' },
-  { structure: 'SDE24',                      competence: 'Énergie, électricité',          titulaires: 'Nicolas Duquerroy, Bruno Bastian',     suppleants: 'Jean-Pierre Mège, Catherine Beatrix' },
-  { structure: 'Irrigation de Montignac',    competence: 'Irrigation',                   titulaires: 'Philippe Bastide, Jean-François Blan', suppleants: 'Martine Derenne, Danielle Avez' },
-  { structure: 'SIVS de Montignac',          competence: 'Transport scolaire',           titulaires: 'Martine Derenne, Alain Laurent',       suppleants: 'Catherine Beatrix, Brigitte Dartenset' },
-  { structure: 'SIVOM Vallée Vézère',        competence: 'Affaires scolaires',           titulaires: 'Mireille Calvo, Martine Derenne',      suppleants: 'Nicolas Duquerroy, Alain Laurent' },
-  { structure: 'Ministère de la Défense',    competence: '—',                            titulaires: 'Bruno Bastian',                        suppleants: 'Brigitte Dartenset' },
-  { structure: 'SMBVVD',                     competence: 'Milieux aquatiques Vézère',    titulaires: 'Bruno Bastian',                        suppleants: 'Jean-Pierre Mège' },
+  { structure: 'SMAEP des 2 rivières',    competence: 'Eau potable',               titulaires: 'Jean-Pierre MÈGE, Nicolas DUQUERROY',  suppleants: 'Jean-François BLAN, Brigitte DARTENSET' },
+  { structure: 'SICTOM du Périgord Noir', competence: 'Déchets',                   titulaires: 'Philippe BASTIDE, Nicolas DUQUERROY',  suppleants: 'Jean-François BLAN, Mireille CALVO' },
+  { structure: 'SDE24',                   competence: 'Énergie, électricité',      titulaires: 'Nicolas DUQUERROY, Bruno BASTIAN',     suppleants: 'Jean-Pierre MÈGE, Catherine BEATRIX' },
+  { structure: 'Irrigation de Montignac', competence: 'Irrigation',                titulaires: 'Philippe BASTIDE, Jean-François BLAN', suppleants: 'Martine DERENNE, Danielle AVEZ' },
+  { structure: 'SIVS de Montignac',       competence: 'Transport scolaire',        titulaires: 'Martine DERENNE, Alain LAURENT',       suppleants: 'Catherine BEATRIX, Brigitte DARTENSET' },
+  { structure: 'SIVOS Vallée Vézère',     competence: 'Affaires scolaires',        titulaires: 'Mireille CALVO, Martine DERENNE',      suppleants: 'Nicolas DUQUERROY, Alain LAURENT' },
+  { structure: 'Ministère de la Défense', competence: '—',                         titulaires: 'Bruno BASTIAN',                        suppleants: 'Brigitte DARTENSET' },
+  { structure: 'SMBVVD',                  competence: 'Milieux aquatiques Vézère', titulaires: 'Bruno BASTIAN',                        suppleants: 'Jean-Pierre MÈGE' },
+];
+
+const bulletins = [
+  { num: 61, date: 'Juin 2021' },
+  { num: 62, date: 'Décembre 2021' },
+  { num: 63, date: 'Juin 2022' },
+  { num: 64, date: 'Décembre 2022' },
+  { num: 65, date: 'Juin 2023' },
+  { num: 66, date: 'Décembre 2023' },
+  { num: 67, date: 'Juin 2024' },
+  { num: 68, date: 'Décembre 2024' },
+  { num: 69, date: 'Juin 2025' },
+  { num: 70, date: 'Décembre 2025' },
+  { num: 71, date: 'Juin 2026' },
+];
+
+const franceServicesItems = [
+  { label: 'Adresse',   value: 'Place Yvon Delbos - Mairie, 24290 Montignac-Lascaux' },
+  { label: 'Téléphone', value: '05 53 51 79 90' },
+  { label: 'Email',     value: 'france-services.montignac@cc-vh.fr' },
 ];
 
 const demarchesMairie = [
-  'Actes d\'état civil (naissance, mariage, décès)',
-  'Carte nationale d\'identité et passeport',
-  'Listes électorales',
-  'Autorisation de sortie du territoire pour mineurs',
-  'Recensement militaire',
-  'Plan cadastral et PLU',
-  'Permis de construire et déclarations de travaux',
+  "Actes d'état civil (naissance, mariage, décès)",
+  "Carte nationale d'identité et passeport",
+  "Listes électorales",
+  "Recensement militaire (obligation à 16 ans)",
+  "Autorisation de sortie du territoire pour mineurs",
+  "Plan cadastral et PLU",
+  "Permis de construire et déclarations préalables",
+  "Inscription scolaire",
+];
+
+const ccvhMissions = [
+  { emoji: '💼', titre: 'Développement économique et touristique', desc: "Soutien aux entreprises, gestion des zones d'activités, promotion du territoire." },
+  { emoji: '🌿', titre: 'Environnement',                           desc: 'Gestion des déchets, protection des milieux naturels, transition énergétique.' },
+  { emoji: '🏛️', titre: 'Patrimoine et grands sites',              desc: 'Valorisation des sites majeurs et coordination autour des sites UNESCO.' },
+  { emoji: '🗺️', titre: 'Aménagement du territoire',               desc: 'Urbanisme, habitat, mobilités, équipements.' },
+  { emoji: '👨‍👩‍👧', titre: 'Services à la population',              desc: 'Enfance-jeunesse, action sociale, culture, sport.' },
 ];
 ---
 
 <PageLayout
   title="La Mairie"
   section="La Mairie"
-  description="Retrouvez les informations sur la mairie de Valojoulx : élus, conseil municipal, horaires, démarches administratives."
+  description="Conseil municipal, démarches administratives, urbanisme, écoles et communauté de communes de Valojoulx."
 >
   <div class="container page-content">
 
-    <!-- ── 1. INFOS PRATIQUES ─────────────────────────── -->
-    <section class="section" aria-labelledby="infos-titre">
-      <div class="section__header">
-        <h2 class="section__titre" id="infos-titre">Informations pratiques</h2>
+    <!-- Infos pratiques -->
+    <div class="infos-top">
+      <div class="infos-top__box">
+        <InfoBox title="Mairie de Valojoulx" items={coordItems} />
       </div>
-      <InfoBox title="Mairie de Valojoulx" items={infosItems} />
-    </section>
+      <p class="infos-top__para">
+        La mairie vous accueille pour vous accompagner dans vos démarches du quotidien : état
+        civil, inscriptions scolaires, urbanisme, élections ou orientation vers les services
+        compétents. La permanence est également un espace d'écoute pour poser vos questions,
+        signaler une situation ou vous informer sur les projets de la commune.
+      </p>
+    </div>
 
-    <!-- ── 2. CONSEIL MUNICIPAL ───────────────────────── -->
-    <section class="section" aria-labelledby="conseil-titre">
+    <!-- ── 1. CONSEIL MUNICIPAL ───────────────────────── -->
+    <section class="section" id="conseil" aria-labelledby="conseil-titre">
       <div class="section__header">
-        <h2 class="section__titre" id="conseil-titre">Le conseil municipal</h2>
+        <h2 class="section__titre" id="conseil-titre">Le Conseil Municipal</h2>
       </div>
 
       <!-- Maire -->
-      <div class="maire-card" aria-label="La Maire">
+      <div class="maire-card">
         <div class="maire-card__inner">
-          <span class="badge badge--maire">Maire</span>
+          <span class="badge-maire">Maire</span>
           <p class="maire-card__nom">{mairie.maire}</p>
-          <p class="maire-card__role">Maire de Valojoulx</p>
         </div>
       </div>
 
       <!-- Adjoints -->
-      <h3 class="subsection__titre">Les adjoints</h3>
+      <h3 class="h3">Les adjoints</h3>
       <ul class="adjoints-list" role="list">
         {adjoints.map(a => (
-          <li class="adjoint-item">
-            <span class="adjoint-item__rang">{a.rang}</span>
-            <span class="adjoint-item__nom">{a.nom}</span>
+          <li class="adjoint-card">
+            <p class="adjoint-card__nom">{a.nom}</p>
+            <p class="adjoint-card__rang">{a.rang}</p>
           </li>
         ))}
       </ul>
 
       <!-- Conseillers -->
-      <h3 class="subsection__titre">Les conseillers municipaux</h3>
+      <h3 class="h3">Les conseillers municipaux</h3>
       <ul class="conseillers-grid" role="list">
         {conseillers.map(c => (
           <li class="conseiller-item">{c}</li>
         ))}
       </ul>
+
+      <p class="pv-note">
+        Les Procès-verbaux des séances du Conseil Municipal peuvent être consultés dans les
+        bulletins semestriels de la commune.
+      </p>
     </section>
 
-    <!-- ── 2b. COMMISSIONS ────────────────────────────── -->
-    <section class="section" aria-labelledby="commissions-titre">
+    <!-- ── 2. COMMISSIONS COMMUNALES ─────────────────── -->
+    <section class="section" id="commissions" aria-labelledby="commissions-titre">
       <div class="section__header">
         <h2 class="section__titre" id="commissions-titre">Commissions communales</h2>
       </div>
+
       <div class="table-wrap">
         <table class="data-table" aria-label="Commissions communales de Valojoulx">
           <thead>
@@ -113,7 +153,7 @@ const demarchesMairie = [
           </thead>
           <tbody>
             {commissions.map((c, i) => (
-              <tr class={i % 2 === 0 ? 'row-pale' : ''}>
+              <tr class={i % 2 === 0 ? '' : 'row-pale'}>
                 <td class="td-bold">{c.nom}</td>
                 <td class="td-nowrap">{c.referent}</td>
                 <td>{c.membres}</td>
@@ -124,13 +164,14 @@ const demarchesMairie = [
       </div>
     </section>
 
-    <!-- ── 2c. INTERCOMMUNALITÉ ÉLUS ──────────────────── -->
-    <section class="section" aria-labelledby="intercom-titre">
+    <!-- ── 3. REPRÉSENTATIONS INTERCOMMUNALES ─────────── -->
+    <section class="section" id="epci" aria-labelledby="epci-titre">
       <div class="section__header">
-        <h2 class="section__titre" id="intercom-titre">Représentations intercommunales</h2>
+        <h2 class="section__titre" id="epci-titre">Représentations intercommunales</h2>
       </div>
+
       <div class="table-wrap">
-        <table class="data-table" aria-label="Représentations intercommunales">
+        <table class="data-table" aria-label="Représentations intercommunales de Valojoulx">
           <thead>
             <tr>
               <th scope="col">Structure</th>
@@ -141,7 +182,7 @@ const demarchesMairie = [
           </thead>
           <tbody>
             {intercoms.map((r, i) => (
-              <tr class={i % 2 === 0 ? 'row-pale' : ''}>
+              <tr class={i % 2 === 0 ? '' : 'row-pale'}>
                 <td class="td-bold td-nowrap">{r.structure}</td>
                 <td>{r.competence}</td>
                 <td>{r.titulaires}</td>
@@ -153,43 +194,78 @@ const demarchesMairie = [
       </div>
     </section>
 
-    <!-- ── 3. COMPTES-RENDUS ───────────────────────────── -->
-    <section class="section" aria-labelledby="cr-titre">
+    <!-- ── 4. BULLETINS MUNICIPAUX ─────────────────────── -->
+    <section class="section" id="bulletins" aria-labelledby="bulletins-titre">
       <div class="section__header">
-        <h2 class="section__titre" id="cr-titre">Comptes-rendus du conseil municipal</h2>
+        <h2 class="section__titre" id="bulletins-titre">Bulletins municipaux</h2>
       </div>
-      <p class="section__para">
-        Les procès-verbaux des séances du conseil municipal sont publiés dans les bulletins
-        semestriels de la commune.
+
+      <p class="para">
+        Publié deux fois par an, le bulletin municipal est le lien privilégié entre la mairie
+        et les habitants. Il vous permet de suivre la vie de la commune à travers les
+        procès-verbaux des conseils municipaux, les décisions prises et les projets en cours.
       </p>
-      <div class="notice-box">
-        <span class="notice-box__icon" aria-hidden="true">📄</span>
-        <p class="notice-box__text">
-          Les documents seront disponibles en téléchargement prochainement.
-        </p>
-      </div>
+
+      <ul class="bulletins-grid" role="list">
+        {bulletins.map(b => (
+          <li class="bulletin-card">
+            <span class="bulletin-card__icon" aria-hidden="true">📄</span>
+            <strong class="bulletin-card__num">Bulletin n°{b.num}</strong>
+            <span class="bulletin-card__date">{b.date}</span>
+            <a href="#" class="btn-outline">Télécharger</a>
+          </li>
+        ))}
+      </ul>
     </section>
 
-    <!-- ── 4. DÉMARCHES ────────────────────────────────── -->
-    <section class="section" aria-labelledby="demarches-titre">
+    <!-- ── 5. DÉMARCHES ADMINISTRATIVES ─────────────────── -->
+    <section class="section" id="demarches" aria-labelledby="demarches-titre">
       <div class="section__header">
         <h2 class="section__titre" id="demarches-titre">Démarches administratives</h2>
       </div>
 
+      <div class="france-services-box">
+        <h3 class="fs-titre">France Services : un accompagnement près de chez vous</h3>
+        <p class="fs-desc">
+          L'antenne France Services de Montignac-Lascaux vous accompagne gratuitement dans vos
+          démarches administratives du quotidien. Des conseillers sont à votre disposition pour
+          vous informer, vous orienter et vous aider.
+        </p>
+        <div class="fs-cols">
+          <div>
+            <p class="fs-label">Domaines couverts :</p>
+            <ul class="green-list">
+              <li>Santé, famille et retraite (CAF, CPAM, MSA…)</li>
+              <li>Emploi et insertion</li>
+              <li>Impôts et finances publiques</li>
+              <li>Titres et documents officiels (carte d'identité, carte grise, permis…)</li>
+              <li>Utilisation des services en ligne</li>
+            </ul>
+            <div class="fs-badges">
+              <span class="fs-badge">Gratuit</span>
+              <span class="fs-badge">Ouvert à tous</span>
+              <span class="fs-badge">Confidentiel</span>
+            </div>
+          </div>
+          <div>
+            <InfoBox title="France Services Montignac-Lascaux" items={franceServicesItems} />
+          </div>
+        </div>
+      </div>
+
       <div class="demarches-cols">
-        <div class="demarches-col">
-          <h3 class="subsection__titre">Ce qu'on peut faire en mairie</h3>
-          <ul class="green-list" role="list">
+        <div>
+          <h3 class="h3">Ce qu'on peut faire en mairie</h3>
+          <ul class="green-list">
             {demarchesMairie.map(d => <li>{d}</li>)}
           </ul>
         </div>
-
-        <div class="demarches-col">
-          <h3 class="subsection__titre">Démarches en ligne</h3>
-          <p class="section__para" style="margin-top: 0;">
-            De nombreuses démarches administratives sont disponibles en ligne sur le portail
-            officiel de l'administration française : état civil, documents d'identité,
-            élections, et bien plus encore.
+        <div>
+          <h3 class="h3">Faire ses démarches en ligne</h3>
+          <p class="para">
+            Vous pouvez effectuer vos démarches sur le site officiel de l'administration
+            française Service-Public.fr. Formulaires officiels, pièces à fournir, délais et
+            démarches en ligne — simple, fiable et accessible 24h/24.
           </p>
           <a
             href="https://www.service-public.fr"
@@ -197,27 +273,183 @@ const demarchesMairie = [
             rel="noopener noreferrer"
             class="btn-primary"
           >
-            Accéder à service-public.fr
-            <span aria-hidden="true"> ↗</span>
+            Accéder à Service-Public.fr ↗
           </a>
-          <p class="mention">
-            Le Plan Local d'Urbanisme (PLU) est consultable en mairie aux heures d'ouverture.
-          </p>
         </div>
       </div>
     </section>
 
-    <!-- ── 5. INTERCOMMUNALITÉ ────────────────────────── -->
-    <section class="section" aria-labelledby="cc-titre">
+    <!-- ── 6. URBANISME ──────────────────────────────────── -->
+    <section class="section" id="urbanisme" aria-labelledby="urbanisme-titre">
       <div class="section__header">
-        <h2 class="section__titre" id="cc-titre">Intercommunalité</h2>
+        <h2 class="section__titre" id="urbanisme-titre">Urbanisme</h2>
       </div>
-      <p class="section__para">
-        Valojoulx est membre de la <strong>Communauté de Communes de la Vallée de l'Homme</strong>,
-        structure intercommunale qui regroupe les compétences en matière d'aménagement du
-        territoire, de développement économique et de services à la population.
+
+      <p class="para">
+        À Valojoulx, l'urbanisme vise à préserver notre cadre de vie composé de vallons,
+        terres agricoles, forêts et patrimoine bâti. Le Plan Local d'Urbanisme intercommunal
+        (PLUi), élaboré par la Communauté de communes de la Vallée de l'Homme, fixe les règles
+        pour organiser les constructions et l'aménagement du territoire.
       </p>
-      <a href="#" class="inline-link">Site de la Communauté de Communes →</a>
+
+      <p class="para">Le PLUi permet de réaliser vos projets tout en :</p>
+      <ul class="green-list" style="margin-bottom:1.25rem">
+        <li>Protégeant les paysages de la vallée</li>
+        <li>Préservant les terres agricoles</li>
+        <li>Maintenant le caractère architectural local</li>
+        <li>Évitant l'urbanisation dispersée</li>
+      </ul>
+
+      <div class="conseil-box">
+        <span aria-hidden="true">💡</span>
+        <p>
+          Avant tout projet de construction ou de travaux, il est conseillé de contacter
+          la mairie pour connaître les démarches nécessaires.
+        </p>
+      </div>
+
+      <div class="btns-row">
+        <a href="https://www.cc-valleedelhomme.fr" target="_blank" rel="noopener noreferrer" class="btn-outline">
+          Site de la CCVH ↗
+        </a>
+        <a href="https://www.cc-valleedelhomme.fr" target="_blank" rel="noopener noreferrer" class="btn-outline">
+          Consulter le PLUi ↗
+        </a>
+        <a href="/contact" class="btn-outline">Nous contacter</a>
+      </div>
+    </section>
+
+    <!-- ── 7. PROJETS ET TRAVAUX ──────────────────────── -->
+    <section class="section" id="projets" aria-labelledby="projets-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="projets-titre">Projets et travaux</h2>
+      </div>
+
+      <div class="projet-col">
+        <div class="projet-encart" style="border: 2px solid var(--color-primary);">
+          <div class="emoji" aria-hidden="true">🚧</div>
+          <p class="projet-encart__titre">Projets et travaux en cours</p>
+          <p class="projet-encart__text">Les projets et travaux en cours seront publiés prochainement.</p>
+        </div>
+        <div class="projet-encart" style="border: 1px solid var(--color-border);">
+          <div class="emoji" aria-hidden="true">✅</div>
+          <p class="projet-encart__titre">Projets et travaux terminés</p>
+          <p class="projet-encart__text">La liste des travaux réalisés sera publiée prochainement.</p>
+        </div>
+      </div>
+
+      <div class="idees-box">
+        <p class="idees-box__emoji" aria-hidden="true">💡</p>
+        <h3 class="idees-box__titre">Vous avez une idée pour la commune ?</h3>
+        <p class="idees-box__desc">
+          Amélioration du cadre de vie, projets, initiatives locales… Faites-nous part de vos
+          idées, elles comptent !
+        </p>
+        <a href="/contact" class="btn-primary">Déposer une idée</a>
+      </div>
+    </section>
+
+    <!-- ── 8. NOS ÉCOLES ET LE SIVOS ──────────────────── -->
+    <section class="section" id="ecoles" aria-labelledby="ecoles-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="ecoles-titre">Nos écoles et le SIVOS</h2>
+      </div>
+
+      <div class="ecoles-cols">
+        <div>
+          <h3 class="h3">Le SIVOS</h3>
+          <p class="para">
+            La commune de Valojoulx fait partie du SIVOS de la Vallée de la Vézère, regroupement
+            de communes (La Chapelle-Aubareil, Sergeac, Thonac et Valojoulx) créé en 1990.
+            Le SIVOS mutualise les moyens pour assurer un service scolaire de qualité en milieu rural.
+          </p>
+          <p class="para">Il prend en charge :</p>
+          <ul class="green-list">
+            <li>Fonctionnement des écoles (budget, matériel, fournitures)</li>
+            <li>Cantine et accueil périscolaire</li>
+            <li>Personnel non-enseignant</li>
+            <li>Entretien et sécurité des bâtiments</li>
+            <li>Transports scolaires</li>
+          </ul>
+          <p class="para" style="margin-top:0.75rem">
+            Contact : <a href="mailto:sivosvv@orange.fr" class="text-link">sivosvv@orange.fr</a>
+          </p>
+        </div>
+        <div>
+          <h3 class="h3">Le Regroupement Pédagogique (RPI)</h3>
+          <p class="para">
+            Les écoles sont organisées en Regroupement Pédagogique Intercommunal (RPI).
+            Les classes sont réparties entre communes selon les niveaux.
+          </p>
+          <div class="rpi-note">
+            <ul>
+              <li><strong>Le RPI</strong> organise la répartition des classes</li>
+              <li><strong>Le SIVOS</strong> gère les moyens et le fonctionnement</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="ecoles-grid">
+        <div class="ecole-card">
+          <span class="ecole-icon" aria-hidden="true">🏫</span>
+          <div>
+            <h4 class="ecole-nom">École de Thonac</h4>
+            <ul class="ecole-niveaux">
+              <li>Petite, Moyenne et Grande section Maternelle</li>
+              <li>CP</li>
+            </ul>
+          </div>
+        </div>
+        <div class="ecole-card">
+          <span class="ecole-icon" aria-hidden="true">🏫</span>
+          <div>
+            <h4 class="ecole-nom">École de La Chapelle-Aubareil</h4>
+            <ul class="ecole-niveaux">
+              <li>CE1-CE2</li>
+              <li>CM1-CM2</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 9. COMMUNAUTÉ DE COMMUNES ─────────────────── -->
+    <section class="section" id="ccvh" aria-labelledby="ccvh-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="ccvh-titre">La Communauté de Communes</h2>
+      </div>
+
+      <p class="para">
+        Notre commune appartient à la <strong>Communauté de communes de la Vallée de l'Homme
+        (CCVH)</strong>, qui regroupe 26 communes autour d'un projet commun de développement
+        du territoire. Située au cœur du Périgord Noir, elle bénéficie d'un patrimoine naturel
+        et préhistorique remarquable, notamment dans la Vallée de la Vézère, classée au patrimoine
+        mondial de l'UNESCO.
+      </p>
+
+      <h3 class="h3">Ses missions principales</h3>
+      <ul class="missions-grid" role="list">
+        {ccvhMissions.map(m => (
+          <li class="mission-card">
+            <span class="mission-icon" aria-hidden="true">{m.emoji}</span>
+            <div>
+              <strong class="mission-titre">{m.titre}</strong>
+              <p class="mission-desc">{m.desc}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <a
+        href="https://www.cc-valleedelhomme.fr"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-primary"
+        style="margin-top:1.5rem;display:inline-block"
+      >
+        Site de la CCVH ↗
+      </a>
     </section>
 
   </div>
@@ -229,7 +461,29 @@ const demarchesMairie = [
     padding-bottom: 5rem;
   }
 
-  /* ── SECTION HEADER ── */
+  /* ── INFOS TOP ── */
+  .infos-top {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    margin-bottom: 3.5rem;
+  }
+
+  .infos-top__box {
+    min-width: 340px;
+  }
+
+  .infos-top__para {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--color-text-light);
+    border-left: 4px solid var(--color-accent);
+    padding-left: 1.25rem;
+    font-style: italic;
+  }
+
+  /* ── SECTIONS ── */
   .section {
     margin-bottom: 4rem;
   }
@@ -243,9 +497,7 @@ const demarchesMairie = [
   .section__header::before {
     content: '';
     position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
+    left: 0; top: 0; bottom: 0;
     width: 4px;
     background: var(--color-primary);
     border-radius: 4px;
@@ -259,27 +511,19 @@ const demarchesMairie = [
     line-height: 1.2;
   }
 
-  .section__para {
-    line-height: 1.75;
-    color: var(--color-text);
-    max-width: 780px;
-    margin-top: 1rem;
-  }
-
-  .subsection__titre {
+  .h3 {
     font-family: var(--font-heading);
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--color-primary-dark);
+    margin-top: 2rem;
     margin-bottom: 0.75rem;
-    margin-top: 1.5rem;
   }
 
-  /* ── MAIRE CARD ── */
+  /* ── CONSEIL : MAIRE ── */
   .maire-card {
     background: var(--color-primary-pale);
-    border: 1px solid var(--color-border);
-    border-left: 4px solid var(--color-primary);
+    border: 1px solid var(--color-primary);
     border-radius: 6px;
     padding: 1.5rem 2rem;
     display: inline-block;
@@ -293,93 +537,96 @@ const demarchesMairie = [
     flex-wrap: wrap;
   }
 
-  .badge--maire {
+  .badge-maire {
     display: inline-block;
     background: var(--color-primary);
     color: #ffffff;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    padding: 0.25rem 0.7rem;
+    padding: 0.2rem 0.75rem;
     border-radius: 20px;
   }
 
   .maire-card__nom {
     font-family: var(--font-heading);
-    font-size: 1.35rem;
+    font-size: 1.4rem;
     font-weight: 700;
     color: var(--color-primary-dark);
-  }
-
-  .maire-card__role {
-    font-size: 0.88rem;
-    color: var(--color-text-light);
   }
 
   /* ── ADJOINTS ── */
   .adjoints-list {
     list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
     margin-bottom: 0.5rem;
   }
 
-  .adjoint-item {
-    display: flex;
-    align-items: baseline;
-    gap: 0.75rem;
-    padding: 0.6rem 1rem;
+  .adjoint-card {
     background: #ffffff;
     border: 1px solid var(--color-border);
-    border-radius: 4px;
-    max-width: 420px;
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
   }
 
-  .adjoint-item__rang {
-    font-size: 0.78rem;
+  .adjoint-card__nom {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
     font-weight: 700;
+    color: var(--color-primary-dark);
+    margin-bottom: 0.2rem;
+  }
+
+  .adjoint-card__rang {
+    font-size: 0.78rem;
+    color: var(--color-primary);
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: var(--color-primary);
-    min-width: 90px;
-  }
-
-  .adjoint-item__nom {
-    font-weight: 600;
-    color: var(--color-text);
   }
 
   /* ── CONSEILLERS ── */
   .conseillers-grid {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.4rem;
-    max-width: 560px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
   }
 
   .conseiller-item {
-    padding: 0.5rem 0.9rem;
-    background: #ffffff;
+    background: var(--color-primary-pale);
     border: 1px solid var(--color-border);
     border-radius: 4px;
-    font-size: 0.9rem;
+    padding: 0.55rem 0.85rem;
+    font-size: 0.85rem;
     color: var(--color-text);
     position: relative;
-    padding-left: 1.6rem;
+    padding-left: 1.5rem;
   }
 
   .conseiller-item::before {
     content: '›';
     position: absolute;
-    left: 0.6rem;
+    left: 0.55rem;
     color: var(--color-primary);
     font-weight: 700;
   }
 
-  /* ── TABLES ── */
+  /* ── PV NOTE ── */
+  .pv-note {
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--color-text-light);
+    line-height: 1.65;
+    max-width: 680px;
+  }
+
+  /* ── TABLEAUX ── */
   .table-wrap {
     overflow-x: auto;
     border-radius: 4px;
@@ -398,10 +645,10 @@ const demarchesMairie = [
   }
 
   .data-table th {
-    padding: 0.75rem 1rem;
+    padding: 0.65rem 1rem;
     text-align: left;
     color: #ffffff;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -409,10 +656,11 @@ const demarchesMairie = [
   }
 
   .data-table td {
-    padding: 0.7rem 1rem;
+    padding: 0.65rem 1rem;
     border-bottom: 1px solid var(--color-border);
-    vertical-align: top;
     line-height: 1.5;
+    color: var(--color-text);
+    vertical-align: top;
   }
 
   .data-table tbody tr:last-child td {
@@ -425,40 +673,203 @@ const demarchesMairie = [
 
   .td-bold {
     font-weight: 600;
-    color: var(--color-text);
+    color: var(--color-primary-dark);
   }
 
   .td-nowrap {
     white-space: nowrap;
   }
 
-  /* ── NOTICE BOX ── */
-  .notice-box {
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .infos-top {
+      grid-template-columns: 1fr;
+    }
+
+    .infos-top__box {
+      min-width: unset;
+    }
+
+    .adjoints-list {
+      grid-template-columns: 1fr;
+    }
+
+    .conseillers-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .conseillers-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ── PARA ── */
+  .para {
+    line-height: 1.75;
+    color: var(--color-text);
+    max-width: 780px;
+    margin-bottom: 0.75rem;
+  }
+
+  /* ── LISTE VERTE ── */
+  .green-list {
+    list-style: none;
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.4rem;
+    max-width: 680px;
+  }
+
+  .green-list li {
+    position: relative;
+    padding-left: 1.4rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  .green-list li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 1.1rem;
+    line-height: 1.3;
+  }
+
+  /* ── BULLETINS ── */
+  .bulletins-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
     margin-top: 1.25rem;
-    background: var(--color-primary-pale);
+  }
+
+  .bulletin-card {
+    background: #ffffff;
     border: 1px solid var(--color-border);
-    border-left: 4px solid var(--color-primary);
-    border-radius: 4px;
-    padding: 1.25rem 1.5rem;
-    max-width: 600px;
+    border-radius: 6px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.35rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
   }
 
-  .notice-box__icon {
-    font-size: 1.6rem;
-    flex-shrink: 0;
-    margin-top: 0.1rem;
+  .bulletin-card__icon {
+    font-size: 2rem;
+    line-height: 1;
+    margin-bottom: 0.2rem;
   }
 
-  .notice-box__text {
-    color: var(--color-text);
+  .bulletin-card__num {
+    font-family: var(--font-heading);
     font-size: 0.95rem;
-    line-height: 1.6;
+    font-weight: 700;
+    color: var(--color-primary-dark);
   }
 
-  /* ── DÉMARCHES ── */
+  .bulletin-card__date {
+    font-size: 0.82rem;
+    color: var(--color-text-light);
+  }
+
+  /* ── BOUTONS ── */
+  .btn-outline {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.4rem 1rem;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 0.8rem;
+    border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .btn-outline:hover {
+    background: var(--color-primary);
+    color: #ffffff;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 0.65rem 1.4rem;
+    background: var(--color-primary);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    transition: background 0.2s;
+    margin-top: 0.75rem;
+  }
+
+  .btn-primary:hover {
+    background: var(--color-primary-dark);
+  }
+
+  /* ── FRANCE SERVICES ── */
+  .france-services-box {
+    background: var(--color-primary-pale);
+    border: 1px solid var(--color-primary);
+    border-radius: 6px;
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .fs-titre {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    margin-bottom: 0.65rem;
+  }
+
+  .fs-desc {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+  }
+
+  .fs-cols {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .fs-label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+  }
+
+  .fs-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1rem;
+  }
+
+  .fs-badge {
+    display: inline-block;
+    background: var(--color-primary);
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.65rem;
+    border-radius: 20px;
+  }
+
+  /* ── DÉMARCHES COLONNES ── */
   .demarches-cols {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -466,81 +877,289 @@ const demarchesMairie = [
     align-items: start;
   }
 
-  .green-list {
-    list-style: none;
+  /* ── CONSEIL BOX ── */
+  .conseil-box {
     display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
-  }
-
-  .green-list li {
-    position: relative;
-    padding-left: 1.5rem;
-    font-size: 0.9rem;
-    line-height: 1.55;
+    align-items: flex-start;
+    gap: 0.75rem;
+    background: var(--color-primary-pale);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-primary);
+    border-radius: 4px;
+    padding: 0.9rem 1.1rem;
+    max-width: 680px;
+    margin-bottom: 1.25rem;
+    font-size: 0.88rem;
+    line-height: 1.65;
     color: var(--color-text);
   }
 
-  .green-list li::before {
-    content: '✓';
+  /* ── BOUTONS RANGÉE ── */
+  .btns-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  /* ── RESPONSIVE SECTIONS 4-6 ── */
+  @media (max-width: 900px) {
+    .fs-cols,
+    .demarches-cols {
+      grid-template-columns: 1fr;
+    }
+
+    .bulletins-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .bulletins-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .btns-row {
+      flex-direction: column;
+    }
+  }
+
+  /* ── PROJETS ET TRAVAUX ── */
+  .projet-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .projet-encart {
+    padding: 1.5rem;
+    border-radius: 6px;
+    text-align: center;
+  }
+
+  .projet-encart .emoji {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .projet-encart__titre {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .projet-encart__text {
+    font-size: 0.88rem;
+    color: var(--color-text-light);
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  /* ── IDÉES BOX ── */
+  .idees-box {
+    background: var(--color-primary-pale);
+    border: 1px solid var(--color-primary);
+    border-radius: 6px;
+    padding: 2rem;
+    text-align: center;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .idees-box__emoji { font-size: 2rem; line-height: 1; }
+
+  .idees-box__titre {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+  }
+
+  .idees-box__desc {
+    font-size: 0.875rem;
+    color: var(--color-text);
+    line-height: 1.65;
+    margin-bottom: 0.25rem;
+  }
+
+  /* ── ÉCOLES ── */
+  .ecoles-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    margin-bottom: 1.5rem;
+  }
+
+  .ecoles-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .ecole-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 1.25rem;
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .ecole-icon {
+    font-size: 1.6rem;
+    flex-shrink: 0;
+    line-height: 1;
+    margin-top: 0.1rem;
+  }
+
+  .ecole-nom {
+    font-family: var(--font-heading);
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    margin-bottom: 0.4rem;
+  }
+
+  .ecole-niveaux {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  .ecole-niveaux li {
+    font-size: 0.82rem;
+    color: var(--color-text);
+    padding-left: 0.8rem;
+    position: relative;
+  }
+
+  .ecole-niveaux li::before {
+    content: '·';
     position: absolute;
     left: 0;
     color: var(--color-primary);
     font-weight: 700;
   }
 
-  .btn-primary {
-    display: inline-block;
-    margin-top: 1.25rem;
-    padding: 0.7rem 1.5rem;
-    background: var(--color-primary);
-    color: #ffffff;
-    font-weight: 700;
-    font-size: 0.9rem;
+  /* ── RPI NOTE ── */
+  .rpi-note {
+    background: var(--color-primary-pale);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-primary);
     border-radius: 4px;
-    transition: background 0.2s;
-  }
-
-  .btn-primary:hover {
-    background: var(--color-primary-dark);
-  }
-
-  .mention {
+    padding: 0.9rem 1.1rem;
     margin-top: 1rem;
-    font-size: 0.82rem;
-    color: var(--color-text-light);
-    font-style: italic;
   }
 
-  /* ── LIEN INLINE ── */
-  .inline-link {
-    display: inline-block;
-    margin-top: 0.75rem;
+  .rpi-note ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .rpi-note li {
+    font-size: 0.88rem;
+    color: var(--color-text);
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .rpi-note li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+
+  /* ── CCVH MISSIONS ── */
+  .missions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+    list-style: none;
+  }
+
+  .mission-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 1.25rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .mission-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+    line-height: 1;
+  }
+
+  .mission-titre {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    margin-bottom: 0.2rem;
+  }
+
+  .mission-desc {
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+    line-height: 1.55;
+  }
+
+  /* ── LIEN TEXTE ── */
+  .text-link {
     color: var(--color-primary);
     font-weight: 600;
-    font-size: 0.9rem;
     transition: color 0.15s;
   }
 
-  .inline-link:hover {
+  .text-link:hover {
     color: var(--color-primary-dark);
     text-decoration: underline;
   }
 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 700px) {
-    .demarches-cols {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
+  /* ── BOUTON TÉLÉCHARGEMENT (spec) ── */
+  .btn-download {
+    display: inline-block;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: background 0.2s, color 0.2s;
+    text-decoration: none;
+  }
 
-    .conseillers-grid {
-      grid-template-columns: 1fr;
-      max-width: 100%;
-    }
+  .btn-download:hover {
+    background: var(--color-primary);
+    color: #ffffff;
+  }
 
-    .adjoints-list .adjoint-item {
-      max-width: 100%;
+  /* ── RESPONSIVE SECTIONS 7-9 ── */
+  @media (max-width: 900px) {
+    .projet-col,
+    .ecoles-cols,
+    .ecoles-grid,
+    .missions-grid {
+      grid-template-columns: 1fr;
     }
   }
 </style>
