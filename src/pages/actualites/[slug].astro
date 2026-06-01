@@ -1,0 +1,232 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+
+export async function getStaticPaths() {
+  const actus = await getCollection('actualites');
+  return actus.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+function formatDateFr(dateStr: string): string {
+  const date = new Date(dateStr + 'T00:00:00');
+  const day = date.getDate();
+  const ordinal = day === 1 ? 'er' : '';
+  const months = ['janvier','février','mars','avril','mai','juin','juillet',
+                  'août','septembre','octobre','novembre','décembre'];
+  return `${day}${ordinal} ${months[date.getMonth()]} ${date.getFullYear()}`;
+}
+---
+
+<PageLayout
+  title={entry.data.title}
+  section="Actualités"
+  description={entry.data.resume ?? entry.data.title}
+>
+  <div class="container article-wrap">
+
+    <a href="/actualites" class="retour">← Retour aux actualités</a>
+
+    <article class="article">
+      <!-- En-tête -->
+      <header class="article__header">
+        <div class="article__meta">
+          <span class="badge-categorie">{entry.data.categorie}</span>
+          {entry.data.epingle && <span class="badge-epingle">📌 À la une</span>}
+        </div>
+        <h1 class="article__titre">{entry.data.title}</h1>
+        <time class="article__date" datetime={entry.data.date}>
+          {formatDateFr(entry.data.date)}
+        </time>
+      </header>
+
+      {entry.data.image && (
+        <div class="article__image-wrap">
+          <img
+            src={entry.data.image}
+            alt={entry.data.title}
+            class="article__image"
+            loading="eager"
+          />
+        </div>
+      )}
+
+      <!-- Contenu markdown -->
+      <div class="prose">
+        <Content />
+      </div>
+    </article>
+
+    <a href="/actualites" class="retour retour--bas">← Retour aux actualités</a>
+
+  </div>
+</PageLayout>
+
+<style>
+  .article-wrap {
+    padding-top: 3rem;
+    padding-bottom: 5rem;
+    max-width: 820px;
+  }
+
+  /* ── RETOUR ── */
+  .retour {
+    display: inline-block;
+    margin-bottom: 2rem;
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: color 0.15s;
+  }
+
+  .retour:hover {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+  }
+
+  .retour--bas {
+    margin-top: 3rem;
+    margin-bottom: 0;
+  }
+
+  /* ── ARTICLE ── */
+  .article__header {
+    margin-bottom: 2rem;
+  }
+
+  .article__meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .badge-categorie {
+    display: inline-block;
+    background: var(--color-primary);
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+  }
+
+  .badge-epingle {
+    display: inline-block;
+    background: var(--color-accent);
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+  }
+
+  .article__titre {
+    font-family: var(--font-heading);
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+
+  .article__date {
+    font-size: 0.88rem;
+    color: var(--color-text-light);
+  }
+
+  .article__image-wrap {
+    margin-bottom: 2rem;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .article__image {
+    width: 100%;
+    max-height: 420px;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ── PROSE ── */
+  .prose {
+    line-height: 1.8;
+    color: var(--color-text);
+  }
+
+  .prose :global(p) {
+    margin-bottom: 1.25rem;
+  }
+
+  .prose :global(h2) {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .prose :global(h3) {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .prose :global(a) {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+
+  .prose :global(a:hover) {
+    color: var(--color-primary-dark);
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    padding-left: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .prose :global(li) {
+    margin-bottom: 0.4rem;
+  }
+
+  .prose :global(strong) {
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .prose :global(em) {
+    font-style: italic;
+    color: var(--color-text-light);
+  }
+
+  .prose :global(blockquote) {
+    border-left: 4px solid var(--color-primary);
+    padding-left: 1.25rem;
+    margin: 1.5rem 0;
+    color: var(--color-text-light);
+    font-style: italic;
+  }
+
+  .prose :global(hr) {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 2rem 0;
+  }
+
+  .prose :global(img) {
+    border-radius: 4px;
+    margin: 1rem 0;
+  }
+</style>
