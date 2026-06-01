@@ -57,7 +57,7 @@ function formatDateFr(dateStr: string): string {
                 </time>
               </div>
               <h3 class="actu-mini__titre">
-                <a href={`/actualites/${actu.slug}`} class="actu-mini__lien">
+                <a href={`/actualites/${actu.id.replace(/\.md$/, '')}`} class="actu-mini__lien">
                   {actu.data.title}
                 </a>
               </h3>

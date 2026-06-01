@@ -67,7 +67,7 @@ function formatDateFr(dateStr: string): string {
                 <p class="actu-card__resume">{actu.data.resume}</p>
               )}
 
-              <a href={`/actualites/${actu.slug}`} class="actu-card__lien">
+              <a href={`/actualites/${actu.id.replace(/\.md$/, '')}`} class="actu-card__lien">
                 Lire la suite →
               </a>
             </div>

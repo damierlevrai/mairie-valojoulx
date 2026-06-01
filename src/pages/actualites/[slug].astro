@@ -1,17 +1,17 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import PageLayout from '../../layouts/PageLayout.astro';
 
 export async function getStaticPaths() {
   const actus = await getCollection('actualites');
   return actus.map(entry => ({
-    params: { slug: entry.slug },
+    params: { slug: entry.id.replace(/\.md$/, '') },
     props: { entry },
   }));
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 
 function formatDateFr(dateStr: string): string {
   const date = new Date(dateStr + 'T00:00:00');
