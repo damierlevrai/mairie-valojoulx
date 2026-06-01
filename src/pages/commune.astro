@@ -1,0 +1,412 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import InfoBox from '../components/InfoBox.astro';
+
+const geoItems = [
+  { label: 'Département',          value: 'Dordogne (24) — Périgord Noir' },
+  { label: 'Communauté de communes', value: 'Vallée de l\'Homme' },
+  { label: 'Superficie',           value: '11,79 km²' },
+  { label: 'Altitude',             value: '72 m (bord de Vézère) à 267 m (Puy Mangou)' },
+  { label: 'Cours d\'eau',         value: 'La Vézère et le Turançon' },
+  { label: 'À proximité',          value: 'Montignac-Lascaux (7 km), Sarlat (~30 km)' },
+];
+
+const patrimoine = [
+  { nom: 'Église Saint-Laurent (XIIe s.)',       statut: 'Inscrit MH',  annee: '1974', href: '#' },
+  { nom: 'Gisement de la Combe (Paléolithique)', statut: 'Classé MH',  annee: '1935', href: '#' },
+  { nom: 'Cabanes en pierre sèche (Les Cabanes)', statut: 'Inscrit MH', annee: '1991', href: '#' },
+];
+
+const chiffres = [
+  { emoji: '🏡', valeur: '286',      legende: 'habitants (2022, +20% depuis 2006)' },
+  { emoji: '📐', valeur: '11,79 km²', legende: 'de superficie' },
+  { emoji: '🏛️', valeur: '3',        legende: 'monuments historiques' },
+  { emoji: '🥾', valeur: '8 km',     legende: 'de sentier des moulins' },
+  { emoji: '📍', valeur: '7 km',     legende: 'de Montignac-Lascaux' },
+];
+---
+
+<PageLayout
+  title="La Commune"
+  section="La Commune"
+  description="Découvrez Valojoulx, village authentique de 286 habitants au cœur du Périgord Noir, entre vallée de la Vézère et plateau boisé."
+>
+  <div class="container page-content">
+
+    <!-- Chapeau -->
+    <p class="chapeau">
+      Valojoulx, 286&nbsp;habitants (2022), nichée en rive gauche de la Vézère, à quelques minutes
+      de Lascaux et Montignac, offre un cadre naturel préservé au cœur du Périgord Noir.
+    </p>
+
+    <!-- ── GÉOGRAPHIE ─────────────────────────────────── -->
+    <section class="section" aria-labelledby="geo-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="geo-titre">Géographie</h2>
+      </div>
+      <InfoBox title="Données géographiques" items={geoItems} />
+      <p class="section__para">
+        Le Turançon divise naturellement la commune en deux zones : au nord, le haut plateau boisé ;
+        au sud, la vallée de la Vézère et ses plateaux calcaires.
+      </p>
+    </section>
+
+    <!-- ── HISTOIRE ───────────────────────────────────── -->
+    <section class="section" aria-labelledby="histoire-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="histoire-titre">Histoire</h2>
+      </div>
+
+      <div class="subsections">
+        <div class="subsection">
+          <h3 class="subsection__titre">L'origine du nom</h3>
+          <p>
+            Le nom Valojoulx viendrait du latin <em>vallis juliacum</em> — la vallée de Julius,
+            notable gallo-romain dont la villa s'étendait dans ce vallon traversé par des routes
+            commerciales longeant la Vézère.
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection__titre">De la Préhistoire au Moyen Âge</h3>
+          <p>
+            La vallée est habitée depuis la nuit des temps. Le gisement de la Combe, site
+            paléolithique classé Monument Historique dès 1935, en témoigne. L'église romane du
+            XIIe siècle et le passage du chemin de Saint-Jacques-de-Compostelle marquent ensuite
+            la présence médiévale dans la commune.
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection__titre">La guerre de Cent Ans et les moulins</h3>
+          <p>
+            Aux XIVe et XVe siècles, les habitants se réfugiaient dans les grottes lors des
+            troubles. Le Turançon faisait alors tourner plusieurs moulins — à farine, à huile de
+            noix, à foulon — restés actifs jusqu'au XIXe siècle.
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection__titre">Le manganèse au XIXe siècle</h3>
+          <p>
+            Le sous-sol de Valojoulx recélait du manganèse, exploité industriellement au
+            XIXe siècle. Cette activité, aujourd'hui entièrement disparue, a laissé quelques
+            traces dans le paysage et la mémoire locale.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PATRIMOINE ─────────────────────────────────── -->
+    <section class="section" aria-labelledby="patrimoine-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="patrimoine-titre">Patrimoine</h2>
+      </div>
+
+      <div class="table-wrap">
+        <table class="patrimoine-table" aria-label="Monuments historiques de Valojoulx">
+          <thead>
+            <tr>
+              <th scope="col">Monument</th>
+              <th scope="col">Statut</th>
+              <th scope="col">Année</th>
+            </tr>
+          </thead>
+          <tbody>
+            {patrimoine.map(p => (
+              <tr>
+                <td><a href={p.href} class="table-link">{p.nom}</a></td>
+                <td><span class={`badge badge--${p.statut === 'Classé MH' ? 'classe' : 'inscrit'}`}>{p.statut}</span></td>
+                <td>{p.annee}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p class="section__para">
+        Les cabanes en pierre sèche des Cabanes sont deux cabanes jumelles en voûte
+        d'encorbellement, inscrites Monument Historique en 1991. Leur couverture de lauzes a
+        aujourd'hui disparu, mais elles demeurent un exemple remarquable de l'architecture
+        vernaculaire périgourdine.
+      </p>
+      <p class="section__para">
+        Le château de Masnègre et le manoir de Costepérier complètent ce patrimoine civil
+        avec leurs architectures des XVIe et XVIIe siècles.
+      </p>
+    </section>
+
+    <!-- ── NATURE ET RANDONNÉE ────────────────────────── -->
+    <section class="section" aria-labelledby="nature-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="nature-titre">Nature et randonnée</h2>
+      </div>
+
+      <div class="subsections">
+        <div class="subsection">
+          <h3 class="subsection__titre">Sentier des moulins — Boucle du Turançon (8 km)</h3>
+          <p>
+            Ce sentier longe le Turançon sur 8 kilomètres, offre une vue panoramique sur le bourg
+            et des panneaux interprétatifs sur les anciens moulins. Adapté aux familles, il
+            constitue la randonnée emblématique de la commune.
+            <a href="/decouvrir" class="inline-link">En savoir plus sur la randonnée →</a>
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection__titre">L'étang et les zones humides</h3>
+          <p>
+            Propriété de la Fédération de pêche, l'étang de Valojoulx fait l'objet
+            d'inventaires floristiques et faunistiques réguliers. Son entretien est assuré par
+            le Syndicat Mixte du Bassin Versant de la Vézère.
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection__titre">Vallée de la Vézère — Patrimoine Mondial UNESCO</h3>
+          <p>
+            La vallée de la Vézère est inscrite au Patrimoine Mondial de l'UNESCO pour sa
+            richesse préhistorique exceptionnelle. Les sites de Lascaux, les Eyzies et le
+            château de Losse à Thonac en sont les fleurons, à quelques kilomètres de Valojoulx.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CHIFFRES CLÉS ──────────────────────────────── -->
+    <section class="section" aria-labelledby="chiffres-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="chiffres-titre">Chiffres clés</h2>
+      </div>
+
+      <ul class="chiffres" role="list">
+        {chiffres.map(c => (
+          <li class="chiffre-card">
+            <span class="chiffre-card__emoji" aria-hidden="true">{c.emoji}</span>
+            <strong class="chiffre-card__valeur">{c.valeur}</strong>
+            <span class="chiffre-card__legende">{c.legende}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+  </div>
+</PageLayout>
+
+<style>
+  .page-content {
+    padding-top: 3.5rem;
+    padding-bottom: 5rem;
+  }
+
+  /* ── CHAPEAU ── */
+  .chapeau {
+    font-size: 1.1rem;
+    line-height: 1.75;
+    color: var(--color-text-light);
+    border-left: 4px solid var(--color-accent);
+    padding-left: 1.25rem;
+    margin-bottom: 3.5rem;
+    max-width: 780px;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    margin-bottom: 4rem;
+  }
+
+  .section__header {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .section__header::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--color-primary);
+    border-radius: 4px;
+  }
+
+  .section__titre {
+    font-family: var(--font-heading);
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    line-height: 1.2;
+  }
+
+  .section__para {
+    margin-top: 1.25rem;
+    line-height: 1.75;
+    color: var(--color-text);
+    max-width: 780px;
+  }
+
+  /* ── SUBSECTIONS ── */
+  .subsections {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .subsection__titre {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .subsection p {
+    line-height: 1.75;
+    color: var(--color-text);
+    max-width: 780px;
+  }
+
+  /* ── TABLEAU PATRIMOINE ── */
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: 4px;
+    border: 1px solid var(--color-border);
+  }
+
+  .patrimoine-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+
+  .patrimoine-table thead tr {
+    background: var(--color-primary-pale);
+  }
+
+  .patrimoine-table th,
+  .patrimoine-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .patrimoine-table th {
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .patrimoine-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .patrimoine-table tbody tr:hover {
+    background: var(--color-primary-pale);
+  }
+
+  .table-link {
+    color: var(--color-primary);
+    transition: color 0.15s;
+  }
+
+  .table-link:hover {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .badge--classe {
+    background: #fef3c7;
+    color: #92400e;
+  }
+
+  .badge--inscrit {
+    background: var(--color-primary-pale);
+    color: var(--color-primary-dark);
+  }
+
+  /* ── LIEN INLINE ── */
+  .inline-link {
+    display: inline-block;
+    margin-top: 0.5rem;
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: color 0.15s;
+  }
+
+  .inline-link:hover {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+  }
+
+  /* ── CHIFFRES CLÉS ── */
+  .chiffres {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    list-style: none;
+  }
+
+  .chiffre-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.4rem;
+  }
+
+  .chiffre-card__emoji {
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .chiffre-card__valeur {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    line-height: 1.1;
+  }
+
+  .chiffre-card__legende {
+    font-size: 0.78rem;
+    color: var(--color-text-light);
+    line-height: 1.35;
+  }
+
+  @media (max-width: 900px) {
+    .chiffres {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .chiffres {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 360px) {
+    .chiffres {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,600 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import InfoBox from '../components/InfoBox.astro';
+import { mairie, urgences } from '../data/mairie.js';
+
+const coordItems = [
+  { label: 'Adresse',   value: `${mairie.adresse}, ${mairie.codePostal} ${mairie.commune}` },
+  { label: 'Téléphone', value: mairie.telephone },
+  { label: 'Email',     value: mairie.email },
+  { label: 'Horaires',  value: 'Mardi 8h–12h et 13h30–17h30 / Vendredi 8h–12h et 13h30–17h30' },
+  { label: 'Maire',     value: mairie.maire },
+];
+
+const elusItems = [
+  { label: 'Maire',        value: mairie.maire },
+  { label: '1er adjoint',  value: mairie.adjoints[0].nom },
+  { label: '2e adjointe',  value: mairie.adjoints[1].nom },
+  { label: '3e adjoint',   value: mairie.adjoints[2].nom },
+  { label: 'Contact',      value: `Via la mairie — ${mairie.telephone}` },
+];
+
+const horaires = mairie.horaires.map(h => ({
+  jour: h.jour,
+  horaire: h.ouvert ? `${h.matin} et ${h.apm}` : 'Fermé',
+  ouvert: h.ouvert,
+}));
+
+const urgencesSombres = ['15', '18', '17'].map(n => {
+  const u = urgences.find(u => u.numero === n);
+  return { num: u.numero, nom: u.label };
+});
+
+const urgencesClaires = [
+  { emoji: '🏛️', nom: 'Gendarmerie de Montignac', tel: '05 53 51 80 17',  href: 'tel:+33553518017' },
+  { emoji: '🏥', nom: 'Hôpital de Sarlat',         tel: '05 53 31 75 75', href: 'tel:+33553317575' },
+  { emoji: '☎️', nom: 'Urgences européen',          tel: '112',            href: 'tel:112' },
+];
+
+const accesItems = [
+  'En voiture : depuis Montignac-Lascaux (D65, 7 km), depuis Sarlat (D47, ~30 km)',
+  'Stationnement : place de la Mairie et aux abords du bourg',
+  'Accès A89 : sortie Montignac puis D65',
+];
+
+const voisines = [
+  'Montignac-Lascaux (7 km)',
+  'Thonac',
+  'Sergeac',
+  'Saint-Léon-sur-Vézère',
+];
+---
+
+<PageLayout
+  title="Contact"
+  section="Contact"
+  description="Contactez la mairie de Valojoulx : coordonnées, horaires d'ouverture, accès et élus. Place de la Mairie, 24290 Valojoulx."
+>
+  <div class="container page-content">
+
+    <!-- ── 1. COORDONNÉES PRINCIPALES ─────────────────── -->
+    <section class="section section--top" aria-labelledby="coord-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="coord-titre">Coordonnées</h2>
+      </div>
+
+      <div class="two-cols two-cols--top">
+        <div>
+          <InfoBox title="Mairie de Valojoulx" items={coordItems} />
+          <div class="coord-cta">
+            <a href={mairie.telephoneLien} class="btn-primary">
+              📞 Appeler la mairie
+            </a>
+            <a href={mairie.emailLien} class="btn-outline">
+              ✉️ Envoyer un email
+            </a>
+          </div>
+        </div>
+
+        <div class="map-wrap">
+          <iframe
+            src="https://www.openstreetmap.org/export/embed.html?bbox=1.1237%2C44.9987%2C1.1537%2C45.0187&layer=mapnik&marker=45.0087%2C1.1387"
+            width="100%"
+            height="300"
+            style="border:none;border-radius:6px;"
+            loading="lazy"
+            title="Carte de la mairie de Valojoulx"
+          ></iframe>
+          <a
+            href="https://www.openstreetmap.org/?mlat=45.0087&mlon=1.1387#map=15/45.0087/1.1387"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="map-link"
+          >
+            Voir en plein écran ↗
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 2. HORAIRES DÉTAILLÉS ──────────────────────── -->
+    <section class="section" aria-labelledby="horaires-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="horaires-titre">Horaires d'ouverture</h2>
+      </div>
+
+      <div class="horaires-box">
+        <div class="table-wrap">
+          <table class="horaires-table" aria-label="Horaires d'ouverture de la mairie">
+            <thead>
+              <tr>
+                <th scope="col">Jour</th>
+                <th scope="col">Horaires</th>
+              </tr>
+            </thead>
+            <tbody>
+              {horaires.map(h => (
+                <tr class={h.ouvert ? 'row-ouvert' : 'row-ferme'}>
+                  <td class="td-jour">{h.jour}</td>
+                  <td class={h.ouvert ? 'td-ouvert' : 'td-ferme'}>{h.horaire}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="horaires-note">
+          Horaires susceptibles d'être modifiés lors des jours fériés et périodes de congés.
+          Contactez la mairie pour confirmation.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── 3. ÉLUS DISPONIBLES ────────────────────────── -->
+    <section class="section" aria-labelledby="elus-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="elus-titre">Élus disponibles</h2>
+      </div>
+      <p class="para">
+        Pour contacter un élu, adressez votre demande à la mairie qui transmettra.
+      </p>
+      <div class="infobox-wrap">
+        <InfoBox title="Conseil municipal" items={elusItems} />
+      </div>
+    </section>
+
+    <!-- ── 4. URGENCES ET CONTACTS UTILES ─────────────── -->
+    <section class="section" aria-labelledby="urgences-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="urgences-titre">Urgences et contacts utiles</h2>
+      </div>
+
+      <ul class="urgences-grid" role="list">
+        {urgencesSombres.map(u => (
+          <li class="urgence-card urgence-card--dark">
+            <strong class="urgence-card__num">{u.num}</strong>
+            <span class="urgence-card__nom">{u.nom}</span>
+          </li>
+        ))}
+        {urgencesClaires.map(u => (
+          <li class="urgence-card urgence-card--light">
+            <span class="urgence-card__emoji" aria-hidden="true">{u.emoji}</span>
+            <strong class="urgence-card__label">{u.nom}</strong>
+            <a href={u.href} class="urgence-card__tel">{u.tel}</a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- ── 5. ACCÈS ET STATIONNEMENT ─────────────────── -->
+    <section class="section" aria-labelledby="acces-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="acces-titre">Accès et stationnement</h2>
+      </div>
+
+      <div class="two-cols">
+        <div>
+          <p class="para">
+            La mairie est située au cœur du bourg de Valojoulx, place de la Mairie.
+          </p>
+          <ul class="green-list" role="list">
+            {accesItems.map(a => <li>{a}</li>)}
+          </ul>
+        </div>
+
+        <div class="voisines-box">
+          <h3 class="voisines-box__titre">Communes voisines</h3>
+          <ul class="green-list" role="list">
+            {voisines.map(v => <li>{v}</li>)}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 6. SIGNALER UN PROBLÈME ────────────────────── -->
+    <section class="section" aria-labelledby="signaler-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="signaler-titre">Signaler un problème</h2>
+      </div>
+      <p class="para">
+        Pour signaler un problème sur la voie publique, un équipement communal défectueux ou
+        toute autre situation nécessitant l'intervention de la commune :
+      </p>
+
+      <div class="signaler-box">
+        <ul class="signaler-contacts" role="list">
+          <li>
+            <a href={mairie.telephoneLien} class="signaler-link">
+              <span aria-hidden="true">📞</span> {mairie.telephone}
+            </a>
+          </li>
+          <li>
+            <a href={mairie.emailLien} class="signaler-link">
+              <span aria-hidden="true">✉️</span> {mairie.email}
+            </a>
+          </li>
+        </ul>
+        <p class="signaler-mention">
+          Précisez la nature du problème, le lieu exact et vos coordonnées pour un traitement rapide.
+        </p>
+      </div>
+    </section>
+
+  </div>
+</PageLayout>
+
+<style>
+  .page-content {
+    padding-top: 3.5rem;
+    padding-bottom: 5rem;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section {
+    margin-bottom: 4rem;
+  }
+
+  .section--top {
+    margin-bottom: 4.5rem;
+  }
+
+  .section__header {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .section__header::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--color-primary);
+    border-radius: 4px;
+  }
+
+  .section__titre {
+    font-family: var(--font-heading);
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    line-height: 1.2;
+  }
+
+  .para {
+    line-height: 1.75;
+    color: var(--color-text);
+    max-width: 780px;
+    margin-bottom: 1rem;
+  }
+
+  .infobox-wrap {
+    max-width: 560px;
+    margin-top: 1rem;
+  }
+
+  /* ── DEUX COLONNES ── */
+  .two-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  .two-cols--top {
+    align-items: stretch;
+  }
+
+  /* ── CTA COORDONNÉES ── */
+  .coord-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 0.65rem 1.4rem;
+    background: var(--color-primary);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: var(--color-primary-dark);
+  }
+
+  .btn-outline {
+    display: inline-block;
+    padding: 0.65rem 1.4rem;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .btn-outline:hover {
+    background: var(--color-primary);
+    color: #ffffff;
+  }
+
+  /* ── CARTE ── */
+  .map-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .map-link {
+    font-size: 0.82rem;
+    color: var(--color-primary);
+    font-weight: 600;
+    align-self: flex-end;
+    transition: color 0.15s;
+  }
+
+  .map-link:hover {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+  }
+
+  /* ── HORAIRES ── */
+  .horaires-box {
+    background: var(--color-primary-pale);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-primary);
+    border-radius: 6px;
+    overflow: hidden;
+    max-width: 480px;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+  }
+
+  .horaires-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    min-width: 280px;
+  }
+
+  .horaires-table thead tr {
+    background: var(--color-primary-dark);
+  }
+
+  .horaires-table th {
+    padding: 0.65rem 1.25rem;
+    text-align: left;
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .horaires-table td {
+    padding: 0.55rem 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .horaires-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .td-jour {
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .td-ouvert {
+    font-weight: 700;
+    color: var(--color-primary-dark);
+  }
+
+  .td-ferme {
+    color: var(--color-text-light);
+    font-style: italic;
+  }
+
+  .horaires-note {
+    padding: 0.65rem 1.25rem 0.9rem;
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--color-text-light);
+    line-height: 1.55;
+  }
+
+  /* ── URGENCES ── */
+  .urgences-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .urgence-card {
+    border-radius: 6px;
+    padding: 1.25rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.35rem;
+  }
+
+  .urgence-card--dark {
+    background: var(--color-primary-dark);
+  }
+
+  .urgence-card--light {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  .urgence-card__num {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1;
+  }
+
+  .urgence-card__nom {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.82);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .urgence-card__emoji {
+    font-size: 1.6rem;
+    line-height: 1;
+    margin-bottom: 0.15rem;
+  }
+
+  .urgence-card__label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    line-height: 1.3;
+  }
+
+  .urgence-card__tel {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    transition: color 0.15s;
+  }
+
+  .urgence-card__tel:hover {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+  }
+
+  /* ── LISTE VERTE ── */
+  .green-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .green-list li {
+    position: relative;
+    padding-left: 1.4rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  .green-list li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 1.1rem;
+    line-height: 1.3;
+  }
+
+  /* ── COMMUNES VOISINES ── */
+  .voisines-box {
+    background: var(--color-primary-pale);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-primary);
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .voisines-box__titre {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    margin-bottom: 0.75rem;
+  }
+
+  /* ── SIGNALER ── */
+  .signaler-box {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 1.5rem 1.75rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    max-width: 520px;
+    margin-top: 1rem;
+  }
+
+  .signaler-contacts {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .signaler-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    transition: color 0.15s;
+  }
+
+  .signaler-link:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+
+  .signaler-mention {
+    font-size: 0.82rem;
+    color: var(--color-text-light);
+    font-style: italic;
+    line-height: 1.55;
+    border-top: 1px solid var(--color-border);
+    padding-top: 0.75rem;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 760px) {
+    .two-cols {
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+
+    .urgences-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .horaires-box {
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .urgences-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .coord-cta {
+      flex-direction: column;
+    }
+
+    .btn-primary,
+    .btn-outline {
+      text-align: center;
+    }
+  }
+</style>

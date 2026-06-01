@@ -1,0 +1,510 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import InfoBox from '../components/InfoBox.astro';
+import { gite } from '../data/mairie.js';
+
+const egliseItems = [
+  { label: 'Adresse',              value: 'Le Bourg, 24290 Valojoulx' },
+  { label: 'Extérieur',            value: 'Accessible en permanence' },
+  { label: 'Intérieur',            value: 'Se renseigner en mairie' },
+  { label: 'Journées du Patrimoine', value: 'Ouverture exceptionnelle en septembre' },
+  { label: 'Protection',           value: 'Inscrite MH (1974)' },
+];
+
+const cabanesItems = [
+  { label: 'Lieu-dit',   value: 'Les Cabanes, Valojoulx' },
+  { label: 'Protection', value: 'Inscrit MH (1991)' },
+  { label: 'Accès',      value: 'Libre, en plein air' },
+];
+
+const giteLItems = [
+  { label: 'Gestionnaire', value: gite.gestionnaire },
+  { label: 'Contact',      value: gite.contact },
+  { label: 'Téléphone',    value: gite.telephone },
+  { label: 'Email',        value: gite.email },
+];
+
+const egliseDetails = [
+  'Nef romane à deux travées',
+  'Tourelle à escalier en vis donnant accès au clocher',
+  'Modillons sculptés sur le mur goutterot nord',
+  'Arc triomphal en tiers point ouvrant sur le chœur',
+  'Porte du XVIIe siècle avec fronton triangulaire',
+  'Sacristie du XVIIIe siècle',
+];
+
+const sentierBadges = ['8 km', 'Balisé', 'Familles', 'Patrimoine'];
+
+const gitePoints = [
+  { emoji: '✅', texte: "Jusqu'à 14 personnes" },
+  { emoji: '♿', texte: 'Accessible PMR' },
+  { emoji: '❄️', texte: 'Climatisation intégrale' },
+  { emoji: '🏡', texte: 'Entièrement neuf' },
+  { emoji: '📍', texte: 'Au cœur du bourg' },
+  { emoji: '🚗', texte: 'Accès autoroute A89' },
+];
+
+const alentours = [
+  { emoji: '🦌', nom: 'Lascaux IV',             lieu: 'Montignac (7 km)',       desc: 'Art pariétal mondial' },
+  { emoji: '🏰', nom: 'Les Eyzies',             lieu: '',                        desc: 'Capitale mondiale de la Préhistoire' },
+  { emoji: '🏰', nom: 'Sarlat-la-Canéda',       lieu: '~30 km',                 desc: 'Cité médiévale' },
+  { emoji: '🌊', nom: 'Canoë sur la Vézère',    lieu: '',                        desc: 'Activité nature incontournable' },
+  { emoji: '🍷', nom: 'Gastronomie périgordine', lieu: '',                       desc: 'Foie gras, truffes, noix' },
+  { emoji: '🏰', nom: 'Château de Losse',        lieu: 'Thonac',                desc: 'Renaissance' },
+];
+---
+
+<PageLayout
+  title="Découvrir et visiter"
+  section="Découvrir"
+  description="Patrimoine roman, préhistoire, randonnée et hébergement : découvrez Valojoulx et la vallée de la Vézère au cœur du Périgord Noir."
+>
+  <div class="container page-content">
+
+    <!-- Accroche -->
+    <p class="chapeau">
+      Valojoulx et ses environs offrent un concentré exceptionnel du Périgord Noir — art
+      préhistorique, architecture romane, nature préservée et gastronomie. À quelques minutes de
+      Lascaux, le village constitue une base idéale pour explorer la vallée de la Vézère, classée
+      au patrimoine mondial de l'UNESCO.
+    </p>
+
+    <!-- ── 1. PATRIMOINE ARCHITECTURAL ───────────────── -->
+    <section class="section" aria-labelledby="patrimoine-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="patrimoine-titre">Patrimoine architectural</h2>
+      </div>
+
+      <!-- Église Saint-Laurent -->
+      <div class="subsection">
+        <h3 class="subsection__titre">L'église Saint-Laurent</h3>
+        <p class="para">
+          Joyau roman du XIIe siècle, inscrite aux Monuments Historiques en 1974 et récemment
+          restaurée. Connue aussi sous les noms Saint-Pantaléon et Saint-Genès, elle abrite un
+          prieuré bénédictin attesté dès 1321. Les pèlerins de Saint-Jacques-de-Compostelle
+          y faisaient étape sur la route du Puy.
+        </p>
+        <p class="subsection__label">Ce qu'il faut voir :</p>
+        <ul class="green-list" role="list">
+          {egliseDetails.map(d => <li>{d}</li>)}
+        </ul>
+        <div class="infobox-wrap">
+          <InfoBox title="Infos visite" items={egliseItems} />
+        </div>
+      </div>
+
+      <!-- Cabanes en pierre sèche -->
+      <div class="subsection">
+        <h3 class="subsection__titre">Les cabanes en pierre sèche</h3>
+        <p class="para">
+          Au lieu-dit Les Cabanes, deux cabanes jumelles en voûte d'encorbellement sont inscrites
+          aux Monuments Historiques depuis 1991. Construites sans mortier, elles témoignent de
+          l'architecture vernaculaire périgourdine et quercynoise. La couverture de lauzes a
+          disparu, laissant apparaître la structure intérieure — un témoignage rare de ce type
+          de construction.
+        </p>
+        <div class="infobox-wrap">
+          <InfoBox title="Informations" items={cabanesItems} />
+        </div>
+      </div>
+
+      <!-- Gisement de la Combe -->
+      <div class="subsection">
+        <h3 class="subsection__titre">Le gisement de la Combe</h3>
+        <p class="para">
+          Site paléolithique classé Monument Historique depuis 1935, sur le territoire même de la
+          commune. Témoignage de la présence humaine dans la vallée de la Vézère depuis la
+          préhistoire, il s'inscrit dans le réseau des grands sites archéologiques du Périgord Noir.
+        </p>
+      </div>
+
+      <!-- Masnègre & Costepérier -->
+      <div class="subsection">
+        <h3 class="subsection__titre">Château de Masnègre et manoir de Costepérier</h3>
+        <p class="para">
+          Ces deux bâtiments civils des XVIe et XVIIe siècles ponctuent le paysage communal et
+          rappellent la richesse du patrimoine architectural local, à mi-chemin entre le style
+          renaissance et la tradition périgourdine.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── 2. NATURE ET RANDONNÉE ─────────────────────── -->
+    <section class="section" aria-labelledby="nature-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="nature-titre">Nature et randonnée</h2>
+      </div>
+
+      <!-- Sentier des moulins -->
+      <div class="subsection">
+        <h3 class="subsection__titre">Le sentier des moulins — Boucle du Turançon</h3>
+        <div class="sentier-card">
+          <p class="para" style="margin-top:0">
+            Parcours pédestre balisé de 8 km longeant le ruisseau du Turançon. Remonte jusqu'aux
+            plateaux avec vue panoramique sur le bourg et l'église. Des panneaux de médiation
+            retracent l'histoire des anciens moulins (farine, huile de noix, foulon). Adapté
+            aux familles.
+          </p>
+          <div class="badges">
+            {sentierBadges.map(b => <span class="badge">{b}</span>)}
+          </div>
+        </div>
+      </div>
+
+      <!-- Étang -->
+      <div class="subsection">
+        <h3 class="subsection__titre">L'étang et les zones humides</h3>
+        <p class="para">
+          Zones humides entretenues par le Syndicat Mixte du Bassin Versant de la Vézère,
+          propriété de la Fédération de pêche. Elles font l'objet d'inventaires floristiques
+          et faunistiques réguliers, contribuant à la préservation de la biodiversité locale.
+        </p>
+      </div>
+
+      <!-- UNESCO -->
+      <div class="subsection">
+        <h3 class="subsection__titre">La vallée de la Vézère — Patrimoine Mondial UNESCO</h3>
+        <p class="para">
+          Valojoulx s'inscrit dans la vallée de la Vézère, classée au Patrimoine Mondial de
+          l'UNESCO pour sa richesse préhistorique exceptionnelle. Lascaux IV (7 km), les Eyzies,
+          le château de Losse à Thonac font partie de ce territoire d'exception à explorer depuis
+          le village.
+        </p>
+        <a
+          href="https://whc.unesco.org"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-outline"
+        >
+          Site UNESCO ↗
+        </a>
+      </div>
+    </section>
+
+    <!-- ── 3. HÉBERGEMENT ─────────────────────────────── -->
+    <section class="section" aria-labelledby="gite-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="gite-titre">Hébergement : La Grange de Valojoulx</h2>
+      </div>
+
+      <div class="gite-hero">
+        <p class="gite-hero__desc">
+          Gîte de groupe entièrement neuf, accueillant jusqu'à <strong>14 personnes</strong>,
+          accessible PMR intérieur et extérieur, entièrement climatisé, au cœur du bourg de
+          Valojoulx. Idéal pour les séjours en famille ou entre amis au cœur du Périgord Noir.
+        </p>
+      </div>
+
+      <div class="gite-layout">
+        <div class="gite-layout__left">
+          <ul class="gite-points" role="list">
+            {gitePoints.map(p => (
+              <li class="gite-point">
+                <span class="gite-point__emoji" aria-hidden="true">{p.emoji}</span>
+                <span>{p.texte}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="gite-layout__right">
+          <InfoBox title="Réservations" items={giteLItems} />
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 4. AUX ALENTOURS ───────────────────────────── -->
+    <section class="section" aria-labelledby="alentours-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="alentours-titre">Aux alentours</h2>
+      </div>
+
+      <ul class="alentours-grid" role="list">
+        {alentours.map(a => (
+          <li class="alentour-card">
+            <span class="alentour-card__emoji" aria-hidden="true">{a.emoji}</span>
+            <strong class="alentour-card__nom">{a.nom}</strong>
+            {a.lieu && <span class="alentour-card__lieu">{a.lieu}</span>}
+            <p class="alentour-card__desc">{a.desc}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+  </div>
+</PageLayout>
+
+<style>
+  .page-content {
+    padding-top: 3.5rem;
+    padding-bottom: 5rem;
+  }
+
+  /* ── CHAPEAU ── */
+  .chapeau {
+    font-size: 1.1rem;
+    line-height: 1.75;
+    color: var(--color-text-light);
+    border-left: 4px solid var(--color-accent);
+    padding-left: 1.25rem;
+    margin-bottom: 3.5rem;
+    max-width: 780px;
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    margin-bottom: 4.5rem;
+  }
+
+  .section__header {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  .section__header::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--color-primary);
+    border-radius: 4px;
+  }
+
+  .section__titre {
+    font-family: var(--font-heading);
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    line-height: 1.2;
+  }
+
+  /* ── SUBSECTIONS ── */
+  .subsection {
+    margin-bottom: 2.5rem;
+  }
+
+  .subsection__titre {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    margin-bottom: 0.75rem;
+  }
+
+  .subsection__label {
+    font-weight: 700;
+    font-size: 0.88rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-light);
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .para {
+    line-height: 1.75;
+    color: var(--color-text);
+    max-width: 780px;
+  }
+
+  .infobox-wrap {
+    margin-top: 1.25rem;
+    max-width: 600px;
+  }
+
+  /* ── LISTE VERTE ── */
+  .green-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    max-width: 640px;
+  }
+
+  .green-list li {
+    position: relative;
+    padding-left: 1.4rem;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--color-text);
+  }
+
+  .green-list li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 1.1rem;
+    line-height: 1.3;
+  }
+
+  /* ── SENTIER CARD ── */
+  .sentier-card {
+    background: var(--color-primary-pale);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-primary);
+    border-radius: 6px;
+    padding: 1.5rem 1.75rem;
+    max-width: 720px;
+  }
+
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    background: var(--color-primary);
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── BOUTON OUTLINE ── */
+  .btn-outline {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.6rem 1.4rem;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .btn-outline:hover {
+    background: var(--color-primary);
+    color: #ffffff;
+  }
+
+  /* ── GÎTE ── */
+  .gite-hero {
+    background: var(--color-primary-pale);
+    border-left: 4px solid var(--color-primary);
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.75rem;
+    max-width: 780px;
+  }
+
+  .gite-hero__desc {
+    line-height: 1.75;
+    color: var(--color-text);
+    font-size: 1rem;
+  }
+
+  .gite-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  .gite-points {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .gite-point {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .gite-point__emoji {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  /* ── ALENTOURS ── */
+  .alentours-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .alentour-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 1.5rem 1.25rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    transition: box-shadow 0.25s, transform 0.25s;
+  }
+
+  .alentour-card:hover {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .alentour-card__emoji {
+    font-size: 1.75rem;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .alentour-card__nom {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+  }
+
+  .alentour-card__lieu {
+    font-size: 0.78rem;
+    color: var(--color-text-light);
+    font-weight: 600;
+  }
+
+  .alentour-card__desc {
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+    line-height: 1.45;
+    margin-top: 0.2rem;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    .gite-layout {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .alentours-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 540px) {
+    .alentours-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .gite-points {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

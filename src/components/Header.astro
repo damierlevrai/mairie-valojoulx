@@ -1,12 +1,12 @@
 ---
 const navItems = [
-  { label: 'La Commune', href: '/commune' },
-  { label: 'Vie Municipale', href: '/vie-municipale' },
-  { label: 'Urbanisme', href: '/urbanisme' },
-  { label: 'Services', href: '/services' },
-  { label: 'Associations', href: '/associations' },
-  { label: 'Actualités', href: '/actualites' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'La Commune',    href: '/commune' },
+  { label: 'La Mairie',     href: '/mairie' },
+  { label: 'Découvrir',     href: '/decouvrir' },
+  { label: 'Vie locale',    href: '/vie-locale' },
+  { label: 'Solidarité',    href: '/solidarite' },
+  { label: 'Environnement', href: '/environnement' },
+  { label: 'Contact',       href: '/contact' },
 ];
 ---
 
@@ -50,6 +50,15 @@ const navItems = [
 <script>
   const toggle = document.querySelector<HTMLButtonElement>('.nav__toggle');
   const navList = document.querySelector('.nav__list');
+
+  const path = window.location.pathname;
+  navList?.querySelectorAll<HTMLAnchorElement>('.nav__link').forEach(link => {
+    const href = link.getAttribute('href') ?? '';
+    if (href === path || (href !== '/' && path.startsWith(href))) {
+      link.setAttribute('aria-current', 'page');
+      link.classList.add('nav__link--active');
+    }
+  });
 
   toggle?.addEventListener('click', () => {
     const isOpen = toggle.getAttribute('aria-expanded') === 'true';
@@ -134,6 +143,12 @@ const navItems = [
   .nav__link:hover {
     color: var(--color-primary);
     background: var(--color-primary-pale);
+  }
+
+  .nav__link--active {
+    color: var(--color-primary);
+    background: var(--color-primary-pale);
+    font-weight: 700;
   }
 
   /* HAMBURGER — masqué sur desktop */

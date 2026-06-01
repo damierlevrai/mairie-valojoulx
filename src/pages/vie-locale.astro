@@ -1,0 +1,478 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import InfoBox from '../components/InfoBox.astro';
+import { mairie } from '../data/mairie.js';
+
+const capaciteItems = [
+  { label: 'Repas assis',            value: "Jusqu'à 130 personnes" },
+  { label: 'Conférence / réunion',   value: "Jusqu'à 200 personnes" },
+];
+
+const reservationItems = [
+  { label: 'Téléphone', value: mairie.telephone },
+  { label: 'Email',     value: mairie.email },
+  { label: 'Horaires',  value: mairie.horairesCourt },
+  { label: 'Note',      value: 'Réservation par téléphone ou email uniquement' },
+];
+
+const equipements = [
+  'Grande cuisine fonctionnelle',
+  'Tables et chaises en nombre',
+  'Vaisselle complète (assiettes, verres, coupes à champagne, couverts, tasses, plats, saladiers)',
+];
+
+const tarifsLignes = [
+  { prestation: 'Location journée',       hab: '—', ext: '—' },
+  { prestation: 'Location week-end',      hab: '—', ext: '—' },
+  { prestation: 'Vaisselle (par couvert)', hab: '—', ext: '—' },
+  { prestation: 'Caution',               hab: '—', ext: '—' },
+];
+
+const services = [
+  { emoji: '🏫', titre: 'École',                 texte: "Regroupement scolaire avec les communes voisines. Transport scolaire organisé par le SIVS de Montignac." },
+  { emoji: '🚌', titre: 'Transport scolaire',    texte: "Géré par le SIVS de Montignac. Renseignements en mairie." },
+  { emoji: '💧', titre: 'Eau potable',           texte: "Gérée par le SMAEP des 2 rivières (représentants : Jean-Pierre Mège et Nicolas Duquerroy)." },
+  { emoji: '🗑️', titre: 'Collecte des déchets', texte: "Gérée par le SICTOM du Périgord Noir. Renseignements sur les collectes en mairie." },
+  { emoji: '⚡', titre: 'Énergie',              texte: "Réseau électrique géré par le SDE24." },
+  { emoji: '📬', titre: 'La Poste',             texte: "Service postal assuré par la commune voisine. Renseignements en mairie." },
+];
+---
+
+<PageLayout
+  title="Vie locale"
+  section="Vie locale"
+  description="Salle des fêtes, associations, services de proximité et bulletin municipal : la vie quotidienne à Valojoulx en Périgord Noir."
+>
+  <div class="container page-content">
+
+    <!-- Accroche -->
+    <p class="chapeau">
+      Valojoulx cultive une vie locale active malgré sa taille modeste. Associations, équipements
+      communaux et services de proximité contribuent à la qualité de vie des 286 habitants
+      du village.
+    </p>
+
+    <!-- ── 1. SALLE DES FÊTES ────────────────────────── -->
+    <section class="section" aria-labelledby="salle-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="salle-titre">La salle des fêtes</h2>
+      </div>
+
+      <p class="para">
+        La salle des fêtes communale est disponible à la location pour événements privés et
+        associatifs : repas de famille, mariages, anniversaires, réunions, conférences.
+      </p>
+
+      <div class="two-cols">
+        <!-- Colonne gauche -->
+        <div>
+          <InfoBox title="Capacité d'accueil" items={capaciteItems} />
+
+          <h3 class="subsection__titre">Équipements</h3>
+          <ul class="green-list" role="list">
+            {equipements.map(e => <li>{e}</li>)}
+          </ul>
+        </div>
+
+        <!-- Colonne droite -->
+        <div>
+          <div class="tarifs-box">
+            <div class="tarifs-box__header">
+              <span class="tarifs-box__titre">Tarifs</span>
+              <span class="tarifs-box__mention">À consulter en mairie</span>
+            </div>
+            <div class="table-wrap">
+              <table class="tarifs-table" aria-label="Tarifs location salle des fêtes">
+                <thead>
+                  <tr>
+                    <th scope="col">Prestation</th>
+                    <th scope="col">Habitants Valojoulx</th>
+                    <th scope="col">Extérieurs</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tarifsLignes.map((l, i) => (
+                    <tr class={i % 2 === 0 ? 'row-pale' : ''}>
+                      <td class="td-bold">{l.prestation}</td>
+                      <td class="td-center td-light">{l.hab}</td>
+                      <td class="td-center td-light">{l.ext}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p class="tarifs-note">Tarifs votés en conseil municipal — se renseigner en mairie</p>
+          </div>
+
+          <div style="margin-top: 1.5rem;">
+            <InfoBox title="Réservation" items={reservationItems} />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 2. GÎTE ────────────────────────────────────── -->
+    <section class="section" aria-labelledby="gite-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="gite-titre">La Grange de Valojoulx</h2>
+      </div>
+      <p class="para">
+        Gîte de groupe communal, entièrement neuf, jusqu'à 14 personnes, accessible PMR,
+        climatisé. Idéal pour séjours en famille ou entre amis au cœur du Périgord Noir.
+      </p>
+      <a href="/decouvrir" class="btn-primary">En savoir plus →</a>
+    </section>
+
+    <!-- ── 3. VIE ASSOCIATIVE ─────────────────────────── -->
+    <section class="section" aria-labelledby="asso-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="asso-titre">Vie associative</h2>
+      </div>
+
+      <p class="para">
+        Les associations jouent un rôle essentiel dans la vie du village. La commune soutient
+        leur activité et met à disposition ses équipements.
+      </p>
+
+      <div class="notice-box">
+        <span class="notice-box__icon" aria-hidden="true">ℹ️</span>
+        <p class="notice-box__text">
+          La liste des associations actives sur la commune sera publiée prochainement. Pour toute
+          information, contactez la mairie.
+        </p>
+      </div>
+
+      <h3 class="subsection__titre">Vous représentez une association ?</h3>
+      <p class="para">
+        Pour déposer une demande de subvention, réserver la salle des fêtes ou figurer sur cette
+        page, contactez la mairie aux horaires d'ouverture.
+      </p>
+    </section>
+
+    <!-- ── 4. SERVICES DE PROXIMITÉ ───────────────────── -->
+    <section class="section" aria-labelledby="services-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="services-titre">Services de proximité</h2>
+      </div>
+
+      <ul class="services-grid" role="list">
+        {services.map(s => (
+          <li class="service-card">
+            <span class="service-card__emoji" aria-hidden="true">{s.emoji}</span>
+            <h3 class="service-card__titre">{s.titre}</h3>
+            <p class="service-card__texte">{s.texte}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- ── 5. BULLETIN MUNICIPAL ──────────────────────── -->
+    <section class="section" aria-labelledby="bulletin-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="bulletin-titre">Bulletin municipal</h2>
+      </div>
+
+      <p class="para">
+        La commune publie un bulletin semestriel d'information regroupant les comptes-rendus du
+        conseil municipal, les actualités locales et les informations pratiques pour les habitants.
+      </p>
+
+      <div class="notice-box">
+        <span class="notice-box__icon" aria-hidden="true">📄</span>
+        <p class="notice-box__text">
+          Les bulletins municipaux seront disponibles en téléchargement prochainement.
+        </p>
+      </div>
+    </section>
+
+  </div>
+</PageLayout>
+
+<style>
+  .page-content {
+    padding-top: 3.5rem;
+    padding-bottom: 5rem;
+  }
+
+  /* ── CHAPEAU ── */
+  .chapeau {
+    font-size: 1.1rem;
+    line-height: 1.75;
+    color: var(--color-text-light);
+    border-left: 4px solid var(--color-accent);
+    padding-left: 1.25rem;
+    margin-bottom: 3.5rem;
+    max-width: 780px;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section {
+    margin-bottom: 4rem;
+  }
+
+  .section__header {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .section__header::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--color-primary);
+    border-radius: 4px;
+  }
+
+  .section__titre {
+    font-family: var(--font-heading);
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    line-height: 1.2;
+  }
+
+  .subsection__titre {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .para {
+    line-height: 1.75;
+    color: var(--color-text);
+    max-width: 780px;
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── DEUX COLONNES ── */
+  .two-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    margin-top: 1.5rem;
+  }
+
+  /* ── LISTE VERTE ── */
+  .green-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .green-list li {
+    position: relative;
+    padding-left: 1.4rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  .green-list li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 1.1rem;
+    line-height: 1.3;
+  }
+
+  /* ── TARIFS ── */
+  .tarifs-box {
+    background: var(--color-primary-pale);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-primary);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .tarifs-box__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 1rem 1.25rem 0.75rem;
+  }
+
+  .tarifs-box__titre {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+  }
+
+  .tarifs-box__mention {
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+    font-style: italic;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+  }
+
+  .tarifs-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    min-width: 360px;
+  }
+
+  .tarifs-table thead tr {
+    background: var(--color-primary-dark);
+  }
+
+  .tarifs-table th {
+    padding: 0.6rem 1rem;
+    text-align: left;
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  .tarifs-table td {
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid var(--color-border);
+    line-height: 1.4;
+  }
+
+  .tarifs-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .row-pale {
+    background: #ffffff;
+  }
+
+  .td-bold {
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .td-center {
+    text-align: center;
+  }
+
+  .td-light {
+    color: var(--color-text-light);
+  }
+
+  .tarifs-note {
+    padding: 0.6rem 1.25rem 0.9rem;
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--color-text-light);
+  }
+
+  /* ── BOUTON VERT ── */
+  .btn-primary {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.65rem 1.5rem;
+    background: var(--color-primary);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: var(--color-primary-dark);
+  }
+
+  /* ── NOTICE BOX ── */
+  .notice-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-top: 1.25rem;
+    background: var(--color-primary-pale);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-primary);
+    border-radius: 4px;
+    padding: 1.1rem 1.4rem;
+    max-width: 680px;
+  }
+
+  .notice-box__icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .notice-box__text {
+    color: var(--color-text);
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  /* ── SERVICES ── */
+  .services-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .service-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .service-card__emoji {
+    font-size: 2rem;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .service-card__titre {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+  }
+
+  .service-card__texte {
+    font-size: 0.875rem;
+    color: var(--color-text-light);
+    line-height: 1.55;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    .two-cols {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

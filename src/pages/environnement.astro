@@ -1,0 +1,541 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import InfoBox from '../components/InfoBox.astro';
+import { mairie } from '../data/mairie.js';
+
+const eau = [
+  {
+    emoji: '💧',
+    titre: 'Eau potable — SMAEP des 2 rivières',
+    texte: "Syndicat mixte assurant la production et distribution d'eau potable sur la commune.",
+    details: "Titulaires : Jean-Pierre Mège, Nicolas Duquerroy. Suppléants : Jean-François Blan, Brigitte Dartenset.",
+    lien: null,
+  },
+  {
+    emoji: '🌊',
+    titre: 'Milieux aquatiques — SMBVVD',
+    texte: "Syndicat Mixte du Bassin Versant de la Vézère et de la Dordogne — gestion des zones humides, entretien des cours d'eau, inventaires écologiques.",
+    details: "Titulaire : Bruno Bastian. Suppléant : Jean-Pierre Mège.",
+    lien: null,
+  },
+  {
+    emoji: '🎣',
+    titre: 'Étang et pêche',
+    texte: "L'étang communal, propriété de la Fédération de pêche, fait l'objet d'un entretien régulier et d'inventaires floristiques et faunistiques.",
+    details: null,
+    lien: null,
+  },
+  {
+    emoji: '💦',
+    titre: 'Irrigation',
+    texte: "Syndicat d'Irrigation de Montignac — gestion de l'irrigation agricole.",
+    details: "Titulaires : Philippe Bastide, Jean-François Blan.",
+    lien: null,
+  },
+];
+
+const energie = [
+  {
+    emoji: '⚡',
+    titre: 'Réseau électrique — SDE24',
+    texte: "Syndicat Départemental d'Énergie de la Dordogne — gestion et développement du réseau électrique.",
+    details: "Titulaires : Nicolas Duquerroy, Bruno Bastian. Suppléants : Jean-Pierre Mège, Catherine Beatrix.",
+    lien: null,
+  },
+  {
+    emoji: '♻️',
+    titre: 'Collecte des déchets — SICTOM Périgord Noir',
+    texte: "Syndicat Intercommunal de Collecte et de Traitement des Ordures Ménagères.",
+    details: "Titulaires : Philippe Bastide, Nicolas Duquerroy. Suppléants : Jean-François Blan, Mireille Calvo.",
+    lien: { href: 'https://www.sictom-perigordnoir.fr', label: 'www.sictom-perigordnoir.fr ↗' },
+  },
+  {
+    emoji: '🌱',
+    titre: 'Bien-être animal',
+    texte: "Commission communale dédiée.",
+    details: "Référente : Nicolas Duquerroy. Membres : Brigitte Dartenset, Jean-François Blan, Catherine Beatrix.",
+    lien: null,
+  },
+  {
+    emoji: '🌳',
+    titre: 'Espaces verts',
+    texte: "Entretien des espaces verts communaux — commission Bâtiment, voirie, espaces verts.",
+    details: "Référent : Jean-François Blan.",
+    lien: null,
+  },
+];
+
+const risques = [
+  {
+    emoji: '🌊',
+    titre: 'Risque inondation',
+    texte: "La Vézère peut être sujette à des crues. Les habitants des zones basses doivent consulter les repères de crue et les alertes Vigicrues.",
+    lien: { href: 'https://www.vigicrues.gouv.fr', label: 'vigicrues.gouv.fr ↗' },
+  },
+  {
+    emoji: '🔥',
+    titre: 'Risque incendie',
+    texte: "Les plateaux boisés présentent un risque incendie en période estivale. Respectez les interdictions de feu en forêt. Arrêtés préfectoraux consultables en mairie.",
+    lien: null,
+  },
+  {
+    emoji: '📋',
+    titre: 'Plan Communal de Sauvegarde',
+    texte: "Document consultable en mairie.",
+    details: "Commission Sécurité référente : Danielle Avez. Membres : Martine Derenne, Jean-François Blan, Nicolas Duquerroy, Catherine Beatrix.",
+    lien: null,
+  },
+  {
+    emoji: '📡',
+    titre: 'Alertes et information',
+    texte: "Inscrivez-vous au système d'alerte SMS de la commune via la mairie. Suivez également les alertes préfectorales sur le site de la préfecture de la Dordogne.",
+    lien: { href: 'https://www.dordogne.gouv.fr', label: 'dordogne.gouv.fr ↗' },
+  },
+];
+
+const contacts = [
+  { emoji: '🏛️', nom: 'Mairie de Valojoulx',      info: mairie.telephone,        info2: mairie.email, lien: null },
+  { emoji: '🚒', nom: 'Pompiers',                  info: '18 ou 112',             info2: null, lien: null },
+  { emoji: '🚑', nom: 'SAMU',                      info: '15',                    info2: null, lien: null },
+  { emoji: '👮', nom: 'Gendarmerie de Montignac',  info: '05 53 51 80 17',        info2: null, lien: null },
+  { emoji: '🌊', nom: 'Vigicrues',                 info: null,                    info2: null, lien: { href: 'https://www.vigicrues.gouv.fr', label: 'vigicrues.gouv.fr ↗' } },
+  { emoji: '🏛️', nom: 'Préfecture Dordogne',       info: null,                    info2: null, lien: { href: 'https://www.dordogne.gouv.fr', label: 'dordogne.gouv.fr ↗' } },
+];
+---
+
+<PageLayout
+  title="Environnement et sécurité"
+  section="Environnement"
+  description="Environnement, gestion de l'eau, risques naturels et sécurité civile à Valojoulx en Périgord Noir."
+>
+  <div class="container page-content">
+
+    <p class="chapeau">
+      Valojoulx s'inscrit dans un territoire naturel exceptionnel — vallée de la Vézère, plateaux
+      boisés, zones humides. La commune s'engage pour la préservation de ce cadre de vie et la
+      sécurité de ses habitants.
+    </p>
+
+    <!-- ── 1. TERRITOIRE NATUREL ──────────────────────── -->
+    <section class="section" aria-labelledby="territoire-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="territoire-titre">Le territoire naturel</h2>
+      </div>
+
+      <div class="two-cols">
+        <div>
+          <h3 class="subsection__titre">La Vézère et le Turançon</h3>
+          <p class="para">
+            La commune est traversée par deux cours d'eau structurants. La Vézère forme la limite
+            nord-ouest et offre un corridor écologique majeur. Le Turançon, ruisseau central,
+            divise la commune entre plateau boisé au nord et vallée calcaire au sud. Les zones
+            humides associées font l'objet d'inventaires réguliers par le Syndicat Mixte du
+            Bassin Versant de la Vézère.
+          </p>
+        </div>
+        <div>
+          <h3 class="subsection__titre">Les plateaux boisés</h3>
+          <p class="para">
+            Le territoire communal s'étend de 72 m (bord de Vézère) à 267 m (Puy Mangou). Les
+            plateaux calcaires boisés abritent une faune et une flore caractéristiques du Périgord
+            Noir. La forêt couvre une part importante des 11,79 km² de la commune.
+          </p>
+        </div>
+      </div>
+
+      <div class="notice-box notice-box--green">
+        <span class="notice-box__icon" aria-hidden="true">🌍</span>
+        <p class="notice-box__text">
+          Valojoulx s'inscrit dans la vallée de la Vézère, classée au Patrimoine Mondial de
+          l'UNESCO pour sa richesse préhistorique et naturelle exceptionnelle.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── 2. GESTION DE L'EAU ────────────────────────── -->
+    <section class="section" aria-labelledby="eau-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="eau-titre">Gestion de l'eau</h2>
+      </div>
+
+      <p class="para">
+        La gestion de l'eau est un enjeu majeur pour la commune, assurée par plusieurs structures
+        intercommunales.
+      </p>
+
+      <ul class="cards-grid cards-grid--2" role="list">
+        {eau.map(c => (
+          <li class="env-card">
+            <span class="env-card__emoji" aria-hidden="true">{c.emoji}</span>
+            <h3 class="env-card__titre">{c.titre}</h3>
+            <p class="env-card__texte">{c.texte}</p>
+            {c.details && <p class="env-card__details">{c.details}</p>}
+            {c.lien && (
+              <a href={c.lien.href} target="_blank" rel="noopener noreferrer" class="ext-link">
+                {c.lien.label}
+              </a>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- ── 3. ÉNERGIE ET TRANSITION ───────────────────── -->
+    <section class="section" aria-labelledby="energie-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="energie-titre">Énergie et transition écologique</h2>
+      </div>
+
+      <ul class="cards-grid cards-grid--2" role="list">
+        {energie.map(c => (
+          <li class="env-card">
+            <span class="env-card__emoji" aria-hidden="true">{c.emoji}</span>
+            <h3 class="env-card__titre">{c.titre}</h3>
+            <p class="env-card__texte">{c.texte}</p>
+            {c.details && <p class="env-card__details">{c.details}</p>}
+            {c.lien && (
+              <a href={c.lien.href} target="_blank" rel="noopener noreferrer" class="ext-link">
+                {c.lien.label}
+              </a>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- ── 4. RISQUES ET SÉCURITÉ CIVILE ──────────────── -->
+    <section class="section" aria-labelledby="risques-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="risques-titre">Risques naturels et sécurité civile</h2>
+      </div>
+
+      <div class="notice-box notice-box--warn">
+        <span class="notice-box__icon" aria-hidden="true">⚠️</span>
+        <p class="notice-box__text">
+          La commune dispose d'un Plan Communal de Sauvegarde (PCS). En cas d'événement majeur,
+          suivez les consignes des autorités.
+        </p>
+      </div>
+
+      <ul class="cards-grid cards-grid--2" role="list">
+        {risques.map(c => (
+          <li class="env-card">
+            <span class="env-card__emoji" aria-hidden="true">{c.emoji}</span>
+            <h3 class="env-card__titre">{c.titre}</h3>
+            <p class="env-card__texte">{c.texte}</p>
+            {'details' in c && c.details && <p class="env-card__details">{c.details}</p>}
+            {c.lien && (
+              <a href={c.lien.href} target="_blank" rel="noopener noreferrer" class="ext-link">
+                {c.lien.label}
+              </a>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- ── 5. URBANISME ET CADRE DE VIE ──────────────── -->
+    <section class="section" aria-labelledby="urba-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="urba-titre">Urbanisme et cadre de vie</h2>
+      </div>
+
+      <p class="para">
+        La commission Urbanisme, cimetières et assainissement veille à la qualité du cadre de vie
+        et à la cohérence du développement communal.
+        Référent : Jean-Pierre Mège. Membres : Jean-François Blan, Philippe Bastide,
+        Brigitte Dartenset.
+      </p>
+
+      <ul class="cards-grid cards-grid--2" role="list">
+        <li class="env-card">
+          <span class="env-card__emoji" aria-hidden="true">🗺️</span>
+          <h3 class="env-card__titre">Plan Local d'Urbanisme (PLU)</h3>
+          <p class="env-card__texte">
+            Le PLU définit les règles d'utilisation des sols sur la commune. Consultable en mairie
+            aux heures d'ouverture. Permis de construire et déclarations préalables de travaux
+            à déposer en mairie.
+          </p>
+        </li>
+        <li class="env-card">
+          <span class="env-card__emoji" aria-hidden="true">🚰</span>
+          <h3 class="env-card__titre">Assainissement</h3>
+          <p class="env-card__texte">
+            Réseau d'assainissement communal. Pour tout problème lié à l'assainissement,
+            contactez la mairie. Schéma directeur d'assainissement consultable en mairie.
+          </p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ── 6. CONTACTS UTILES ─────────────────────────── -->
+    <section class="section" aria-labelledby="contacts-titre">
+      <div class="section__header">
+        <h2 class="section__titre" id="contacts-titre">Contacts utiles</h2>
+      </div>
+
+      <ul class="contacts-grid" role="list">
+        {contacts.map(c => (
+          <li class="contact-compact">
+            <span class="contact-compact__emoji" aria-hidden="true">{c.emoji}</span>
+            <div class="contact-compact__body">
+              <strong class="contact-compact__nom">{c.nom}</strong>
+              {c.info  && <span class="contact-compact__info">{c.info}</span>}
+              {c.info2 && <span class="contact-compact__info">{c.info2}</span>}
+              {c.lien  && (
+                <a href={c.lien.href} target="_blank" rel="noopener noreferrer" class="ext-link">
+                  {c.lien.label}
+                </a>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+  </div>
+</PageLayout>
+
+<style>
+  .page-content {
+    padding-top: 3.5rem;
+    padding-bottom: 5rem;
+  }
+
+  /* ── CHAPEAU ── */
+  .chapeau {
+    font-size: 1.1rem;
+    line-height: 1.75;
+    color: var(--color-text-light);
+    border-left: 4px solid var(--color-accent);
+    padding-left: 1.25rem;
+    margin-bottom: 3.5rem;
+    max-width: 780px;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section {
+    margin-bottom: 4rem;
+  }
+
+  .section__header {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .section__header::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--color-primary);
+    border-radius: 4px;
+  }
+
+  .section__titre {
+    font-family: var(--font-heading);
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    line-height: 1.2;
+  }
+
+  .subsection__titre {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    margin-bottom: 0.6rem;
+  }
+
+  .para {
+    line-height: 1.75;
+    color: var(--color-text);
+    max-width: 780px;
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── DEUX COLONNES ── */
+  .two-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    margin-bottom: 1.75rem;
+  }
+
+  /* ── NOTICE BOXES ── */
+  .notice-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    border-radius: 4px;
+    padding: 1.1rem 1.4rem;
+    max-width: 780px;
+    margin-top: 0.5rem;
+  }
+
+  .notice-box--green {
+    background: var(--color-primary-pale);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-primary);
+  }
+
+  .notice-box--warn {
+    background: #fff8e1;
+    border: 1px solid #f0e0a0;
+    border-left: 4px solid var(--color-accent);
+    margin-bottom: 1.75rem;
+  }
+
+  .notice-box__icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    margin-top: 0.05rem;
+  }
+
+  .notice-box__text {
+    color: var(--color-text);
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  /* ── GRILLES DE CARTES ── */
+  .cards-grid {
+    list-style: none;
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 1.25rem;
+  }
+
+  .cards-grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* ── CARTE ENV ── */
+  .env-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .env-card__emoji {
+    font-size: 2rem;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .env-card__titre {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+  }
+
+  .env-card__texte {
+    font-size: 0.875rem;
+    color: var(--color-text-light);
+    line-height: 1.55;
+    flex: 1;
+  }
+
+  .env-card__details {
+    font-size: 0.82rem;
+    color: var(--color-text-light);
+    font-style: italic;
+    line-height: 1.5;
+    border-top: 1px solid var(--color-border);
+    padding-top: 0.5rem;
+    margin-top: 0.25rem;
+  }
+
+  /* ── LIEN EXTERNE ── */
+  .ext-link {
+    display: inline-block;
+    margin-top: 0.5rem;
+    color: var(--color-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: color 0.15s;
+  }
+
+  .ext-link:hover {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+  }
+
+  /* ── CONTACTS COMPACTS ── */
+  .contacts-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .contact-compact {
+    background: var(--color-primary-pale);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 1.1rem 1.25rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .contact-compact__emoji {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .contact-compact__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+  }
+
+  .contact-compact__nom {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    line-height: 1.3;
+  }
+
+  .contact-compact__info {
+    font-size: 0.82rem;
+    color: var(--color-text-light);
+    line-height: 1.4;
+    word-break: break-all;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    .two-cols {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .contacts-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .cards-grid--2 {
+      grid-template-columns: 1fr;
+    }
+
+    .contacts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
