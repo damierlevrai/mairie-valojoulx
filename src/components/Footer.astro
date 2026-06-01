@@ -1,55 +1,20 @@
 ---
-const liens = [
-  { label: 'La Commune', href: '/commune' },
-  { label: 'Vie Municipale', href: '/vie-municipale' },
-  { label: 'Urbanisme', href: '/urbanisme' },
-  { label: 'Services', href: '/services' },
-  { label: 'Associations', href: '/associations' },
-  { label: 'Actualités', href: '/actualites' },
-];
+// no frontmatter needed
 ---
 
 <footer class="footer" role="contentinfo">
   <div class="footer__main">
     <div class="container footer__grid">
 
+      <!-- ── Col 1 : Identité ── -->
       <div class="footer__col footer__col--brand">
-        <a href="/" class="footer__logo" aria-label="Mairie de Valojoulx">
-          <svg viewBox="0 0 48 52" xmlns="http://www.w3.org/2000/svg" fill="none" class="footer__logo-icon" aria-hidden="true">
-            <ellipse cx="24" cy="19" rx="16" ry="16" fill="#6a9c5f"/>
-            <ellipse cx="17" cy="23" rx="10" ry="10" fill="#7ab06a" opacity="0.6"/>
-            <ellipse cx="31" cy="22" rx="9" ry="9" fill="#5a8c4f" opacity="0.5"/>
-            <rect x="21" y="33" width="6" height="15" rx="3" fill="#5a8c4f"/>
-            <rect x="14" y="41" width="20" height="3" rx="1.5" fill="#4a7c3f"/>
-          </svg>
-          <div>
-            <span class="footer__logo-name">Mairie de Valojoulx</span>
-            <span class="footer__logo-dept">Dordogne · Périgord Noir</span>
-          </div>
+        <a href="/" class="footer__logo-text" aria-label="Accueil — Mairie de Valojoulx">
+          Valojoulx
         </a>
-        <p class="footer__desc">
-          Site officiel de la commune de Valojoulx, village authentique au cœur
-          du Périgord Noir, classé parmi les plus beaux villages de la Dordogne.
-        </p>
-      </div>
+        <p class="footer__subtitle">Commune du Périgord Noir</p>
 
-      <div class="footer__col">
-        <h3 class="footer__heading">Navigation</h3>
-        <ul class="footer__links" role="list">
-          {liens.map(l => (
-            <li><a href={l.href} class="footer__link">{l.label}</a></li>
-          ))}
-        </ul>
-      </div>
-
-      <div class="footer__col">
-        <h3 class="footer__heading">Contact &amp; Horaires</h3>
         <address class="footer__address">
-          <p>
-            <strong>Mairie de Valojoulx</strong><br />
-            1 place de la Mairie<br />
-            24290 Valojoulx
-          </p>
+          <p>1 place de la Mairie — 24290 Valojoulx</p>
           <p>
             <a href="tel:+33553507778" class="footer__link">05 53 50 77 78</a>
           </p>
@@ -59,189 +24,259 @@ const liens = [
             </a>
           </p>
         </address>
-        <div class="footer__hours">
-          <p class="footer__hours-title">Horaires d'ouverture</p>
-          <p>Mardi &amp; Vendredi : 8h – 12h</p>
-          <p>Mardi &amp; Vendredi : 13h30 – 17h30</p>
+
+        <p class="footer__hours">
+          Mardi et Vendredi<br />
+          8h–12h / 13h30–17h30
+        </p>
+
+        <div class="footer__social">
+          <a href="#" class="footer__social-link" aria-label="Facebook" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+            </svg>
+          </a>
         </div>
+      </div>
+
+      <!-- ── Col 2 : La Mairie ── -->
+      <div class="footer__col">
+        <h3 class="footer__heading">La Mairie</h3>
+        <ul class="footer__links" role="list">
+          <li><a href="/mairie" class="footer__link">Conseil municipal</a></li>
+          <li><a href="/mairie#demarches" class="footer__link">Démarches</a></li>
+          <li><a href="/mairie#urbanisme" class="footer__link">Urbanisme</a></li>
+          <li><a href="/mairie#bulletins" class="footer__link">Bulletins municipaux</a></li>
+          <li><a href="/mairie#ecoles" class="footer__link">Nos écoles</a></li>
+        </ul>
+      </div>
+
+      <!-- ── Col 3 : Découvrir ── -->
+      <div class="footer__col">
+        <h3 class="footer__heading">Découvrir</h3>
+        <ul class="footer__links" role="list">
+          <li><a href="/decouvrir#patrimoine" class="footer__link">Histoire &amp; Patrimoine</a></li>
+          <li><a href="/decouvrir#randonnees" class="footer__link">Randonnées</a></li>
+          <li><a href="/decouvrir#gite" class="footer__link">La Grange de Valojoulx</a></li>
+          <li><a href="/vie-economique" class="footer__link">Vie économique</a></li>
+          <li><a href="/vie-locale#associations" class="footer__link">Associations</a></li>
+          <li><a href="/solidarite" class="footer__link">Solidarité</a></li>
+        </ul>
+      </div>
+
+      <!-- ── Col 4 : Liens utiles ── -->
+      <div class="footer__col">
+        <h3 class="footer__heading">Liens utiles</h3>
+        <ul class="footer__links" role="list">
+          <li>
+            <a
+              href="https://www.cc-valleedelhomme.fr"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="footer__link footer__link--ext"
+            >
+              Communauté de Communes ↗
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.lascaux-dordogne.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="footer__link footer__link--ext"
+            >
+              Office de Tourisme ↗
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.service-public.fr"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="footer__link footer__link--ext"
+            >
+              Service-Public.fr ↗
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.atchoum.eu"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="footer__link footer__link--ext"
+            >
+              Atchoum ↗
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.sictom-perigordnoir.fr"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="footer__link footer__link--ext"
+            >
+              SICTOM Périgord Noir ↗
+            </a>
+          </li>
+        </ul>
       </div>
 
     </div>
   </div>
 
+  <!-- ── Barre de bas ── -->
   <div class="footer__bottom">
-    <div class="container footer__bottom-inner">
-      <p class="footer__copy">
-        &copy; {new Date().getFullYear()} Mairie de Valojoulx — Tous droits réservés
+    <div class="container">
+      <p class="footer__bottom-text">
+        &copy; {new Date().getFullYear()} Commune de Valojoulx — Tous droits réservés
+        <span class="footer__sep" aria-hidden="true">·</span>
+        <a href="/mentions-legales" class="footer__bottom-link">Mentions légales</a>
+        <span class="footer__sep" aria-hidden="true">·</span>
+        <a href="/plan-du-site" class="footer__bottom-link">Plan du site</a>
+        <span class="footer__sep" aria-hidden="true">·</span>
+        <a href="/accessibilite" class="footer__bottom-link">Accessibilité</a>
       </p>
-      <nav aria-label="Liens légaux" class="footer__legal">
-        <a href="/mentions-legales">Mentions légales</a>
-        <a href="/accessibilite">Accessibilité</a>
-        <a href="/plan-du-site">Plan du site</a>
-      </nav>
     </div>
   </div>
 </footer>
 
 <style>
   .footer {
-    background: #1e3a1a;
-    color: rgba(255, 255, 255, 0.8);
+    background: var(--color-primary-dark);
+    color: rgba(255, 255, 255, 0.85);
     font-size: 0.9rem;
   }
 
-  /* MAIN SECTION */
+  /* ── GRILLE PRINCIPALE ── */
   .footer__main {
     padding: 4rem 0 3rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   .footer__grid {
     display: grid;
-    grid-template-columns: 2fr 1fr 1.4fr;
-    gap: 3rem 4rem;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    gap: 3rem 2.5rem;
     align-items: start;
   }
 
-  /* BRAND COL */
-  .footer__logo {
+  /* ── COLONNE 1 : IDENTITÉ ── */
+  .footer__logo-text {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    display: block;
+    line-height: 1.2;
+    margin-bottom: 0.3rem;
+  }
+
+  .footer__subtitle {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1.25rem;
+  }
+
+  .footer__address {
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 0.75rem;
+  }
+
+  .footer__hours {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+
+  /* ── RÉSEAUX SOCIAUX ── */
+  .footer__social {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .footer__social-link {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
-    gap: 0.875rem;
-    margin-bottom: 1.25rem;
-    color: var(--color-white);
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.75);
+    transition: background 0.2s, color 0.2s;
   }
 
-  .footer__logo-icon {
-    width: 44px;
-    height: 48px;
-    flex-shrink: 0;
+  .footer__social-link:hover {
+    background: var(--color-accent);
+    color: #ffffff;
   }
 
-  .footer__logo-name {
-    display: block;
-    font-family: var(--font-heading);
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--color-white);
-    line-height: 1.2;
-  }
-
-  .footer__logo-dept {
-    display: block;
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    letter-spacing: 0.09em;
-    color: rgba(255, 255, 255, 0.5);
-    font-weight: 300;
-  }
-
-  .footer__desc {
-    line-height: 1.7;
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.88rem;
-    max-width: 340px;
-  }
-
-  /* HEADING */
+  /* ── TITRES COLONNES ── */
   .footer__heading {
-    font-family: var(--font-heading);
-    font-size: 0.95rem;
+    font-size: 0.75rem;
     font-weight: 700;
-    color: var(--color-white);
-    margin-bottom: 1.25rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--color-accent);
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    font-variant: small-caps;
   }
 
-  /* LINKS */
+  /* ── LIENS ── */
   .footer__links {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    gap: 0.55rem;
   }
 
   .footer__link {
-    color: rgba(255, 255, 255, 0.65);
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.875rem;
     transition: color 0.2s;
     display: inline-block;
   }
 
   .footer__link:hover {
-    color: var(--color-primary-light);
+    color: #ffffff;
   }
 
-  /* ADDRESS */
-  .footer__address {
-    font-style: normal;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-    color: rgba(255, 255, 255, 0.65);
-    margin-bottom: 1.5rem;
-  }
-
-  .footer__hours {
-    background: rgba(255, 255, 255, 0.05);
-    border-left: 3px solid var(--color-primary);
-    padding: 0.75rem 1rem;
-    border-radius: 0 3px 3px 0;
-  }
-
-  .footer__hours-title {
-    font-weight: 600;
-    color: var(--color-primary-light);
-    font-size: 0.78rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-bottom: 0.4rem;
-  }
-
-  .footer__hours p:not(.footer__hours-title) {
-    color: rgba(255, 255, 255, 0.65);
-    font-size: 0.84rem;
-  }
-
-  /* BOTTOM BAR */
+  /* ── BARRE DE BAS ── */
   .footer__bottom {
-    padding: 1.25rem 0;
-    background: #152e12;
+    padding: 1rem 0;
+    background: rgba(0, 0, 0, 0.2);
   }
 
-  .footer__bottom-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-  }
-
-  .footer__copy {
+  .footer__bottom-text {
     font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.45);
+    text-align: center;
+    line-height: 2;
   }
 
-  .footer__legal {
-    display: flex;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-  }
-
-  .footer__legal a {
-    font-size: 0.78rem;
-    color: rgba(255, 255, 255, 0.4);
+  .footer__bottom-link {
+    color: rgba(255, 255, 255, 0.45);
     transition: color 0.2s;
   }
 
-  .footer__legal a:hover {
-    color: rgba(255, 255, 255, 0.75);
+  .footer__bottom-link:hover {
+    color: rgba(255, 255, 255, 0.85);
   }
 
-  /* RESPONSIVE */
-  @media (max-width: 900px) {
+  .footer__sep {
+    padding: 0 0.4rem;
+    color: rgba(255, 255, 255, 0.2);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
     .footer__grid {
       grid-template-columns: 1fr 1fr;
       gap: 2.5rem 2rem;
@@ -250,20 +285,22 @@ const liens = [
     .footer__col--brand {
       grid-column: 1 / -1;
     }
-
-    .footer__desc {
-      max-width: 100%;
-    }
   }
 
   @media (max-width: 540px) {
     .footer__grid {
       grid-template-columns: 1fr;
+      gap: 0;
     }
 
-    .footer__bottom-inner {
-      flex-direction: column;
-      align-items: flex-start;
+    .footer__col {
+      padding: 1.5rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer__col--brand {
+      border-top: none;
+      padding-top: 0;
     }
   }
 </style>
