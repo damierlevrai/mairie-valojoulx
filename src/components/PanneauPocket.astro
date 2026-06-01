@@ -1,0 +1,114 @@
+---
+// no frontmatter needed
+---
+
+<section class="panneau-pocket">
+  <div class="container">
+    <div class="panneau-pocket__inner">
+
+      <div class="panneau-pocket__text">
+        <h2 class="panneau-pocket__titre">Restez informés !</h2>
+        <p class="panneau-pocket__intro">
+          Les informations et alertes de la commune sont aussi sur
+          <strong>Panneau Pocket</strong>.
+        </p>
+        <p>
+          Avec cette application gratuite, recevez directement sur votre smartphone,
+          tablette ou ordinateur toutes les informations, actualités et urgences de
+          votre mairie, des écoles ou des associations locales. Simple, pratique et
+          gratuite, elle vous accompagne partout.
+        </p>
+        <a
+          href="https://www.panneaupocket.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="panneau-pocket__btn"
+        >
+          📱 Télécharger Panneau Pocket
+        </a>
+      </div>
+
+      <div class="panneau-pocket__badges">
+        <div class="pp-badge">📡 Infos en temps réel</div>
+        <div class="pp-badge">🆓 Gratuit</div>
+        <div class="pp-badge">📱 Mobile &amp; tablette</div>
+        <div class="pp-badge">🏛️ Mairie de Valojoulx</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .panneau-pocket {
+    background: var(--color-primary-dark);
+    color: white;
+    padding: 3.5rem 0;
+  }
+
+  .panneau-pocket__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .panneau-pocket__titre {
+    font-family: var(--font-heading);
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    margin-bottom: 1rem;
+    color: var(--color-accent);
+  }
+
+  .panneau-pocket__intro {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+  }
+
+  .panneau-pocket p {
+    opacity: 0.8;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .panneau-pocket__btn {
+    display: inline-block;
+    background: var(--color-accent);
+    color: var(--color-text);
+    padding: 0.75rem 1.75rem;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+
+  .panneau-pocket__btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  .panneau-pocket__badges {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .pp-badge {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 1.25rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 768px) {
+    .panneau-pocket__inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>

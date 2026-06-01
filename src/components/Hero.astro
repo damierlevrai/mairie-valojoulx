@@ -22,6 +22,29 @@ import ImageLocale from './ImageLocale.astro';
       <a href="/commune" class="hero__cta hero__cta--primary">Découvrir la commune</a>
       <a href="/contact" class="hero__cta hero__cta--secondary">Nous contacter</a>
     </div>
+
+    <div class="hero__raccourcis">
+      <a href="/mairie#demarches" class="raccourci">
+        <span class="raccourci__icon">📋</span>
+        <span class="raccourci__label">Démarches</span>
+      </a>
+      <a href="/vie-economique#hebergements" class="raccourci">
+        <span class="raccourci__icon">🏡</span>
+        <span class="raccourci__label">Hébergements</span>
+      </a>
+      <a href="/solidarite#urgences" class="raccourci">
+        <span class="raccourci__icon">🚨</span>
+        <span class="raccourci__label">Urgences</span>
+      </a>
+      <a href="/actualites" class="raccourci">
+        <span class="raccourci__icon">📰</span>
+        <span class="raccourci__label">Actualités</span>
+      </a>
+      <a href="/contact" class="raccourci">
+        <span class="raccourci__icon">✉️</span>
+        <span class="raccourci__label">Contact</span>
+      </a>
+    </div>
   </div>
 
   <div class="hero__scroll" aria-hidden="true">
@@ -187,6 +210,46 @@ import ImageLocale from './ImageLocale.astro';
     50% { opacity: 1; transform: scaleY(1); }
   }
 
+  /* ── RACCOURCIS ── */
+  .hero__raccourcis {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+
+  .raccourci {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(4px);
+    border-radius: 8px;
+    padding: 0.75rem 1.25rem;
+    color: white;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    min-width: 90px;
+  }
+
+  .raccourci:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+  }
+
+  .raccourci__icon { font-size: 1.5rem; }
+
+  .raccourci__label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
   @media (max-width: 600px) {
     .hero {
       min-height: 520px;
@@ -197,5 +260,13 @@ import ImageLocale from './ImageLocale.astro';
       flex-direction: column;
       align-items: flex-start;
     }
+
+    .raccourci {
+      min-width: 70px;
+      padding: 0.6rem 0.75rem;
+    }
+
+    .raccourci__icon { font-size: 1.25rem; }
+    .raccourci__label { font-size: 0.7rem; }
   }
 </style>
