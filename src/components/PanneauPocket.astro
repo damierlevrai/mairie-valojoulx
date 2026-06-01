@@ -1,38 +1,45 @@
 ---
-// no frontmatter needed
+import { getCollection } from 'astro:content';
+const actualites = await getCollection('actualites');
+const dernieres = actualites
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 3);
 ---
 
-<section class="panneau-pocket">
+<section class="info-band">
   <div class="container">
-    <div class="panneau-pocket__inner">
+    <div class="info-band__inner">
 
-      <div class="panneau-pocket__text">
-        <h2 class="panneau-pocket__titre">Restez informés !</h2>
-        <p class="panneau-pocket__intro">
+      <div class="info-band__pocket">
+        <h2 class="info-band__titre">Restez informés !</h2>
+        <p class="info-band__intro">
           Les informations et alertes de la commune sont aussi sur
-          <strong>Panneau Pocket</strong>.
-        </p>
-        <p>
-          Avec cette application gratuite, recevez directement sur votre smartphone,
-          tablette ou ordinateur toutes les informations, actualités et urgences de
-          votre mairie, des écoles ou des associations locales. Simple, pratique et
-          gratuite, elle vous accompagne partout.
+          <strong>Panneau Pocket</strong> — application gratuite sur smartphone et tablette.
         </p>
         <a
           href="https://www.panneaupocket.com"
           target="_blank"
           rel="noopener noreferrer"
-          class="panneau-pocket__btn"
+          class="info-band__btn"
         >
-          📱 Télécharger Panneau Pocket
+          Télécharger Panneau Pocket
         </a>
       </div>
 
-      <div class="panneau-pocket__badges">
-        <div class="pp-badge">📡 Infos en temps réel</div>
-        <div class="pp-badge">🆓 Gratuit</div>
-        <div class="pp-badge">📱 Mobile &amp; tablette</div>
-        <div class="pp-badge">🏛️ Mairie de Valojoulx</div>
+      <div class="info-band__actus">
+        <h3 class="info-band__actus-titre">Dernières informations</h3>
+        <div class="info-band__liste">
+          {dernieres.map(actu => (
+            <a href={`/actualites/${actu.id.replace(/\.md$/, '')}`} class="info-band__item">
+              <span class="info-band__item-cat">{actu.data.categorie}</span>
+              <span class="info-band__item-titre">{actu.data.title}</span>
+              <span class="info-band__item-date">
+                {new Date(actu.data.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
+              </span>
+            </a>
+          ))}
+        </div>
+        <a href="/actualites" class="info-band__voir-tout">Toutes les actualités →</a>
       </div>
 
     </div>
@@ -40,73 +47,109 @@
 </section>
 
 <style>
-  .panneau-pocket {
+  .info-band {
     background: var(--color-primary-dark);
     color: white;
-    padding: 3.5rem 0;
+    padding: 3rem 0;
   }
 
-  .panneau-pocket__inner {
+  .info-band__inner {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
-    align-items: center;
+    align-items: start;
   }
 
-  .panneau-pocket__titre {
+  .info-band__titre {
     font-family: var(--font-heading);
-    font-size: clamp(1.4rem, 3vw, 2rem);
-    margin-bottom: 1rem;
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
     color: var(--color-accent);
-  }
-
-  .panneau-pocket__intro {
-    font-size: 1.1rem;
     margin-bottom: 1rem;
-    opacity: 0.9;
   }
 
-  .panneau-pocket p {
-    opacity: 0.8;
-    line-height: 1.7;
+  .info-band__intro {
+    opacity: 0.85;
+    line-height: 1.65;
     margin-bottom: 1.5rem;
+    font-size: 0.95rem;
   }
 
-  .panneau-pocket__btn {
+  .info-band__btn {
     display: inline-block;
     background: var(--color-accent);
     color: var(--color-text);
-    padding: 0.75rem 1.75rem;
+    padding: 0.65rem 1.5rem;
     border-radius: 4px;
     font-weight: 700;
-    font-size: 0.95rem;
-    text-decoration: none;
-    transition: opacity 0.2s, transform 0.2s;
-  }
-
-  .panneau-pocket__btn:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
-  }
-
-  .panneau-pocket__badges {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-
-  .pp-badge {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    padding: 1.25rem;
-    text-align: center;
-    font-weight: 600;
     font-size: 0.9rem;
+    text-decoration: none;
+    transition: opacity 0.2s;
   }
+
+  .info-band__btn:hover { opacity: 0.85; }
+
+  .info-band__actus-titre {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .info-band__liste {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .info-band__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 0.875rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-decoration: none;
+    color: white;
+    transition: padding-left 0.2s;
+  }
+
+  .info-band__item:hover { padding-left: 0.5rem; }
+
+  .info-band__item-cat {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-accent);
+  }
+
+  .info-band__item-titre {
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .info-band__item-date {
+    font-size: 0.75rem;
+    opacity: 0.6;
+  }
+
+  .info-band__voir-tout {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .info-band__voir-tout:hover { color: white; }
 
   @media (max-width: 768px) {
-    .panneau-pocket__inner {
+    .info-band__inner {
       grid-template-columns: 1fr;
       gap: 2rem;
     }

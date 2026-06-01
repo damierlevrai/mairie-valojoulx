@@ -19,30 +19,29 @@ import ImageLocale from './ImageLocale.astro';
       Village authentique au cœur du Périgord Noir
     </p>
     <div class="hero__actions">
-      <a href="/commune" class="hero__cta hero__cta--primary">Découvrir la commune</a>
-      <a href="/contact" class="hero__cta hero__cta--secondary">Nous contacter</a>
+      <a href="/decouvrir" class="hero__btn hero__btn--primary">
+        Découvrir la commune
+      </a>
     </div>
 
     <div class="hero__raccourcis">
       <a href="/mairie#demarches" class="raccourci">
-        <span class="raccourci__icon">📋</span>
-        <span class="raccourci__label">Démarches</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22" aria-hidden="true">
+          <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+        </svg>
+        <span>Démarches</span>
       </a>
       <a href="/vie-economique#hebergements" class="raccourci">
-        <span class="raccourci__icon">🏡</span>
-        <span class="raccourci__label">Hébergements</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22" aria-hidden="true">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span>Hébergements</span>
       </a>
       <a href="/solidarite#urgences" class="raccourci">
-        <span class="raccourci__icon">🚨</span>
-        <span class="raccourci__label">Urgences</span>
-      </a>
-      <a href="/actualites" class="raccourci">
-        <span class="raccourci__icon">📰</span>
-        <span class="raccourci__label">Actualités</span>
-      </a>
-      <a href="/contact" class="raccourci">
-        <span class="raccourci__icon">✉️</span>
-        <span class="raccourci__label">Contact</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22" aria-hidden="true">
+          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.22 1.18 2 2 0 012.22 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.16 6.16l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+        </svg>
+        <span>Urgences</span>
       </a>
     </div>
   </div>
@@ -143,12 +142,10 @@ import ImageLocale from './ImageLocale.astro';
   }
 
   .hero__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
+    margin-bottom: 2rem;
   }
 
-  .hero__cta {
+  .hero__btn--primary {
     display: inline-block;
     padding: 0.8rem 2rem;
     font-size: 0.85rem;
@@ -156,32 +153,17 @@ import ImageLocale from './ImageLocale.astro';
     text-transform: uppercase;
     letter-spacing: 0.07em;
     border-radius: 3px;
-    transition: background 0.25s, color 0.25s, transform 0.25s, box-shadow 0.25s;
-  }
-
-  .hero__cta--primary {
     background: var(--color-white);
     color: var(--color-primary-dark);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    transition: background 0.25s, color 0.25s, transform 0.25s, box-shadow 0.25s;
   }
 
-  .hero__cta--primary:hover {
+  .hero__btn--primary:hover {
     background: var(--color-primary);
     color: var(--color-white);
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(74, 124, 63, 0.4);
-  }
-
-  .hero__cta--secondary {
-    background: transparent;
-    color: var(--color-white);
-    border: 2px solid rgba(255, 255, 255, 0.65);
-  }
-
-  .hero__cta--secondary:hover {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: var(--color-white);
-    transform: translateY(-2px);
   }
 
   /* Scroll indicator */
@@ -213,26 +195,24 @@ import ImageLocale from './ImageLocale.astro';
   /* ── RACCOURCIS ── */
   .hero__raccourcis {
     display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
+    gap: 1rem;
     justify-content: center;
-    margin-top: 2rem;
+    flex-wrap: wrap;
   }
 
   .raccourci {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.5rem;
     background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
     border-radius: 8px;
-    padding: 0.75rem 1.25rem;
+    padding: 0.875rem 1.5rem;
     color: white;
     text-decoration: none;
     transition: background 0.2s, transform 0.2s;
-    min-width: 90px;
+    min-width: 110px;
   }
 
   .raccourci:hover {
@@ -240,14 +220,11 @@ import ImageLocale from './ImageLocale.astro';
     transform: translateY(-2px);
   }
 
-  .raccourci__icon { font-size: 1.5rem; }
-
-  .raccourci__label {
-    font-size: 0.78rem;
+  .raccourci span {
+    font-size: 0.8rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    white-space: nowrap;
+    letter-spacing: 0.06em;
   }
 
   @media (max-width: 600px) {
@@ -261,12 +238,6 @@ import ImageLocale from './ImageLocale.astro';
       align-items: flex-start;
     }
 
-    .raccourci {
-      min-width: 70px;
-      padding: 0.6rem 0.75rem;
-    }
-
-    .raccourci__icon { font-size: 1.25rem; }
-    .raccourci__label { font-size: 0.7rem; }
+    .raccourci { min-width: 90px; padding: 0.75rem 1rem; }
   }
 </style>
