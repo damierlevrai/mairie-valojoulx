@@ -1,7 +1,16 @@
 ---
+import ImageLocale from './ImageLocale.astro';
 ---
 
 <section class="hero" aria-label="Bannière d'accueil">
+  <div class="hero__bg" aria-hidden="true">
+    <ImageLocale
+      src="commune/aerienne.jpg"
+      alt="Vue aérienne de Valojoulx"
+      label="Vue aérienne du village"
+      ratio="16/6"
+    />
+  </div>
   <div class="hero__overlay" aria-hidden="true"></div>
   <div class="hero__content container">
     <p class="hero__eyebrow">Commune de la Dordogne</p>
@@ -28,15 +37,41 @@
     max-height: 780px;
     display: flex;
     align-items: center;
-    background-image: url('https://picsum.photos/seed/perigord-noir/1920/900');
-    background-size: cover;
-    background-position: center 40%;
     overflow: hidden;
+  }
+
+  /* ── IMAGE DE FOND ── */
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .hero__bg :global(img) {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center 40% !important;
+    aspect-ratio: unset !important;
+    border-radius: 0 !important;
+  }
+
+  .hero__bg :global(.placeholder-wrap) {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: unset !important;
+    border-radius: 0 !important;
   }
 
   .hero__overlay {
     position: absolute;
     inset: 0;
+    z-index: 1;
     background: linear-gradient(
       135deg,
       rgba(42, 74, 37, 0.78) 0%,
@@ -47,7 +82,7 @@
 
   .hero__content {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     color: var(--color-white);
     max-width: 680px;
     padding-top: 2rem;
@@ -132,6 +167,7 @@
     bottom: 2rem;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;

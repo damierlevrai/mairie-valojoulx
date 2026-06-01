@@ -1,6 +1,7 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import InfoBox from '../components/InfoBox.astro';
+import Galerie from '../components/Galerie.astro';
 import { mairie } from '../data/mairie.js';
 
 const capaciteItems = [
@@ -109,6 +110,12 @@ const services = [
           </div>
         </div>
       </div>
+
+      <Galerie images={[
+        { src: 'salle-fetes/salle.jpg', alt: 'Grande salle des fêtes', label: 'La grande salle' },
+        { src: 'salle-fetes/cuisine.jpg', alt: 'Cuisine de la salle des fêtes', label: 'La cuisine' },
+        { src: 'salle-fetes/exterieur.jpg', alt: 'Extérieur salle des fêtes', label: 'Vue extérieure' },
+      ]} />
     </section>
 
     <!-- ── 2. GÎTE ────────────────────────────────────── -->
@@ -121,6 +128,13 @@ const services = [
         climatisé. Idéal pour séjours en famille ou entre amis au cœur du Périgord Noir.
       </p>
       <a href="/decouvrir" class="btn-primary">En savoir plus →</a>
+
+      <Galerie images={[
+        { src: 'grange/exterieur-1.jpg', alt: 'La Grange de Valojoulx extérieur', label: 'Vue extérieure' },
+        { src: 'grange/exterieur-2.jpg', alt: 'La Grange de Valojoulx', label: 'Extérieur' },
+        { src: 'grange/interieur-1.jpg', alt: 'Intérieur La Grange', label: 'Intérieur' },
+        { src: 'grange/interieur-2.jpg', alt: 'Séjour La Grange', label: 'Séjour' },
+      ]} />
     </section>
 
     <!-- ── 3. VIE ASSOCIATIVE ─────────────────────────── -->

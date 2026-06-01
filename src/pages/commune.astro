@@ -1,6 +1,8 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import InfoBox from '../components/InfoBox.astro';
+import ImageLocale from '../components/ImageLocale.astro';
+import Galerie from '../components/Galerie.astro';
 
 const geoItems = [
   { label: 'Département',          value: 'Dordogne (24) — Périgord Noir' },
@@ -38,6 +40,13 @@ const chiffres = [
       Valojoulx, 286&nbsp;habitants (2022), nichée en rive gauche de la Vézère, à quelques minutes
       de Lascaux et Montignac, offre un cadre naturel préservé au cœur du Périgord Noir.
     </p>
+
+    <ImageLocale
+      src="commune/aerienne.jpg"
+      alt="Vue aérienne de Valojoulx"
+      label="Vue aérienne de Valojoulx"
+      ratio="16/5"
+    />
 
     <!-- ── GÉOGRAPHIE ─────────────────────────────────── -->
     <section class="section" aria-labelledby="geo-titre">
@@ -171,6 +180,13 @@ const chiffres = [
           </p>
         </div>
       </div>
+
+      <Galerie images={[
+        { src: 'nature/vezere.jpg', alt: 'La Vézère à Valojoulx', label: 'La Vézère' },
+        { src: 'nature/vezere-losse.jpg', alt: 'La Vézère et le château de Losse', label: 'Château de Losse' },
+        { src: 'nature/etang-1.jpg', alt: "Étang de Valojoulx", label: "L'étang" },
+        { src: 'nature/etang-2.jpg', alt: 'Zones humides', label: 'Zones humides' },
+      ]} />
     </section>
 
     <!-- ── CHIFFRES CLÉS ──────────────────────────────── -->

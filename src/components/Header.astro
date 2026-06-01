@@ -1,12 +1,79 @@
 ---
-const navItems = [
-  { label: 'La Commune',    href: '/commune' },
-  { label: 'La Mairie',     href: '/mairie' },
-  { label: 'Découvrir',     href: '/decouvrir' },
-  { label: 'Vie locale',    href: '/vie-locale' },
-  { label: 'Solidarité',    href: '/solidarite' },
-  { label: 'Environnement', href: '/environnement' },
-  { label: 'Contact',       href: '/contact' },
+interface NavChild {
+  label: string;
+  href: string;
+}
+interface NavItem {
+  label: string;
+  href: string;
+  children?: NavChild[];
+}
+
+const navItems: NavItem[] = [
+  { label: 'Accueil', href: '/' },
+  {
+    label: 'La Mairie',
+    href: '/mairie',
+    children: [
+      { label: 'Conseil municipal',         href: '/mairie' },
+      { label: 'Démarches administratives', href: '/mairie#demarches' },
+      { label: 'Urbanisme',                 href: '/mairie#urbanisme' },
+      { label: 'Projets et travaux',        href: '/mairie#projets' },
+      { label: 'Nos écoles et le SIVOS',    href: '/mairie#ecoles' },
+      { label: 'Communauté de Communes',    href: '/mairie#ccvh' },
+      { label: 'Bulletins municipaux',      href: '/mairie#bulletins' },
+    ],
+  },
+  {
+    label: 'Découvrir',
+    href: '/decouvrir',
+    children: [
+      { label: 'Histoire & Patrimoine',    href: '/decouvrir#patrimoine' },
+      { label: 'Randonnées',               href: '/decouvrir#randonnees' },
+      { label: 'Nature & Environnement',   href: '/decouvrir#nature' },
+      { label: 'Office de Tourisme',       href: '/decouvrir#tourisme' },
+      { label: 'La Grange de Valojoulx',   href: '/decouvrir#gite' },
+    ],
+  },
+  {
+    label: 'Vie économique',
+    href: '/vie-economique',
+    children: [
+      { label: 'Entreprises & Artisans', href: '/vie-economique#entreprises' },
+      { label: 'Producteurs locaux',     href: '/vie-economique#producteurs' },
+      { label: 'Métiers du bien-être',   href: '/vie-economique#bienetre' },
+      { label: "Métiers d'art",          href: '/vie-economique#art' },
+      { label: 'Hébergements',           href: '/vie-economique#hebergements' },
+    ],
+  },
+  {
+    label: 'Vie locale',
+    href: '/vie-locale',
+    children: [
+      { label: 'Associations',    href: '/vie-locale#associations' },
+      { label: 'Salle des fêtes', href: '/vie-locale#salle' },
+    ],
+  },
+  {
+    label: 'Solidarité',
+    href: '/solidarite',
+    children: [
+      { label: 'CIAS',                  href: '/solidarite#cias' },
+      { label: 'Transport solidaire',   href: '/solidarite#transport' },
+      { label: "Numéros d'urgence",     href: '/solidarite#urgences' },
+    ],
+  },
+  {
+    label: 'Environnement',
+    href: '/environnement',
+    children: [
+      { label: 'Eau & Déchets',        href: '/environnement#eau' },
+      { label: 'Prévention des risques', href: '/environnement#risques' },
+      { label: 'Les bons gestes',      href: '/environnement#gestes' },
+    ],
+  },
+  { label: 'Actualités', href: '/actualites' },
+  { label: 'Contact',    href: '/contact' },
 ];
 ---
 
@@ -37,9 +104,35 @@ const navItems = [
 
       <ul class="nav__list" id="nav-menu" role="list">
         {navItems.map(item => (
-          <li>
-            <a href={item.href} class="nav__link">{item.label}</a>
-          </li>
+          item.children ? (
+            <li class="nav__item nav__item--has-children">
+              <div class="nav__parent-row">
+                <a href={item.href} class="nav__link nav__link--parent">
+                  {item.label}
+                  <span class="nav__chevron" aria-hidden="true">▾</span>
+                </a>
+                <button
+                  class="nav__expand-btn"
+                  type="button"
+                  aria-expanded="false"
+                  aria-label={`Sous-menu ${item.label}`}
+                >
+                  <span aria-hidden="true">▾</span>
+                </button>
+              </div>
+              <ul class="nav__dropdown" role="list">
+                {item.children.map(child => (
+                  <li>
+                    <a href={child.href} class="nav__sub-link">{child.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ) : (
+            <li class="nav__item">
+              <a href={item.href} class="nav__link">{item.label}</a>
+            </li>
+          )
         ))}
       </ul>
     </nav>
@@ -48,18 +141,10 @@ const navItems = [
 </header>
 
 <script>
-  const toggle = document.querySelector<HTMLButtonElement>('.nav__toggle');
-  const navList = document.querySelector('.nav__list');
+  const toggle   = document.querySelector<HTMLButtonElement>('.nav__toggle');
+  const navList  = document.querySelector<HTMLElement>('.nav__list');
 
-  const path = window.location.pathname;
-  navList?.querySelectorAll<HTMLAnchorElement>('.nav__link').forEach(link => {
-    const href = link.getAttribute('href') ?? '';
-    if (href === path || (href !== '/' && path.startsWith(href))) {
-      link.setAttribute('aria-current', 'page');
-      link.classList.add('nav__link--active');
-    }
-  });
-
+  // ── HAMBURGER ──────────────────────────────────────────
   toggle?.addEventListener('click', () => {
     const isOpen = toggle.getAttribute('aria-expanded') === 'true';
     toggle.setAttribute('aria-expanded', String(!isOpen));
@@ -67,13 +152,70 @@ const navItems = [
     toggle.classList.toggle('nav__toggle--open');
   });
 
-  // Fermer le menu au clic sur un lien
-  navList?.querySelectorAll('.nav__link').forEach(link => {
+  // Fermer le menu au clic sur un lien de navigation
+  navList?.querySelectorAll('a.nav__link:not(.nav__link--parent), a.nav__sub-link').forEach(link => {
     link.addEventListener('click', () => {
       navList.classList.remove('nav__list--open');
       toggle?.setAttribute('aria-expanded', 'false');
       toggle?.classList.remove('nav__toggle--open');
     });
+  });
+
+  // ── ACCORDÉON MOBILE ───────────────────────────────────
+  document.querySelectorAll<HTMLButtonElement>('.nav__expand-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest<HTMLElement>('.nav__item--has-children');
+      if (!item) return;
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+      // Fermer les autres accordéons
+      document.querySelectorAll<HTMLButtonElement>('.nav__expand-btn').forEach(other => {
+        if (other !== btn) {
+          other.setAttribute('aria-expanded', 'false');
+          other.closest<HTMLElement>('.nav__item--has-children')?.classList.remove('nav__item--open');
+        }
+      });
+
+      btn.setAttribute('aria-expanded', String(!isOpen));
+      item.classList.toggle('nav__item--open', !isOpen);
+    });
+  });
+
+  // ── ÉCHAP : fermer tout ────────────────────────────────
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    navList?.classList.remove('nav__list--open');
+    toggle?.setAttribute('aria-expanded', 'false');
+    toggle?.classList.remove('nav__toggle--open');
+    document.querySelectorAll<HTMLButtonElement>('.nav__expand-btn').forEach(btn => {
+      btn.setAttribute('aria-expanded', 'false');
+      btn.closest<HTMLElement>('.nav__item--has-children')?.classList.remove('nav__item--open');
+    });
+  });
+
+  // ── ARIA-CURRENT ───────────────────────────────────────
+  const path = window.location.pathname;
+
+  navList?.querySelectorAll<HTMLAnchorElement>('a.nav__link, a.nav__sub-link').forEach(link => {
+    const href     = link.getAttribute('href') ?? '';
+    const hrefPath = href.split('#')[0];
+
+    const isActive =
+      hrefPath === path ||
+      (hrefPath !== '/' && hrefPath !== '' && path.startsWith(hrefPath));
+
+    if (isActive) {
+      link.setAttribute('aria-current', 'page');
+      link.classList.add('nav__link--active');
+
+      // Marquer le parent comme actif
+      const parentLink = link
+        .closest('.nav__item--has-children')
+        ?.querySelector<HTMLAnchorElement>('.nav__link--parent');
+      if (parentLink && parentLink !== link) {
+        parentLink.classList.add('nav__link--active');
+      }
+    }
   });
 </script>
 
@@ -92,10 +234,10 @@ const navItems = [
     align-items: center;
     justify-content: space-between;
     height: var(--header-height);
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
-  /* LOGO */
+  /* ── LOGO ── */
   .header__logo {
     display: flex;
     align-items: center;
@@ -110,7 +252,7 @@ const navItems = [
     display: block;
   }
 
-  /* NAV — centré dans l'espace restant */
+  /* ── NAV ── */
   .nav {
     display: flex;
     align-items: center;
@@ -122,15 +264,28 @@ const navItems = [
     display: flex;
     list-style: none;
     align-items: center;
-    gap: 0;
     flex-wrap: wrap;
     justify-content: center;
   }
 
+  /* ── ITEM ── */
+  .nav__item {
+    position: relative;
+  }
+
+  /* Parent row : lien + bouton expand côte à côte */
+  .nav__parent-row {
+    display: flex;
+    align-items: center;
+  }
+
+  /* ── LIEN NAV ── */
   .nav__link {
-    display: block;
-    padding: 0.45rem 0.75rem;
-    font-size: 0.82rem;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.78rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -148,10 +303,65 @@ const navItems = [
   .nav__link--active {
     color: var(--color-primary);
     background: var(--color-primary-pale);
-    font-weight: 700;
   }
 
-  /* HAMBURGER — masqué sur desktop */
+  /* Flèche ▾ dans le lien parent */
+  .nav__chevron {
+    font-size: 0.65em;
+    color: var(--color-primary);
+    line-height: 1;
+  }
+
+  /* Bouton expand (accordéon mobile) — masqué sur desktop */
+  .nav__expand-btn {
+    display: none;
+  }
+
+  /* ── DROPDOWN (desktop — CSS pur) ── */
+  .nav__item--has-children .nav__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    background: #ffffff;
+    border-top: 3px solid var(--color-primary);
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    z-index: 300;
+    list-style: none;
+    padding: 0.35rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
+  }
+
+  .nav__item--has-children:hover .nav__dropdown,
+  .nav__item--has-children:focus-within .nav__dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  /* Sous-lien */
+  .nav__sub-link {
+    display: block;
+    padding: 0.6rem 1.25rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--color-text);
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+    text-decoration: none;
+  }
+
+  .nav__sub-link:hover,
+  .nav__sub-link.nav__link--active {
+    background: var(--color-primary-pale);
+    color: var(--color-primary-dark);
+  }
+
+  /* ── HAMBURGER — masqué sur desktop ── */
   .nav__toggle {
     display: none;
     flex-direction: column;
@@ -186,7 +396,7 @@ const navItems = [
   .nav__toggle--open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
   .nav__toggle--open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-  /* ─── MOBILE ─────────────────────────────────────── */
+  /* ── MOBILE ── */
   @media (max-width: 960px) {
     .header__inner {
       justify-content: space-between;
@@ -201,6 +411,7 @@ const navItems = [
       display: flex;
     }
 
+    /* Menu plein écran */
     .nav__list {
       display: none;
       position: absolute;
@@ -211,28 +422,126 @@ const navItems = [
       flex-direction: column;
       align-items: stretch;
       flex-wrap: nowrap;
-      gap: 0;
-      padding: 0.5rem 0 1rem;
+      padding: 0.5rem 0 1.5rem;
       border-top: 2px solid var(--color-primary);
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      max-height: calc(100vh - var(--header-height));
+      overflow-y: auto;
     }
 
     .nav__list--open {
       display: flex;
     }
 
+    /* Lien mobile */
     .nav__link {
       padding: 0.85rem 1.5rem;
       border-radius: 0;
       font-size: 0.9rem;
       border-bottom: 1px solid var(--color-primary-pale);
-      color: var(--color-primary-dark);
     }
 
     .nav__link:hover {
       background: var(--color-primary-pale);
       padding-left: 2rem;
       transition: padding-left 0.2s, background 0.2s;
+    }
+
+    /* Parent row mobile : lien prend tout l'espace, bouton à droite */
+    .nav__parent-row {
+      display: flex;
+      align-items: stretch;
+      border-bottom: 1px solid var(--color-primary-pale);
+    }
+
+    /* Le lien parent n'a plus de border-bottom propre (géré par parent-row) */
+    .nav__link--parent {
+      flex: 1;
+      border-bottom: none;
+      padding-right: 0.5rem;
+    }
+
+    /* Masquer la flèche dans le lien sur mobile */
+    .nav__chevron {
+      display: none;
+    }
+
+    /* Bouton expand visible sur mobile */
+    .nav__expand-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      background: none;
+      border: none;
+      border-left: 1px solid var(--color-primary-pale);
+      color: var(--color-primary);
+      font-size: 1.1rem;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    .nav__expand-btn:hover {
+      background: var(--color-primary-pale);
+    }
+
+    /* Rotation de la flèche quand ouvert */
+    .nav__item--open .nav__expand-btn {
+      background: var(--color-primary-pale);
+    }
+
+    .nav__item--open .nav__expand-btn span {
+      display: inline-block;
+      transform: rotate(180deg);
+      color: var(--color-primary-dark);
+    }
+
+    /* Dropdown mobile : accordéon */
+    .nav__item--has-children .nav__dropdown {
+      /* Reset desktop styles */
+      position: static;
+      opacity: 1;
+      visibility: hidden;
+      transform: none;
+      box-shadow: none;
+      border-top: none;
+      border-radius: 0;
+      z-index: auto;
+      /* Accordéon */
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, visibility 0.3s;
+      padding: 0;
+      background: var(--color-bg);
+      border-left: 3px solid var(--color-primary-pale);
+      margin-left: 1.5rem;
+    }
+
+    .nav__item--has-children.nav__item--open .nav__dropdown {
+      visibility: visible;
+      max-height: 600px;
+    }
+
+    /* Sous-liens mobiles */
+    .nav__sub-link {
+      padding: 0.65rem 1.25rem;
+      font-size: 0.85rem;
+      border-bottom: 1px solid var(--color-border);
+      white-space: normal;
+    }
+
+    /* Supprimer l'ouverture au hover sur mobile */
+    .nav__item--has-children:hover .nav__dropdown,
+    .nav__item--has-children:focus-within .nav__dropdown {
+      opacity: 1;
+      visibility: hidden;
+      max-height: 0;
+    }
+
+    .nav__item--has-children.nav__item--open .nav__dropdown {
+      visibility: visible;
+      max-height: 600px;
     }
   }
 

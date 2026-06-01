@@ -1,0 +1,43 @@
+---
+interface Props {
+  label: string;
+  ratio?: string;
+  bgColor?: string;
+}
+const { label, ratio = '3/2', bgColor = 'var(--color-primary-pale)' } = Astro.props;
+---
+
+<div
+  class="placeholder-wrap"
+  style={`aspect-ratio: ${ratio}; background: ${bgColor};`}
+  aria-hidden="true"
+>
+  <span class="placeholder-icon">📷</span>
+  <span class="placeholder-label">{label}</span>
+</div>
+
+<style>
+  .placeholder-wrap {
+    width: 100%;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .placeholder-icon {
+    font-size: 3rem;
+    line-height: 1;
+  }
+
+  .placeholder-label {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+    text-align: center;
+    padding: 0 1rem;
+    line-height: 1.4;
+  }
+</style>

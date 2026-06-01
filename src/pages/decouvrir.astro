@@ -1,6 +1,7 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import InfoBox from '../components/InfoBox.astro';
+import Galerie from '../components/Galerie.astro';
 import { gite } from '../data/mairie.js';
 
 const egliseItems = [
@@ -91,6 +92,12 @@ const alentours = [
         <div class="infobox-wrap">
           <InfoBox title="Infos visite" items={egliseItems} />
         </div>
+        <Galerie images={[
+          { src: 'eglise/facade-1.jpg', alt: "Façade sud de l'église Saint-Laurent", label: 'Façade sud' },
+          { src: 'eglise/facade-2.jpg', alt: "Façade nord de l'église Saint-Laurent", label: 'Façade nord' },
+          { src: 'eglise/facade-3.jpg', alt: "Détail de l'église Saint-Laurent", label: 'Détail architectural' },
+          { src: 'eglise/interieur.jpg', alt: "Intérieur de l'église Saint-Laurent", label: 'Intérieur' },
+        ]} />
       </div>
 
       <!-- Cabanes en pierre sèche -->
@@ -106,6 +113,11 @@ const alentours = [
         <div class="infobox-wrap">
           <InfoBox title="Informations" items={cabanesItems} />
         </div>
+        <Galerie images={[
+          { src: 'cabanes/exterieur-1.jpg', alt: 'Cabanes en pierre sèche', label: 'Vue extérieure' },
+          { src: 'cabanes/exterieur-2.jpg', alt: 'Cabanes en pierre sèche détail', label: 'Détail' },
+          { src: 'cabanes/interieur.jpg', alt: 'Intérieur des cabanes', label: 'Intérieur' },
+        ]} />
       </div>
 
       <!-- Gisement de la Combe -->

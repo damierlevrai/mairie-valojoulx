@@ -1,0 +1,297 @@
+---
+import ImageLocale from './ImageLocale.astro';
+
+interface ImageItem {
+  src: string;
+  alt: string;
+  label: string;
+}
+
+interface Props {
+  images: ImageItem[];
+  titre?: string;
+}
+
+const { images, titre } = Astro.props;
+
+const id = Math.random().toString(36).slice(2, 9);
+---
+
+{titre && <h3 class="galerie__titre">{titre}</h3>}
+
+<div class="galerie" data-galerie-id={id} role="list" aria-label={titre ?? 'Galerie photo'}>
+  {images.map((img, i) => (
+    <div class="galerie-item" role="listitem">
+      <button
+        class="galerie-item__btn"
+        type="button"
+        aria-label={`Agrandir : ${img.alt}`}
+        data-galerie-btn={id}
+        data-index={String(i)}
+      >
+        <ImageLocale src={img.src} alt={img.alt} label={img.label} ratio="3/2" />
+      </button>
+    </div>
+  ))}
+</div>
+
+<div
+  class="lightbox"
+  id={`lb-${id}`}
+  role="dialog"
+  aria-modal="true"
+  aria-label="Agrandissement photo"
+  hidden
+  tabindex="-1"
+>
+  <button class="lb__close" type="button" aria-label="Fermer la galerie">✕</button>
+  <button class="lb__prev" type="button" aria-label="Image précédente" hidden>‹</button>
+  <button class="lb__next" type="button" aria-label="Image suivante" hidden>›</button>
+  <div class="lb__media">
+    <img class="lb__img" src="" alt="" loading="lazy" />
+    <p class="lb__caption"></p>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.galerie[data-galerie-id]').forEach(galerieEl => {
+    const id = galerieEl.dataset.galerieId!;
+    const lightbox = document.getElementById(`lb-${id}`) as HTMLElement | null;
+    if (!lightbox) return;
+
+    const lbImg      = lightbox.querySelector<HTMLImageElement>('.lb__img')!;
+    const lbCaption  = lightbox.querySelector<HTMLElement>('.lb__caption')!;
+    const btnClose   = lightbox.querySelector<HTMLButtonElement>('.lb__close')!;
+    const btnPrev    = lightbox.querySelector<HTMLButtonElement>('.lb__prev')!;
+    const btnNext    = lightbox.querySelector<HTMLButtonElement>('.lb__next')!;
+
+    const buttons = Array.from(
+      galerieEl.querySelectorAll<HTMLButtonElement>(`[data-galerie-btn="${id}"]`)
+    );
+    let current = 0;
+    let triggerBtn: HTMLButtonElement | null = null;
+
+    function getRealImg(btn: HTMLButtonElement): HTMLImageElement | null {
+      return btn.querySelector<HTMLImageElement>('img');
+    }
+
+    function findNeighbour(from: number, dir: number): number {
+      let i = from + dir;
+      while (i >= 0 && i < buttons.length) {
+        if (getRealImg(buttons[i])) return i;
+        i += dir;
+      }
+      return -1;
+    }
+
+    function open(index: number) {
+      const btn = buttons[index];
+      if (!btn) return;
+      const img = getRealImg(btn);
+      if (!img) return;
+
+      current = index;
+      lbImg.src    = img.src;
+      lbImg.alt    = img.alt;
+      lbCaption.textContent = img.alt;
+
+      btnPrev.hidden = findNeighbour(index, -1) === -1;
+      btnNext.hidden = findNeighbour(index,  1) === -1;
+
+      lightbox.hidden = false;
+      btnClose.focus();
+    }
+
+    function close() {
+      lightbox.hidden = true;
+      triggerBtn?.focus();
+    }
+
+    buttons.forEach((btn, i) => {
+      btn.addEventListener('click', () => {
+        if (getRealImg(btn)) {
+          triggerBtn = btn;
+          open(i);
+        }
+      });
+    });
+
+    btnClose.addEventListener('click', close);
+
+    btnPrev.addEventListener('click', () => {
+      const i = findNeighbour(current, -1);
+      if (i !== -1) open(i);
+    });
+
+    btnNext.addEventListener('click', () => {
+      const i = findNeighbour(current, 1);
+      if (i !== -1) open(i);
+    });
+
+    lightbox.addEventListener('click', e => {
+      const target = e.target as HTMLElement;
+      if (target === lightbox || target.classList.contains('lb__media')) close();
+    });
+
+    lightbox.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        close();
+      } else if (e.key === 'ArrowLeft') {
+        const i = findNeighbour(current, -1);
+        if (i !== -1) open(i);
+      } else if (e.key === 'ArrowRight') {
+        const i = findNeighbour(current, 1);
+        if (i !== -1) open(i);
+      }
+    });
+  });
+</script>
+
+<style>
+  /* ── GALERIE ── */
+  .galerie__titre {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    margin-bottom: 0.75rem;
+  }
+
+  .galerie {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+
+  .galerie-item__btn {
+    display: block;
+    width: 100%;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: opacity 0.2s;
+  }
+
+  .galerie-item__btn:hover {
+    opacity: 0.88;
+  }
+
+  .galerie-item__btn:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  /* ── LIGHTBOX ── */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lightbox[hidden] {
+    display: none;
+  }
+
+  .lb__media {
+    max-width: min(90vw, 1000px);
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .lb__img {
+    max-width: 100%;
+    max-height: 78vh;
+    object-fit: contain;
+    border-radius: 4px;
+    display: block;
+  }
+
+  .lb__caption {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.85rem;
+    text-align: center;
+  }
+
+  .lb__close {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.5rem;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    font-size: 1.25rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    z-index: 1001;
+  }
+
+  .lb__close:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .lb__prev,
+  .lb__next {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    font-size: 2rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    z-index: 1001;
+    line-height: 1;
+  }
+
+  .lb__prev { left: 1rem; }
+  .lb__next { right: 1rem; }
+
+  .lb__prev:hover,
+  .lb__next:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .lb__prev[hidden],
+  .lb__next[hidden] {
+    display: none;
+  }
+
+  @media (max-width: 600px) {
+    .galerie {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .lb__prev { left: 0.25rem; }
+    .lb__next { right: 0.25rem; }
+  }
+
+  @media (max-width: 360px) {
+    .galerie {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
