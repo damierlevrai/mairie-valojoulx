@@ -17,8 +17,9 @@ collections:
     fields:
       - { label: Titre, name: title, widget: string }
       - { label: Date, name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false }
-      - { label: Catégorie, name: categorie, widget: select, options: ["Vie municipale", "Travaux", "Culture & loisirs", "Vie associative", "Informations pratiques", "Urgences & alertes"], default: "Informations pratiques" }
+      - { label: Catégorie, name: categorie, widget: select, options: ["Vie municipale", "Travaux", "Culture & loisirs", "Vie associative", "Informations pratiques", "Urgences & alertes", "Agenda"], default: "Informations pratiques" }
       - { label: Image à la une, name: image, widget: image, required: false, hint: "Image optionnelle — formats JPG ou PNG recommandés" }
       - { label: Résumé, name: resume, widget: text, required: false, hint: "Court résumé affiché dans la liste des actualités (2-3 lignes max)" }
       - { label: Contenu, name: body, widget: markdown }
       - { label: Épingler en haut, name: epingle, widget: boolean, default: false, required: false }
+      - { label: "Date de l'événement", name: date_evenement, widget: datetime, format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false, required: false, hint: "Uniquement pour les actualités de type Agenda" }

@@ -13,6 +13,7 @@ const actualites = defineCollection({
     image: z.string().optional(),
     resume: z.string().optional(),
     epingle: z.boolean().optional().default(false),
+    date_evenement: z.string().optional(),
   }),
 });
 
