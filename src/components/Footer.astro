@@ -8,6 +8,7 @@
 
       <!-- ── Col 1 : Identité ── -->
       <div class="footer__col footer__col--brand">
+        <img src="/logo.png" alt="Mairie de Valojoulx" class="footer__logo-img" />
         <a href="/" class="footer__logo-text" aria-label="Accueil — Mairie de Valojoulx">
           Valojoulx
         </a>
@@ -91,6 +92,15 @@
   }
 
   /* ── COLONNE 1 ── */
+  .footer__logo-img {
+    width: 60px;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 0.75rem;
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
+  }
+
   .footer__logo-text {
     font-family: var(--font-heading);
     font-size: 1.5rem;
