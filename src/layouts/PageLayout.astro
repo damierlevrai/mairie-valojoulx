@@ -32,7 +32,6 @@ const sectionLabel = sectionLabels[Astro.url.pathname] || title;
     <div class="page-hero">
       <div class="container">
         <h1 class="page-hero__title">{title}</h1>
-        {section && <p class="page-hero__subtitle">{section}</p>}
       </div>
     </div>
 
@@ -289,5 +288,15 @@ const sectionLabel = sectionLabels[Astro.url.pathname] || title;
   });
 
   updateStickyBreadcrumb();
+
+  // Forcer l'affichage si un hash est présent au chargement
+  // (l'IntersectionObserver ne se déclenche pas pour les sections déjà visibles)
+  if (window.location.hash && stickyNav) {
+    const initialHash = window.location.hash.replace('#', '');
+    if (ancreLabels[initialHash]) {
+      showSticky(ancreLabels[initialHash]);
+    }
+  }
+
   window.addEventListener('hashchange', updateStickyBreadcrumb);
 </script>
