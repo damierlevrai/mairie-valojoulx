@@ -26,13 +26,13 @@ const { title, description, section } = Astro.props;
     <nav class="breadcrumb" aria-label="Fil d'ariane">
       <div class="container">
         <ol class="breadcrumb__list" role="list">
-          <li><a href="/" class="breadcrumb__link">Accueil</a></li>
+          <li class="breadcrumb__item"><a href="/" class="breadcrumb__link">Accueil</a></li>
           {section && (
             <li aria-hidden="true" class="breadcrumb__sep">›</li>
-            <li><span class="breadcrumb__link">{section}</span></li>
+            <li class="breadcrumb__item"><span class="breadcrumb__link">{section}</span></li>
           )}
           <li aria-hidden="true" class="breadcrumb__sep">›</li>
-          <li><span class="breadcrumb__current" aria-current="page">{title}</span></li>
+          <li class="breadcrumb__item"><span class="breadcrumb__current" aria-current="page">{title}</span></li>
         </ol>
       </div>
     </nav>
@@ -108,3 +108,82 @@ const { title, description, section } = Astro.props;
     color: var(--color-text-light);
   }
 </style>
+
+<script>
+  const ancreLabels: Record<string, string> = {
+    // Mairie
+    'conseil':      'Conseil municipal',
+    'commissions':  'Commissions communales',
+    'epci':         'Représentations intercommunales',
+    'bulletins':    'Bulletins municipaux',
+    'demarches':    'Démarches administratives',
+    'urbanisme':    'Urbanisme',
+    'projets':      'Projets et travaux',
+    'ecoles':       'Nos écoles et le SIVOS',
+    'ccvh':         'Communauté de Communes',
+    // Découvrir
+    'patrimoine':   'Histoire & Patrimoine',
+    'randonnees':   'Randonnées',
+    'nature':       'Nature & Environnement',
+    'tourisme':     'Office de Tourisme',
+    'gite':         'La Grange de Valojoulx',
+    // Vie économique
+    'entreprises':  'Entreprises & Artisans',
+    'producteurs':  'Producteurs locaux',
+    'bienetre':     'Métiers du bien-être',
+    'art':          "Métiers d'art",
+    'hebergements': 'Hébergements',
+    // Vie locale
+    'associations': 'Associations',
+    'salle':        'Salle des fêtes',
+    // Solidarité
+    'cias':         'CIAS',
+    'transport':    'Transport solidaire',
+    'urgences':     "Numéros d'urgence",
+    // Environnement
+    'eau':          'Eau & Déchets',
+    'dechets':      'Déchets',
+    'risques':      'Prévention des risques',
+    'gestes':       'Les bons gestes',
+    'vivre':        'Bien vivre ensemble',
+    // Commune
+    'geographie':      'Géographie',
+    'histoire':        'Histoire',
+    'nature-commune':  'Nature & Randonnée',
+  };
+
+  function updateBreadcrumb() {
+    const hash = window.location.hash.replace('#', '');
+    if (!hash) return;
+
+    const label = ancreLabels[hash];
+    if (!label) return;
+
+    const breadcrumb = document.querySelector('.breadcrumb');
+    if (!breadcrumb) return;
+
+    const items = breadcrumb.querySelectorAll('.breadcrumb__item');
+    const lastItem = items[items.length - 1];
+    if (!lastItem) return;
+
+    // Supprimer un éventuel sous-item précédent
+    const existing = breadcrumb.querySelector('.breadcrumb__item--sub');
+    if (existing) existing.remove();
+
+    // Retirer aria-current du dernier item existant
+    const lastCurrent = lastItem.querySelector('[aria-current]');
+    if (lastCurrent) lastCurrent.removeAttribute('aria-current');
+
+    const newItem = document.createElement('li');
+    newItem.className = 'breadcrumb__item breadcrumb__item--sub';
+    newItem.innerHTML = `
+      <span class="breadcrumb__sep" aria-hidden="true">›</span>
+      <span aria-current="page">${label}</span>
+    `;
+
+    breadcrumb.querySelector('ol')!.appendChild(newItem);
+  }
+
+  updateBreadcrumb();
+  window.addEventListener('hashchange', updateBreadcrumb);
+</script>
