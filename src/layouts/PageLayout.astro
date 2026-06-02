@@ -159,31 +159,30 @@ const { title, description, section } = Astro.props;
     const label = ancreLabels[hash];
     if (!label) return;
 
-    const breadcrumb = document.querySelector('.breadcrumb');
-    if (!breadcrumb) return;
+    const breadcrumbCurrent = document.querySelector('.breadcrumb [aria-current="page"]');
+    if (!breadcrumbCurrent) return;
 
-    const items = breadcrumb.querySelectorAll('.breadcrumb__item');
-    const lastItem = items[items.length - 1];
-    if (!lastItem) return;
+    if (!breadcrumbCurrent.dataset.original) {
+      breadcrumbCurrent.dataset.original = breadcrumbCurrent.textContent ?? '';
+    }
 
-    // Supprimer un éventuel sous-item précédent
-    const existing = breadcrumb.querySelector('.breadcrumb__item--sub');
-    if (existing) existing.remove();
+    breadcrumbCurrent.textContent = label;
+  }
 
-    // Retirer aria-current du dernier item existant
-    const lastCurrent = lastItem.querySelector('[aria-current]');
-    if (lastCurrent) lastCurrent.removeAttribute('aria-current');
-
-    const newItem = document.createElement('li');
-    newItem.className = 'breadcrumb__item breadcrumb__item--sub';
-    newItem.innerHTML = `
-      <span class="breadcrumb__sep" aria-hidden="true">›</span>
-      <span aria-current="page">${label}</span>
-    `;
-
-    breadcrumb.querySelector('ol')!.appendChild(newItem);
+  function resetBreadcrumb() {
+    const breadcrumbCurrent = document.querySelector('.breadcrumb [aria-current="page"]');
+    if (!breadcrumbCurrent || !breadcrumbCurrent.dataset.original) return;
+    breadcrumbCurrent.textContent = breadcrumbCurrent.dataset.original;
   }
 
   updateBreadcrumb();
-  window.addEventListener('hashchange', updateBreadcrumb);
+
+  window.addEventListener('hashchange', () => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash && ancreLabels[hash]) {
+      updateBreadcrumb();
+    } else {
+      resetBreadcrumb();
+    }
+  });
 </script>
