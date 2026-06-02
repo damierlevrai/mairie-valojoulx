@@ -37,6 +37,16 @@ const { title, description, section } = Astro.props;
       </div>
     </nav>
 
+    <nav class="breadcrumb-sticky" aria-label="Vous êtes ici" id="breadcrumb-sticky">
+      <div class="container breadcrumb-sticky__inner">
+        <a href="/">Accueil</a>
+        <span aria-hidden="true">›</span>
+        <a href={Astro.url.pathname} id="sticky-section">{section || title}</a>
+        <span aria-hidden="true" id="sticky-sep" style="display:none">›</span>
+        <span id="sticky-sub" aria-current="page"></span>
+      </div>
+    </nav>
+
     <slot />
 
   </main>
@@ -107,6 +117,44 @@ const { title, description, section } = Astro.props;
   .breadcrumb__current {
     color: var(--color-text-light);
   }
+
+  /* ── FIL D'ARIANE STICKY ── */
+  .breadcrumb-sticky {
+    position: sticky;
+    top: 80px;
+    z-index: 100;
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    display: none;
+  }
+
+  .breadcrumb-sticky.visible {
+    display: block;
+  }
+
+  .breadcrumb-sticky__inner {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+    font-size: 0.82rem;
+    color: var(--color-text-light);
+  }
+
+  .breadcrumb-sticky__inner a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .breadcrumb-sticky__inner a:hover {
+    text-decoration: underline;
+  }
+
+  #sticky-sub {
+    color: var(--color-text);
+    font-weight: 600;
+  }
 </style>
 
 <script>
@@ -152,37 +200,76 @@ const { title, description, section } = Astro.props;
     'nature-commune':  'Nature & Randonnée',
   };
 
+  // ── Fil d'ariane normal ────────────────────────────────────────────────────
+
   function updateBreadcrumb() {
     const hash = window.location.hash.replace('#', '');
     if (!hash) return;
-
     const label = ancreLabels[hash];
     if (!label) return;
-
-    const breadcrumbCurrent = document.querySelector('.breadcrumb [aria-current="page"]');
-    if (!breadcrumbCurrent) return;
-
-    if (!breadcrumbCurrent.dataset.original) {
-      breadcrumbCurrent.dataset.original = breadcrumbCurrent.textContent ?? '';
-    }
-
-    breadcrumbCurrent.textContent = label;
+    const el = document.querySelector('.breadcrumb [aria-current="page"]') as HTMLElement | null;
+    if (!el) return;
+    if (!el.dataset.original) el.dataset.original = el.textContent ?? '';
+    el.textContent = label;
   }
 
   function resetBreadcrumb() {
-    const breadcrumbCurrent = document.querySelector('.breadcrumb [aria-current="page"]');
-    if (!breadcrumbCurrent || !breadcrumbCurrent.dataset.original) return;
-    breadcrumbCurrent.textContent = breadcrumbCurrent.dataset.original;
+    const el = document.querySelector('.breadcrumb [aria-current="page"]') as HTMLElement | null;
+    if (!el || !el.dataset.original) return;
+    el.textContent = el.dataset.original;
   }
 
   updateBreadcrumb();
 
   window.addEventListener('hashchange', () => {
     const hash = window.location.hash.replace('#', '');
-    if (hash && ancreLabels[hash]) {
-      updateBreadcrumb();
-    } else {
-      resetBreadcrumb();
-    }
+    if (hash && ancreLabels[hash]) updateBreadcrumb();
+    else resetBreadcrumb();
   });
+
+  // ── Fil d'ariane sticky ────────────────────────────────────────────────────
+
+  const stickyNav = document.getElementById('breadcrumb-sticky');
+  const stickySub = document.getElementById('sticky-sub') as HTMLElement | null;
+  const stickySep = document.getElementById('sticky-sep') as HTMLElement | null;
+
+  function showSticky(label: string) {
+    if (!stickyNav || !stickySub || !stickySep) return;
+    stickySub.textContent = label;
+    stickySep.style.display = 'inline';
+    stickyNav.classList.add('visible');
+  }
+
+  function hideSticky() {
+    if (!stickyNav || !stickySub || !stickySep) return;
+    stickySub.textContent = '';
+    stickySep.style.display = 'none';
+    stickyNav.classList.remove('visible');
+  }
+
+  function updateStickyBreadcrumb() {
+    const hash = window.location.hash.replace('#', '');
+    const label = hash ? ancreLabels[hash] : null;
+    if (label) showSticky(label);
+    else hideSticky();
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const label = ancreLabels[entry.target.id];
+        if (label) {
+          showSticky(label);
+          history.replaceState(null, '', '#' + entry.target.id);
+        }
+      }
+    });
+  }, { rootMargin: '-100px 0px -60% 0px', threshold: 0 });
+
+  document.querySelectorAll<HTMLElement>('section[id], div[id]').forEach(el => {
+    if (ancreLabels[el.id]) observer.observe(el);
+  });
+
+  updateStickyBreadcrumb();
+  window.addEventListener('hashchange', updateStickyBreadcrumb);
 </script>
