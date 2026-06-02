@@ -51,9 +51,7 @@ const chiffres = [
 
     <!-- ── GÉOGRAPHIE ─────────────────────────────────── -->
     <section class="section" aria-labelledby="geo-titre">
-      <div class="section__header">
-        <h2 class="section__titre" id="geo-titre">Géographie</h2>
-      </div>
+      <h2 class="section-titre" id="geo-titre">Géographie</h2>
       <InfoBox title="Données géographiques" items={geoItems} />
       <p class="section__para">
         Le Turançon divise naturellement la commune en deux zones : au nord, le haut plateau boisé ;
@@ -61,11 +59,11 @@ const chiffres = [
       </p>
     </section>
 
+    <hr class="section-divider" />
+
     <!-- ── HISTOIRE ───────────────────────────────────── -->
     <section class="section" aria-labelledby="histoire-titre">
-      <div class="section__header">
-        <h2 class="section__titre" id="histoire-titre">Histoire</h2>
-      </div>
+      <h2 class="section-titre" id="histoire-titre">Histoire</h2>
 
       <div class="subsections">
         <div class="subsection">
@@ -107,14 +105,14 @@ const chiffres = [
       </div>
     </section>
 
+    <hr class="section-divider" />
+
     <!-- ── PATRIMOINE ─────────────────────────────────── -->
     <section class="section" aria-labelledby="patrimoine-titre">
-      <div class="section__header">
-        <h2 class="section__titre" id="patrimoine-titre">Patrimoine</h2>
-      </div>
+      <h2 class="section-titre" id="patrimoine-titre">Patrimoine</h2>
 
-      <div class="table-wrap">
-        <table class="patrimoine-table" aria-label="Monuments historiques de Valojoulx">
+      <div class="table-wrapper">
+        <table aria-label="Monuments historiques de Valojoulx">
           <thead>
             <tr>
               <th scope="col">Monument</th>
@@ -146,11 +144,11 @@ const chiffres = [
       </p>
     </section>
 
+    <hr class="section-divider" />
+
     <!-- ── NATURE ET RANDONNÉE ────────────────────────── -->
     <section class="section" aria-labelledby="nature-titre">
-      <div class="section__header">
-        <h2 class="section__titre" id="nature-titre">Nature et randonnée</h2>
-      </div>
+      <h2 class="section-titre" id="nature-titre">Nature et randonnée</h2>
 
       <div class="subsections">
         <div class="subsection">
@@ -191,10 +189,10 @@ const chiffres = [
     </section>
 
     <!-- ── CHIFFRES CLÉS ──────────────────────────────── -->
+    <hr class="section-divider" />
+
     <section class="section" aria-labelledby="chiffres-titre">
-      <div class="section__header">
-        <h2 class="section__titre" id="chiffres-titre">Chiffres clés</h2>
-      </div>
+      <h2 class="section-titre" id="chiffres-titre">Chiffres clés</h2>
 
       <ul class="chiffres" role="list">
         {chiffres.map(c => (
@@ -232,31 +230,6 @@ const chiffres = [
     margin-bottom: 4rem;
   }
 
-  .section__header {
-    position: relative;
-    padding-left: 1.25rem;
-    margin-bottom: 1.75rem;
-  }
-
-  .section__header::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: var(--color-primary);
-    border-radius: 4px;
-  }
-
-  .section__titre {
-    font-family: var(--font-heading);
-    font-size: clamp(1.4rem, 3vw, 1.9rem);
-    font-weight: 700;
-    color: var(--color-primary-dark);
-    line-height: 1.2;
-  }
-
   .section__para {
     margin-top: 1.25rem;
     line-height: 1.75;
@@ -286,45 +259,6 @@ const chiffres = [
   }
 
   /* ── TABLEAU PATRIMOINE ── */
-  .table-wrap {
-    overflow-x: auto;
-    border-radius: 4px;
-    border: 1px solid var(--color-border);
-  }
-
-  .patrimoine-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9rem;
-  }
-
-  .patrimoine-table thead tr {
-    background: var(--color-primary-pale);
-  }
-
-  .patrimoine-table th,
-  .patrimoine-table td {
-    padding: 0.75rem 1rem;
-    text-align: left;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .patrimoine-table th {
-    font-weight: 700;
-    color: var(--color-primary-dark);
-    font-size: 0.82rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
-
-  .patrimoine-table tbody tr:last-child td {
-    border-bottom: none;
-  }
-
-  .patrimoine-table tbody tr:hover {
-    background: var(--color-primary-pale);
-  }
-
   .table-link {
     color: var(--color-primary);
     transition: color 0.15s;
@@ -333,15 +267,6 @@ const chiffres = [
   .table-link:hover {
     color: var(--color-primary-dark);
     text-decoration: underline;
-  }
-
-  .badge {
-    display: inline-block;
-    padding: 0.2rem 0.6rem;
-    border-radius: 20px;
-    font-size: 0.78rem;
-    font-weight: 700;
-    white-space: nowrap;
   }
 
   .badge--classe {

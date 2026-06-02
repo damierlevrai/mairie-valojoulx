@@ -102,4 +102,366 @@ const {
     vertical-align: middle;
     margin: 0 0.5rem;
   }
+
+  /* ── TITRES DE SECTION ── */
+  .section-titre {
+    font-family: var(--font-heading);
+    font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 1.75rem;
+    margin-top: 0;
+  }
+
+  .section-titre::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(
+      to bottom,
+      var(--color-primary),
+      var(--color-accent)
+    );
+    border-radius: 4px;
+  }
+
+  /* ── SÉPARATEURS ── */
+  .section-divider {
+    border: none;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--color-accent),
+      transparent
+    );
+    margin: 3rem 0;
+    opacity: 0.5;
+  }
+
+  /* ── TABLEAUX ── */
+  .table-wrapper {
+    overflow-x: auto;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+
+  .table-wrapper table,
+  table.tableau-style {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 0.88rem;
+    margin: 0;
+  }
+
+  .table-wrapper thead tr,
+  table.tableau-style thead tr {
+    background: var(--color-primary-dark);
+  }
+
+  .table-wrapper thead th,
+  table.tableau-style thead th {
+    color: white;
+    padding: 0.875rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .table-wrapper tbody tr:nth-child(even),
+  table.tableau-style tbody tr:nth-child(even) {
+    background: var(--color-primary-pale);
+  }
+
+  .table-wrapper tbody tr:nth-child(odd),
+  table.tableau-style tbody tr:nth-child(odd) {
+    background: white;
+  }
+
+  .table-wrapper tbody tr:hover,
+  table.tableau-style tbody tr:hover {
+    background: #ddeedd;
+    transition: background 0.15s;
+  }
+
+  .table-wrapper tbody td,
+  table.tableau-style tbody td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  .table-wrapper tbody tr:last-child td,
+  table.tableau-style tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* ── CARTES GÉNÉRIQUES ── */
+  .card-style {
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1.25rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+
+  .card-style:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+  }
+
+  .card-style--accent {
+    border-top: 3px solid var(--color-primary);
+  }
+
+  .card-style--gold {
+    border-top: 3px solid var(--color-accent);
+  }
+
+  /* ── ENCADRÉS INFO ── */
+  .encadre-info {
+    background: var(--color-primary-pale);
+    border-left: 4px solid var(--color-primary);
+    border-radius: 0 8px 8px 0;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .encadre-warning {
+    background: #fff8e1;
+    border-left: 4px solid var(--color-accent);
+    border-radius: 0 8px 8px 0;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .encadre-projet {
+    background: white;
+    border: 2px dashed var(--color-accent);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    color: var(--color-text-light);
+    font-style: italic;
+  }
+
+  /* ── BOUTONS ── */
+  .btn-primary {
+    display: inline-block;
+    background: var(--color-primary);
+    color: white;
+    padding: 0.7rem 1.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-1px);
+  }
+
+  .btn-outline {
+    display: inline-block;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    padding: 0.6rem 1.4rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .btn-outline:hover {
+    background: var(--color-primary);
+    color: white;
+  }
+
+  .btn-gold {
+    display: inline-block;
+    background: var(--color-accent);
+    color: var(--color-text);
+    padding: 0.7rem 1.5rem;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .btn-gold:hover { opacity: 0.85; }
+
+  /* ── LISTES STYLISÉES ── */
+  .liste-verte {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .liste-verte li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    color: var(--color-text);
+    line-height: 1.5;
+  }
+
+  .liste-verte li::before {
+    content: '';
+    display: block;
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    margin-top: 2px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+    background-size: 12px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  /* ── BADGES ── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .badge--vert {
+    background: var(--color-primary);
+    color: white;
+  }
+
+  .badge--or {
+    background: var(--color-accent);
+    color: var(--color-text);
+  }
+
+  .badge--pale {
+    background: var(--color-primary-pale);
+    color: var(--color-primary-dark);
+    border: 1px solid var(--color-primary);
+  }
+
+  .badge--projet {
+    background: white;
+    color: var(--color-accent);
+    border: 1.5px solid var(--color-accent);
+  }
+
+  /* ── GRILLES ── */
+  .grille-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  .grille-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .grille-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  @media (max-width: 900px) {
+    .grille-4 { grid-template-columns: repeat(2, 1fr); }
+    .grille-3 { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 540px) {
+    .grille-2 { grid-template-columns: 1fr; }
+    .grille-3 { grid-template-columns: 1fr; }
+    .grille-4 { grid-template-columns: 1fr; }
+  }
+
+  /* ── SVG ICÔNES ── */
+  .svg-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+  }
+
+  .svg-icon--or { color: var(--color-accent); }
+  .svg-icon--grand { width: 40px; height: 40px; }
+
+  /* ── INITIALES ── */
+  .initiales {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .initiales--vert {
+    background: var(--color-primary);
+    color: white;
+  }
+
+  .initiales--pale {
+    background: var(--color-primary-pale);
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary-dark);
+  }
+
+  .initiales--grand {
+    width: 64px;
+    height: 64px;
+    font-size: 1.4rem;
+  }
+
+  .initiales--moyen {
+    width: 48px;
+    height: 48px;
+    font-size: 1rem;
+  }
+
+  .initiales--petit {
+    width: 38px;
+    height: 38px;
+    font-size: 0.75rem;
+  }
+
+  /* ── SECTIONS CONTAINER ── */
+  .page-section {
+    padding: 3rem 0;
+  }
+
+  .page-section:first-child {
+    padding-top: 2rem;
+  }
 </style>

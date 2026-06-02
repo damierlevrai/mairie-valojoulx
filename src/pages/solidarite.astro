@@ -59,9 +59,7 @@ const urgencesSpecialisees = [
 
     <!-- ── 1. CIAS ─────────────────────────────────────── -->
     <section class="section" id="cias" aria-labelledby="cias-titre">
-      <div class="section__header">
-        <h2 class="section__titre" id="cias-titre">Le CIAS</h2>
-      </div>
+      <h2 class="section-titre" id="cias-titre">Le CIAS</h2>
 
       <p class="para">
         Le Centre Intercommunal d'Action Sociale (CIAS) est un établissement public rattaché à
@@ -88,11 +86,11 @@ const urgencesSpecialisees = [
       </div>
     </section>
 
+    <hr class="section-divider" />
+
     <!-- ── 2. ATCHOUM ──────────────────────────────────── -->
     <section class="section" id="transport" aria-labelledby="transport-titre">
-      <div class="section__header">
-        <h2 class="section__titre" id="transport-titre">Transport solidaire Atchoum</h2>
-      </div>
+      <h2 class="section-titre" id="transport-titre">Transport solidaire Atchoum</h2>
 
       <div class="atchoum-hero">
         <img src="/images/logos/logo-atchoum.png" alt="Atchoum - Transport solidaire" class="logo-partenaire" />
@@ -108,7 +106,7 @@ const urgencesSpecialisees = [
         <!-- Gauche -->
         <div class="atchoum-col">
           <h3 class="subsection__titre">Pour quoi faire ?</h3>
-          <ul class="green-list" role="list">
+          <ul class="liste-verte" role="list">
             <li>Rendez-vous médicaux</li>
             <li>Courses</li>
             <li>Démarches administratives</li>
@@ -161,11 +159,11 @@ const urgencesSpecialisees = [
       </a>
     </section>
 
+    <hr class="section-divider" />
+
     <!-- ── 3. URGENCES ─────────────────────────────────── -->
     <section class="section" id="urgences" aria-labelledby="urgences-titre">
-      <div class="section__header">
-        <h2 class="section__titre" id="urgences-titre">Numéros d'urgence</h2>
-      </div>
+      <h2 class="section-titre" id="urgences-titre">Numéros d'urgence</h2>
 
       <p class="para">
         La sécurité et le bien-être des personnes sont une priorité pour notre commune.
@@ -176,9 +174,11 @@ const urgencesSpecialisees = [
       <h3 class="subsection__titre">Numéros d'urgence immédiats</h3>
       <ul class="urgences-immed" role="list">
         {urgencesImmed.map(u => (
-          <li class="urgence-card urgence-card--dark">
-            <strong class="urgence-card__num">{u.num}</strong>
-            <span class="urgence-card__nom">{u.nom}</span>
+          <li>
+            <div class="urgence-card">
+              <div class="urgence-card__numero">{u.num}</div>
+              <div class="urgence-card__label">{u.nom}</div>
+            </div>
           </li>
         ))}
       </ul>
@@ -210,16 +210,13 @@ const urgencesSpecialisees = [
       </ul>
 
       <!-- Défibrillateur -->
-      <div class="defib-box">
-        <span class="defib-box__icon" aria-hidden="true">❤️</span>
-        <div>
-          <p class="defib-box__titre">Défibrillateur</p>
-          <p class="defib-box__text">
-            Information à venir : emplacement du défibrillateur communal. Pour tout
-            renseignement, contactez la mairie au
-            <a href="tel:+33553507778" class="defib-box__tel">05 53 50 77 78</a>.
-          </p>
-        </div>
+      <div class="encadre-warning">
+        <p class="defib-box__titre">❤️ Défibrillateur</p>
+        <p class="defib-box__text">
+          Information à venir : emplacement du défibrillateur communal. Pour tout
+          renseignement, contactez la mairie au
+          <a href="tel:+33553507778" class="defib-box__tel">05 53 50 77 78</a>.
+        </p>
       </div>
     </section>
 
@@ -243,32 +240,9 @@ const urgencesSpecialisees = [
     max-width: 780px;
   }
 
-  /* ── SECTION HEADER ── */
+  /* ── SECTION ── */
   .section {
     margin-bottom: 4rem;
-  }
-
-  .section__header {
-    position: relative;
-    padding-left: 1.25rem;
-    margin-bottom: 1.75rem;
-  }
-
-  .section__header::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 4px;
-    background: var(--color-primary);
-    border-radius: 4px;
-  }
-
-  .section__titre {
-    font-family: var(--font-heading);
-    font-size: clamp(1.4rem, 3vw, 1.9rem);
-    font-weight: 700;
-    color: var(--color-primary-dark);
-    line-height: 1.2;
   }
 
   .subsection__titre {
@@ -366,32 +340,6 @@ const urgencesSpecialisees = [
     margin-bottom: 1.5rem;
   }
 
-  /* ── LISTE VERTE ── */
-  .green-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .green-list li {
-    position: relative;
-    padding-left: 1.4rem;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: var(--color-text);
-  }
-
-  .green-list li::before {
-    content: '›';
-    position: absolute;
-    left: 0;
-    color: var(--color-primary);
-    font-weight: 700;
-    font-size: 1.1rem;
-    line-height: 1.3;
-  }
-
   /* ── ÉTAPES ── */
   .steps-list {
     padding-left: 1.25rem;
@@ -471,22 +419,6 @@ const urgencesSpecialisees = [
     margin-bottom: 1.25rem;
   }
 
-  /* ── BOUTON ── */
-  .btn-primary {
-    display: inline-block;
-    padding: 0.7rem 1.6rem;
-    background: var(--color-primary);
-    color: #ffffff;
-    font-weight: 700;
-    font-size: 0.9rem;
-    border-radius: 4px;
-    transition: background 0.2s;
-  }
-
-  .btn-primary:hover {
-    background: var(--color-primary-dark);
-  }
-
   /* ── URGENCES IMMÉDIATES ── */
   .urgences-immed {
     list-style: none;
@@ -496,32 +428,30 @@ const urgencesSpecialisees = [
     margin-bottom: 2rem;
   }
 
-  .urgence-card--dark {
+  .urgence-card {
     background: var(--color-primary-dark);
-    border-radius: 6px;
-    padding: 1.5rem 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    border-radius: 10px;
+    padding: 1.5rem;
     text-align: center;
-    gap: 0.4rem;
+    color: white;
+    box-shadow: 0 4px 16px rgba(58,97,48,0.25);
   }
 
-  .urgence-card__num {
+  .urgence-card__numero {
     font-family: var(--font-heading);
     font-size: 2.5rem;
     font-weight: 700;
-    color: #ffffff;
+    color: var(--color-accent);
     line-height: 1;
+    margin-bottom: 0.5rem;
   }
 
-  .urgence-card__nom {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.82);
+  .urgence-card__label {
+    font-size: 0.85rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
-    line-height: 1.3;
+    letter-spacing: 0.06em;
+    opacity: 0.85;
   }
 
   /* ── SITUATIONS PARTICULIÈRES ── */
@@ -606,24 +536,6 @@ const urgencesSpecialisees = [
   }
 
   /* ── DÉFIBRILLATEUR ── */
-  .defib-box {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    background: #fff8e1;
-    border: 1px solid #f0e0a0;
-    border-left: 4px solid var(--color-accent);
-    border-radius: 4px;
-    padding: 1.1rem 1.4rem;
-    max-width: 680px;
-  }
-
-  .defib-box__icon {
-    font-size: 1.5rem;
-    flex-shrink: 0;
-    margin-top: 0.1rem;
-  }
-
   .defib-box__titre {
     font-weight: 700;
     font-size: 0.95rem;

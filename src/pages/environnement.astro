@@ -36,9 +36,7 @@ const gestures = [
 
     <!-- ── 1. EAU ──────────────────────────────────────── -->
     <section class="section" id="eau" aria-labelledby="eau-titre">
-      <div class="section__header">
-        <h2 class="section__titre" id="eau-titre">Gestion de l'eau</h2>
-      </div>
+      <h2 class="section-titre" id="eau-titre">Gestion de l'eau</h2>
 
       <p class="para">
         L'eau est une ressource essentielle. Sa gestion repose sur plusieurs acteurs publics
@@ -57,7 +55,7 @@ const gestures = [
             Dans notre commune, le service d'eau potable est assuré par la Régie des Eaux de
             Dordogne (RDE24) qui a pour mission de :
           </p>
-          <ul class="env-list">
+          <ul class="liste-verte">
             <li>Capter l'eau dans le milieu naturel</li>
             <li>La rendre potable grâce à des traitements adaptés</li>
             <li>L'acheminer jusqu'aux habitations par le réseau de distribution</li>
@@ -85,7 +83,7 @@ const gestures = [
             Les rivières, ruisseaux et zones humides sont gérés par le Syndicat Mixte du Bassin
             Versant de la Vézère en Dordogne (SMBVVD) qui coordonne des actions visant à :
           </p>
-          <ul class="env-list">
+          <ul class="liste-verte">
             <li>Préserver les cours d'eau et milieux aquatiques</li>
             <li>Améliorer la qualité de l'eau dans les rivières</li>
             <li>Restaurer les habitats naturels</li>
@@ -99,14 +97,14 @@ const gestures = [
       </div>
     </section>
 
+    <hr class="section-divider" />
+
     <!-- ── 2. DÉCHETS ──────────────────────────────────── -->
     <section class="section" id="dechets" aria-labelledby="dechets-titre">
-      <div class="section__header">
-        <h2 class="section__titre" id="dechets-titre">Gestion des déchets</h2>
-      </div>
+      <h2 class="section-titre" id="dechets-titre">Gestion des déchets</h2>
 
       <!-- SICTOM -->
-      <div class="sictom-box">
+      <div class="encadre-info sictom-box">
         <img src="/images/logos/logo-sitcom.png" alt="SICTOM Périgord Noir" class="logo-partenaire" />
         <p class="sictom-box__text">
           Le Syndicat Mixte Intercommunal de Collecte et de Traitement des Ordures Ménagères du
@@ -126,8 +124,8 @@ const gestures = [
         <!-- Tri -->
         <div>
           <h3 class="subsection__titre">Le tri des déchets</h3>
-          <div class="table-wrap">
-            <table class="tri-table" aria-label="Guide du tri sélectif">
+          <div class="table-wrapper">
+            <table aria-label="Guide du tri sélectif">
               <thead>
                 <tr>
                   <th scope="col">Type de déchet</th>
@@ -151,14 +149,14 @@ const gestures = [
         <!-- Points collecte -->
         <div>
           <h3 class="subsection__titre">Points de collecte à Valojoulx</h3>
-          <ul class="collecte-list" role="list">
+          <ul class="liste-verte" role="list">
             <li>À la Salle des fêtes</li>
             <li>Au Fraysse</li>
             <li>Au Castang</li>
             <li>Aux Bories</li>
           </ul>
 
-          <div class="collecte-horaires">
+          <div class="encadre-info collecte-horaires">
             <p class="collecte-horaires__titre">Jours de collecte</p>
             <div class="collecte-horaires__row">
               <span class="collecte-horaires__periode">Période hivernale</span>
@@ -211,15 +209,15 @@ const gestures = [
       </div>
     </section>
 
+    <hr class="section-divider" />
+
     <!-- ── 3. RISQUES ──────────────────────────────────── -->
     <section class="section" id="risques" aria-labelledby="risques-titre">
-      <div class="section__header">
-        <h2 class="section__titre" id="risques-titre">Prévention des risques et sécurité</h2>
-      </div>
+      <h2 class="section-titre" id="risques-titre">Prévention des risques et sécurité</h2>
 
       <!-- PCS -->
       <h3 class="subsection__titre">Plan Communal de Sauvegarde</h3>
-      <div class="pcs-box">
+      <div class="encadre-info pcs-box">
         <p>
           Le Plan Communal de Sauvegarde (PCS) est un document obligatoire préparé par la mairie
           pour protéger la population en cas d'événement grave : inondations, tempêtes, incendies,
@@ -244,7 +242,7 @@ const gestures = [
             la déchèterie, le broyage ou le compostage.
           </p>
           <p class="para" style="margin-bottom:0.5rem">Tolérance possible en Dordogne sous conditions :</p>
-          <ul class="env-list">
+          <ul class="liste-verte">
             <li><strong>Période</strong> : 1er octobre au dernier jour de février</li>
             <li><strong>Horaires</strong> : 10h à 16h uniquement</li>
             <li>Déclaration obligatoire en mairie au moins 5 jours avant</li>
@@ -253,7 +251,7 @@ const gestures = [
         </div>
         <div>
           <p class="para" style="margin-bottom:0.5rem"><strong>Périodes d'interdiction :</strong></p>
-          <ul class="interdiction-list" role="list">
+          <ul class="liste-verte" role="list">
             <li>Du 1er mars au 30 septembre</li>
             <li>En cas de vent fort</li>
             <li>En cas de pollution de l'air</li>
@@ -270,7 +268,7 @@ const gestures = [
         propriétaires à proximité des zones boisées. Le non-respect peut entraîner une mise en
         demeure, des travaux réalisés d'office à vos frais et des sanctions financières.
       </p>
-      <div class="conseil-box">
+      <div class="encadre-warning conseil-box">
         <span aria-hidden="true">💡</span>
         <p>
           Effectuez le débroussaillement en hiver et avant la période estivale, quand le risque
@@ -328,7 +326,7 @@ const gestures = [
 
       <!-- Produits dangereux -->
       <h3 class="subsection__titre">Produits toxiques ou dangereux</h3>
-      <div class="toxiques-box">
+      <div class="encadre-warning toxiques-box">
         <p>
           Types : produits d'entretien, de jardinage, phytosanitaires. Ne jamais mélanger,
           conserver dans l'emballage d'origine, tenir hors de portée des enfants, déposer en
@@ -344,11 +342,11 @@ const gestures = [
       </div>
     </section>
 
+    <hr class="section-divider" />
+
     <!-- ── 4. BONS GESTES ──────────────────────────────── -->
     <section class="section" id="gestes" aria-labelledby="gestes-titre">
-      <div class="section__header">
-        <h2 class="section__titre" id="gestes-titre">Les bons gestes</h2>
-      </div>
+      <h2 class="section-titre" id="gestes-titre">Les bons gestes</h2>
 
       <p class="para">Protéger notre environnement commence par de petits gestes au quotidien.</p>
 
@@ -363,11 +361,11 @@ const gestures = [
       </ul>
     </section>
 
+    <hr class="section-divider" />
+
     <!-- ── 5. BIEN VIVRE ────────────────────────────────── -->
     <section class="section" id="vivre" aria-labelledby="vivre-titre">
-      <div class="section__header">
-        <h2 class="section__titre" id="vivre-titre">Bien vivre ensemble</h2>
-      </div>
+      <h2 class="section-titre" id="vivre-titre">Bien vivre ensemble</h2>
 
       <p class="chapeau-vivre">
         <em>
@@ -434,32 +432,9 @@ const gestures = [
     max-width: 780px;
   }
 
-  /* ── SECTION HEADER ── */
+  /* ── SECTION ── */
   .section {
     margin-bottom: 4rem;
-  }
-
-  .section__header {
-    position: relative;
-    padding-left: 1.25rem;
-    margin-bottom: 1.75rem;
-  }
-
-  .section__header::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 4px;
-    background: var(--color-primary);
-    border-radius: 4px;
-  }
-
-  .section__titre {
-    font-family: var(--font-heading);
-    font-size: clamp(1.4rem, 3vw, 1.9rem);
-    font-weight: 700;
-    color: var(--color-primary-dark);
-    line-height: 1.2;
   }
 
   .subsection__titre {
@@ -484,31 +459,6 @@ const gestures = [
     gap: 1.5rem;
     align-items: start;
     margin-top: 1.25rem;
-  }
-
-  /* ── LISTE ENV ── */
-  .env-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    margin-top: 0.5rem;
-  }
-
-  .env-list li {
-    position: relative;
-    padding-left: 1.25rem;
-    font-size: 0.88rem;
-    line-height: 1.55;
-    color: var(--color-text);
-  }
-
-  .env-list li::before {
-    content: '›';
-    position: absolute;
-    left: 0;
-    color: var(--color-primary);
-    font-weight: 700;
   }
 
   /* ── CONTACTS ── */
@@ -580,15 +530,6 @@ const gestures = [
   }
 
   /* ── SICTOM ── */
-  .sictom-box {
-    background: var(--color-primary-pale);
-    border: 1px solid var(--color-border);
-    border-left: 4px solid var(--color-primary);
-    border-radius: 6px;
-    padding: 1.25rem 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-
   .sictom-box__text {
     font-size: 0.92rem;
     line-height: 1.7;
@@ -605,43 +546,6 @@ const gestures = [
     color: var(--color-text-light);
   }
 
-  /* ── TABLE TRI ── */
-  .table-wrap {
-    overflow-x: auto;
-    border-radius: 4px;
-    border: 1px solid var(--color-border);
-    margin-top: 0.5rem;
-  }
-
-  .tri-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.875rem;
-  }
-
-  .tri-table thead tr {
-    background: var(--color-primary-dark);
-  }
-
-  .tri-table th {
-    padding: 0.65rem 1rem;
-    text-align: left;
-    color: #ffffff;
-    font-size: 0.78rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .tri-table td {
-    padding: 0.6rem 1rem;
-    border-bottom: 1px solid var(--color-border);
-    line-height: 1.4;
-    color: var(--color-text);
-  }
-
-  .tri-table tbody tr:last-child td { border-bottom: none; }
-  .row-pale { background: var(--color-primary-pale); }
   .td-dest { font-weight: 600; color: var(--color-primary-dark); }
 
   .note-tri {
@@ -653,36 +557,7 @@ const gestures = [
   }
 
   /* ── COLLECTE ── */
-  .collecte-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    margin-top: 0.5rem;
-    margin-bottom: 1.25rem;
-  }
-
-  .collecte-list li {
-    position: relative;
-    padding-left: 1.25rem;
-    font-size: 0.9rem;
-    color: var(--color-text);
-  }
-
-  .collecte-list li::before {
-    content: '📍';
-    position: absolute;
-    left: 0;
-    font-size: 0.75rem;
-    top: 0.15rem;
-  }
-
   .collecte-horaires {
-    background: var(--color-primary-pale);
-    border: 1px solid var(--color-border);
-    border-left: 4px solid var(--color-primary);
-    border-radius: 4px;
-    padding: 1rem 1.1rem;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -787,19 +662,6 @@ const gestures = [
   }
 
   /* ── PCS ── */
-  .pcs-box {
-    background: var(--color-primary-pale);
-    border: 1px solid var(--color-border);
-    border-left: 4px solid var(--color-primary);
-    border-radius: 6px;
-    padding: 1.25rem 1.5rem;
-    max-width: 780px;
-    font-size: 0.92rem;
-    line-height: 1.7;
-    color: var(--color-text);
-    margin-top: 0.5rem;
-  }
-
   .pcs-box__note {
     margin-top: 0.75rem;
     font-style: italic;
@@ -807,45 +669,11 @@ const gestures = [
     font-size: 0.85rem;
   }
 
-  /* ── INTERDICTION LIST ── */
-  .interdiction-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .interdiction-list li {
-    position: relative;
-    padding-left: 1.4rem;
-    font-size: 0.9rem;
-    color: var(--color-text);
-    line-height: 1.5;
-  }
-
-  .interdiction-list li::before {
-    content: '⚠';
-    position: absolute;
-    left: 0;
-    color: var(--color-accent);
-    font-size: 0.85rem;
-  }
-
   /* ── CONSEIL BOX ── */
   .conseil-box {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    background: #fff8e1;
-    border: 1px solid #f0e0a0;
-    border-left: 4px solid var(--color-accent);
-    border-radius: 4px;
-    padding: 0.9rem 1.1rem;
     max-width: 680px;
-    margin-top: 0.75rem;
     font-size: 0.88rem;
     line-height: 1.65;
-    color: var(--color-text);
   }
 
   /* ── NUISIBLES ── */
@@ -899,16 +727,9 @@ const gestures = [
 
   /* ── TOXIQUES ── */
   .toxiques-box {
-    background: #fff8e1;
-    border: 1px solid #f0e0a0;
-    border-left: 4px solid var(--color-accent);
-    border-radius: 6px;
-    padding: 1.1rem 1.4rem;
     max-width: 780px;
-    margin-top: 0.5rem;
     font-size: 0.88rem;
     line-height: 1.7;
-    color: var(--color-text);
   }
 
   .toxiques-box__urgences {
