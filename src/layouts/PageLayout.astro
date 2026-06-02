@@ -10,6 +10,19 @@ interface Props {
 }
 
 const { title, description, section } = Astro.props;
+
+const sectionLabels: Record<string, string> = {
+  '/mairie':        'La Mairie',
+  '/decouvrir':     'Découvrir et visiter',
+  '/vie-economique':'Vie économique',
+  '/vie-locale':    'Vie locale',
+  '/solidarite':    'Solidarité',
+  '/environnement': 'Environnement et sécurité',
+  '/commune':       'La Commune',
+  '/contact':       'Contact',
+  '/actualites':    'Actualités',
+};
+const sectionLabel = sectionLabels[Astro.url.pathname] || title;
 ---
 
 <Layout title={title} description={description}>
@@ -27,7 +40,7 @@ const { title, description, section } = Astro.props;
       <div class="container">
         <ol class="breadcrumb__list" role="list">
           <li class="breadcrumb__item"><a href="/" class="breadcrumb__link">Accueil</a></li>
-          {section && (
+          {section && section !== title && (
             <li aria-hidden="true" class="breadcrumb__sep">›</li>
             <li class="breadcrumb__item"><span class="breadcrumb__link">{section}</span></li>
           )}
@@ -41,7 +54,7 @@ const { title, description, section } = Astro.props;
       <div class="container breadcrumb-sticky__inner">
         <a href="/">Accueil</a>
         <span aria-hidden="true">›</span>
-        <a href={Astro.url.pathname} id="sticky-section">{section || title}</a>
+        <a href={Astro.url.pathname} id="sticky-section">{sectionLabel}</a>
         <span aria-hidden="true" id="sticky-sep" style="display:none">›</span>
         <span id="sticky-sub" aria-current="page"></span>
       </div>
