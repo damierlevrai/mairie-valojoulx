@@ -40,12 +40,17 @@ const sectionLabel = sectionLabels[Astro.url.pathname] || title;
       <div class="container">
         <ol class="breadcrumb__list" role="list">
           <li class="breadcrumb__item"><a href="/" class="breadcrumb__link">Accueil</a></li>
-          {section && section !== title && (
-            <li aria-hidden="true" class="breadcrumb__sep">›</li>
-            <li class="breadcrumb__item"><span class="breadcrumb__link">{section}</span></li>
-          )}
           <li aria-hidden="true" class="breadcrumb__sep">›</li>
-          <li class="breadcrumb__item"><span class="breadcrumb__current" aria-current="page">{title}</span></li>
+          <li class="breadcrumb__item">
+            {title === sectionLabel
+              ? <span class="breadcrumb__current" aria-current="page">{sectionLabel}</span>
+              : <span class="breadcrumb__link">{sectionLabel}</span>
+            }
+          </li>
+          {title !== sectionLabel && (
+            <li aria-hidden="true" class="breadcrumb__sep">›</li>
+            <li class="breadcrumb__item"><span class="breadcrumb__current" aria-current="page">{title}</span></li>
+          )}
         </ol>
       </div>
     </nav>
