@@ -2,22 +2,36 @@
 import PageLayout from '../layouts/PageLayout.astro';
 import InfoBox from '../components/InfoBox.astro';
 
+const i = {
+  eau:     `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3.75a6.715 6.715 0 00-3.722 1.118.75.75 0 11-.828-1.25 8.25 8.25 0 0112.8 6.883c0 3.014-1.6 5.64-4.022 7.103A.75.75 0 0115 16.25a6.75 6.75 0 01-3 .75 6.75 6.75 0 110-13.5V3.75z"/></svg>`,
+  nature:  `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 01-1.161.886l-.143.048a1.107 1.107 0 00-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 01-1.652.928l-.679-.906a1.125 1.125 0 00-1.906.172L4.5 15.75l-.612.153M12.75 3.03a9 9 0 10-9.999 9.885M12.75 3.03A9 9 0 0121.75 12c0 .896-.121 1.763-.349 2.588"/></svg>`,
+  soleil:  `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/></svg>`,
+  feu:     `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z"/></svg>`,
+  arbre:   `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"/></svg>`,
+  lune:    `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/></svg>`,
+  mains:   `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z"/></svg>`,
+  chemin:  `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z"/></svg>`,
+  poubelle:`<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"/></svg>`,
+  velo:    `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"/></svg>`,
+  voiture: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>`,
+};
+
 const gestures = [
-  { emoji: '🌿', titre: 'Ne taillez pas les haies au printemps',   desc: 'De mars à juillet, de nombreux oiseaux y font leur nid.' },
-  { emoji: '🌼', titre: 'Laissez fleurir les fleurs sauvages',      desc: 'Pissenlits, trèfles et pâquerettes nourrissent les pollinisateurs.' },
-  { emoji: '🐝', titre: 'Évitez les pesticides',                    desc: 'Ils détruisent aussi les insectes utiles comme les abeilles et les coccinelles.' },
-  { emoji: '🌱', titre: 'Tondez moins souvent',                     desc: 'Une pelouse un peu plus haute favorise la biodiversité.' },
-  { emoji: '🍂', titre: 'Laissez un coin de jardin naturel',       desc: 'Tas de bois, feuilles ou herbes hautes servent d\'abri à de nombreux animaux.' },
-  { emoji: '💧', titre: 'Économisez l\'eau',                       desc: 'Arrosez le soir et récupérez l\'eau de pluie.' },
-  { emoji: '🔥', titre: 'Ne brûlez pas vos déchets verts',         desc: 'Le compostage est plus utile et moins polluant.' },
-  { emoji: '🌳', titre: 'Plantez des espèces locales',             desc: 'Les plantes locales sont mieux adaptées et profitent à la faune.' },
-  { emoji: '🌙', titre: 'Limitez l\'éclairage nocturne',           desc: 'La lumière perturbe les insectes, les oiseaux et les chauves-souris.' },
-  { emoji: '🐾', titre: 'Respectez la faune sauvage',              desc: 'Observez les animaux à distance et ne les nourrissez pas.' },
-  { emoji: '🚶', titre: 'Restez sur les chemins',                   desc: 'Cela protège les plantes et les habitats fragiles.' },
-  { emoji: '🐕', titre: 'Gardez les chiens sous contrôle',         desc: 'En période de reproduction, ils peuvent déranger la faune.' },
-  { emoji: '🚯', titre: 'Ne laissez aucun déchet dans la nature',  desc: 'Même les déchets dits biodégradables perturbent les milieux naturels.' },
-  { emoji: '🚲', titre: 'Privilégiez les déplacements doux',        desc: 'Marcher ou pédaler limite les nuisances et la pollution.' },
-  { emoji: '🌾', titre: 'Préservez les haies et les arbres',        desc: 'Ils abritent la biodiversité et structurent les paysages.' },
+  { svg: i.nature,   titre: 'Ne taillez pas les haies au printemps',   desc: 'De mars à juillet, de nombreux oiseaux y font leur nid.' },
+  { svg: i.soleil,   titre: 'Laissez fleurir les fleurs sauvages',      desc: 'Pissenlits, trèfles et pâquerettes nourrissent les pollinisateurs.' },
+  { svg: i.soleil,   titre: 'Évitez les pesticides',                    desc: 'Ils détruisent aussi les insectes utiles comme les abeilles et les coccinelles.' },
+  { svg: i.nature,   titre: 'Tondez moins souvent',                     desc: 'Une pelouse un peu plus haute favorise la biodiversité.' },
+  { svg: i.nature,   titre: 'Laissez un coin de jardin naturel',        desc: 'Tas de bois, feuilles ou herbes hautes servent d\'abri à de nombreux animaux.' },
+  { svg: i.eau,      titre: 'Économisez l\'eau',                        desc: 'Arrosez le soir et récupérez l\'eau de pluie.' },
+  { svg: i.feu,      titre: 'Ne brûlez pas vos déchets verts',          desc: 'Le compostage est plus utile et moins polluant.' },
+  { svg: i.arbre,    titre: 'Plantez des espèces locales',              desc: 'Les plantes locales sont mieux adaptées et profitent à la faune.' },
+  { svg: i.lune,     titre: 'Limitez l\'éclairage nocturne',            desc: 'La lumière perturbe les insectes, les oiseaux et les chauves-souris.' },
+  { svg: i.mains,    titre: 'Respectez la faune sauvage',               desc: 'Observez les animaux à distance et ne les nourrissez pas.' },
+  { svg: i.chemin,   titre: 'Restez sur les chemins',                   desc: 'Cela protège les plantes et les habitats fragiles.' },
+  { svg: i.mains,    titre: 'Gardez les chiens sous contrôle',          desc: 'En période de reproduction, ils peuvent déranger la faune.' },
+  { svg: i.poubelle, titre: 'Ne laissez aucun déchet dans la nature',   desc: 'Même les déchets dits biodégradables perturbent les milieux naturels.' },
+  { svg: i.velo,     titre: 'Privilégiez les déplacements doux',        desc: 'Marcher ou pédaler limite les nuisances et la pollution.' },
+  { svg: i.arbre,    titre: 'Préservez les haies et les arbres',        desc: 'Ils abritent la biodiversité et structurent les paysages.' },
 ];
 ---
 
@@ -47,7 +61,7 @@ const gestures = [
         <!-- RDE24 -->
         <div class="water-card">
           <div class="water-card__header">
-            <span aria-hidden="true">💧</span>
+            <span class="svg-icon" set:html={i.eau} aria-hidden="true"></span>
             <h3 class="water-card__titre">L'eau potable — RDE24</h3>
           </div>
           <img src="/images/logos/logo-rde24.png" alt="Régie des Eaux de Dordogne RDE24" class="logo-partenaire logo-partenaire--small" />
@@ -76,7 +90,7 @@ const gestures = [
         <!-- SMBVVD -->
         <div class="water-card">
           <div class="water-card__header">
-            <span aria-hidden="true">🌊</span>
+            <span class="svg-icon" set:html={i.eau} aria-hidden="true"></span>
             <h3 class="water-card__titre">Les milieux aquatiques — SMBVVD</h3>
           </div>
           <p class="water-card__intro">
@@ -281,7 +295,7 @@ const gestures = [
       <ul class="nuisibles-grid" role="list">
         <li class="nuisible-card">
           <div class="nuisible-card__header">
-            <span aria-hidden="true">🐛</span>
+            <span class="svg-icon" set:html={i.soleil} aria-hidden="true"></span>
             <strong>Chenilles processionnaires</strong>
           </div>
           <p class="nuisible-card__text">
@@ -296,7 +310,7 @@ const gestures = [
         </li>
         <li class="nuisible-card">
           <div class="nuisible-card__header">
-            <span aria-hidden="true">🐝</span>
+            <span class="svg-icon" set:html={i.soleil} aria-hidden="true"></span>
             <strong>Frelons asiatiques</strong>
           </div>
           <p class="nuisible-card__text">
@@ -310,7 +324,7 @@ const gestures = [
         </li>
         <li class="nuisible-card">
           <div class="nuisible-card__header">
-            <span aria-hidden="true">🦟</span>
+            <span class="svg-icon" set:html={i.soleil} aria-hidden="true"></span>
             <strong>Moustiques tigres</strong>
           </div>
           <p class="nuisible-card__text">
@@ -353,7 +367,7 @@ const gestures = [
       <ul class="gestes-grid" role="list">
         {gestures.map(g => (
           <li class="geste-card">
-            <span class="geste-card__emoji" aria-hidden="true">{g.emoji}</span>
+            <span class="svg-icon geste-card__icone" set:html={g.svg} aria-hidden="true"></span>
             <strong class="geste-card__titre">{g.titre}</strong>
             <p class="geste-card__desc">{g.desc}</p>
           </li>
@@ -378,7 +392,7 @@ const gestures = [
 
       <div class="vivre-grid">
         <div class="vivre-item">
-          <h3 class="vivre-item__titre"><span aria-hidden="true">🚗</span> Sécurité routière</h3>
+          <h3 class="vivre-item__titre"><span class="svg-icon" set:html={i.voiture} aria-hidden="true"></span> Sécurité routière</h3>
           <p class="vivre-item__text">
             Les routes sont partagées entre automobilistes, cyclistes et piétons, particulièrement
             en période touristique. Adaptez votre vitesse, respectez la signalisation, attention
@@ -387,7 +401,7 @@ const gestures = [
           </p>
         </div>
         <div class="vivre-item">
-          <h3 class="vivre-item__titre"><span aria-hidden="true">🐕</span> Divagation des animaux</h3>
+          <h3 class="vivre-item__titre"><span class="svg-icon" set:html={i.mains} aria-hidden="true"></span> Divagation des animaux</h3>
           <p class="vivre-item__text">
             Les animaux doivent rester sous surveillance. Les chiens doivent être tenus en laisse
             dans les espaces publics et leurs déjections ramassées. Les animaux errants peuvent
@@ -395,14 +409,14 @@ const gestures = [
           </p>
         </div>
         <div class="vivre-item">
-          <h3 class="vivre-item__titre"><span aria-hidden="true">🚮</span> Dépôts sauvages</h3>
+          <h3 class="vivre-item__titre"><span class="svg-icon" set:html={i.poubelle} aria-hidden="true"></span> Dépôts sauvages</h3>
           <p class="vivre-item__text">
             Interdits et passibles de sanctions. Des solutions existent : collecte, tri sélectif,
             déchèteries. Préservons ensemble la propreté de notre territoire.
           </p>
         </div>
         <div class="vivre-item">
-          <h3 class="vivre-item__titre"><span aria-hidden="true">🔥</span> Prévention des incendies</h3>
+          <h3 class="vivre-item__titre"><span class="svg-icon" set:html={i.feu} aria-hidden="true"></span> Prévention des incendies</h3>
           <p class="vivre-item__text">
             En période sèche, le risque est élevé. L'usage du feu est réglementé voire interdit
             selon les périodes. Les mégots ne doivent jamais être jetés dans la nature. En cas de
@@ -700,7 +714,6 @@ const gestures = [
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 1.3rem;
   }
 
   .nuisible-card__header strong {
@@ -772,10 +785,13 @@ const gestures = [
     transform: translateY(-2px);
   }
 
-  .geste-card__emoji {
-    font-size: 2rem;
-    line-height: 1;
+  .geste-card__icone {
     margin-bottom: 0.15rem;
+    color: var(--color-primary);
+  }
+  .geste-card__icone svg {
+    width: 28px;
+    height: 28px;
   }
 
   .geste-card__titre {
