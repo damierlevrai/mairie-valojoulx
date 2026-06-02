@@ -35,6 +35,13 @@ const dernieres = toutesActus
 
       <div class="info-band__right">
         <h2 class="info-band__section-titre">Restez informés !</h2>
+        <img
+          src="/images/panneau-pocket-logo.png"
+          alt="Panneau Pocket"
+          class="info-band__pocket-logo"
+          width="160"
+          height="auto"
+        />
         <p class="info-band__pocket-text">
           Les informations et alertes de la commune sont aussi sur
           <strong>Panneau Pocket</strong> — application gratuite sur
@@ -126,6 +133,13 @@ const dernieres = toutesActus
   }
 
   .info-band__voir-tout:hover { color: white; }
+
+  .info-band__pocket-logo {
+    max-width: 160px;
+    height: auto;
+    margin-bottom: 1rem;
+    filter: brightness(0) invert(1);
+  }
 
   .info-band__pocket-text {
     opacity: 0.85;
