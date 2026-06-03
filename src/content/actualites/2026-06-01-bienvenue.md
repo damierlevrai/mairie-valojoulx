@@ -1,9 +1,11 @@
 ---
-title: "Bienvenue sur le nouveau site de la mairie"
-date: "2026-06-01"
-categorie: "Vie municipale"
-resume: "La mairie de Valojoulx lance son nouveau site internet, plus moderne et plus accessible. Retrouvez toutes les informations utiles sur la vie de la commune."
-epingle: true
+title: Bienvenue sur le nouveau site de la mairie
+date: 2026-06-01
+categorie: Vie municipale
+resume: La mairie de Valojoulx lance son nouveau site internet, plus moderne et
+  plus accessible. Retrouvez toutes les informations utiles sur la vie de la
+  commune.
+epingle: false
 ---
 
 La mairie de Valojoulx est heureuse de vous accueillir sur son nouveau site internet.
